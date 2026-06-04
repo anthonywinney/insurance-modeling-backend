@@ -1,0 +1,20 @@
+{
+  "name": "insurance-modeling-backend",
+  "version": "1.0.0",
+  "description": "Insurance agency performance analytics backend",
+  "main": "server.js",
+  "scripts": {
+    "import": "node import_csv.js",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "csv-parser": "^3.0.0",
+    "express": "^4.18.2",
+    "sqlite3": "^5.1.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
