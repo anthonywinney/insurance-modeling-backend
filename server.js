@@ -13,6 +13,8 @@ const ALLOWED_ORIGINS = new Set([
   'http://127.0.0.1:5500',
   'https://anthonywinney.com',
   'https://www.anthonywinney.com',
+  'http://anthonywinney.com',
+  'http://www.anthonywinney.com',
 ]);
 
 app.use(cors({
