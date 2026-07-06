@@ -1,0 +1,172 @@
+{
+  "description": "Audit of categorical fixed-effect factor levels in LMM predictions. For each population (FULL, PARENT_CC, TRUE_PARENT) and each categorical fixed effect (STATE_ABBR, PROD_ABBR, VENDOR), reports which test-set levels were absent from training. Rows with unseen levels are recoded to the reference level by align_to_model() in dataset_a_wp_lmm.R before calling predict.merMod. This prevents the non-conformable X %*% fixef() error that occurs when the design matrix has more columns than the fitted coefficient vector.",
+  "align_to_model_note": "align_to_model() derives the active factor levels from names(fixef(model)). Levels absent from fixef names — including both the reference level and any level not present in training — are mapped to the reference level. The reference level's dummy coefficient is 0 by definition, so recoded rows receive the same fixed-effect contribution as if the reference level had been observed. This is the standard practice for out-of-sample prediction with factor covariates in lme4.",
+  "reference_level_derivation": "Reference level = first alphabetically-sorted value present in the training subset, after droplevels(). This is R's default: factor() sorts levels alphabetically and lm/lmer use the first level as the baseline/reference. No model object is required to derive this — it is deterministic from the training data.",
+  "populations": {
+    "FULL": {
+      "STATE_ABBR": {
+        "variable": "STATE_ABBR",
+        "n_train_levels": 6,
+        "n_test_levels": 6,
+        "n_unseen_levels": 0,
+        "n_test_rows": 30981,
+        "n_test_rows_recoded": 0,
+        "pct_test_rows_recoded": 0,
+        "recoding_occurred": false,
+        "reference_level": "IN",
+        "train_levels": ["IN", "KY", "MI", "OH", "PA", "WV"],
+        "test_levels": ["IN", "KY", "MI", "OH", "PA", "WV"],
+        "unseen_test_levels": [],
+        "unseen_level_detail": []
+      },
+      "PROD_ABBR": {
+        "variable": "PROD_ABBR",
+        "n_train_levels": 27,
+        "n_test_levels": 27,
+        "n_unseen_levels": 0,
+        "n_test_rows": 30981,
+        "n_test_rows_recoded": 0,
+        "pct_test_rows_recoded": 0,
+        "recoding_occurred": false,
+        "reference_level": "ANNIV",
+        "train_levels": ["ANNIV", "ANNIV   12", "BOILERMACH", "BOP", "COMMAUTO", "COMMINLMAR", "COMMUMBREL", "CRIME", "CYCLES", "CYCLES  12", "DTALK", "DTALK   12", "DWELLFIRE", "FIREALLIED", "GARAGE", "GENERALIAB", "HOMEOWNERS", "MOBILEHOME", "MOTORHOM12", "MOTORHOME", "PERSAIP", "PERSINLMAR", "PERSUMBREL", "SNOWMOBI12", "SNOWMOBILE", "WORKCOMP", "YACHT"],
+        "test_levels": ["ANNIV", "ANNIV   12", "BOILERMACH", "BOP", "COMMAUTO", "COMMINLMAR", "COMMUMBREL", "CRIME", "CYCLES", "CYCLES  12", "DTALK", "DTALK   12", "DWELLFIRE", "FIREALLIED", "GARAGE", "GENERALIAB", "HOMEOWNERS", "MOBILEHOME", "MOTORHOM12", "MOTORHOME", "PERSAIP", "PERSINLMAR", "PERSUMBREL", "SNOWMOBI12", "SNOWMOBILE", "WORKCOMP", "YACHT"],
+        "unseen_test_levels": [],
+        "unseen_level_detail": []
+      },
+      "VENDOR": {
+        "variable": "VENDOR",
+        "n_train_levels": 10,
+        "n_test_levels": 10,
+        "n_unseen_levels": 0,
+        "n_test_rows": 30981,
+        "n_test_rows_recoded": 0,
+        "pct_test_rows_recoded": 0,
+        "recoding_occurred": false,
+        "reference_level": "A",
+        "train_levels": ["A", "B", "C", "D", "E", "F", "G", "H", "J", "Unknown"],
+        "test_levels": ["A", "B", "C", "D", "E", "F", "G", "H", "J", "Unknown"],
+        "unseen_test_levels": [],
+        "unseen_level_detail": []
+      }
+    },
+    "PARENT_CC": {
+      "STATE_ABBR": {
+        "variable": "STATE_ABBR",
+        "n_train_levels": 6,
+        "n_test_levels": 6,
+        "n_unseen_levels": 0,
+        "n_test_rows": 29527,
+        "n_test_rows_recoded": 0,
+        "pct_test_rows_recoded": 0,
+        "recoding_occurred": false,
+        "reference_level": "IN",
+        "train_levels": ["IN", "KY", "MI", "OH", "PA", "WV"],
+        "test_levels": ["IN", "KY", "MI", "OH", "PA", "WV"],
+        "unseen_test_levels": [],
+        "unseen_level_detail": []
+      },
+      "PROD_ABBR": {
+        "variable": "PROD_ABBR",
+        "n_train_levels": 27,
+        "n_test_levels": 27,
+        "n_unseen_levels": 0,
+        "n_test_rows": 29527,
+        "n_test_rows_recoded": 0,
+        "pct_test_rows_recoded": 0,
+        "recoding_occurred": false,
+        "reference_level": "ANNIV",
+        "train_levels": ["ANNIV", "ANNIV   12", "BOILERMACH", "BOP", "COMMAUTO", "COMMINLMAR", "COMMUMBREL", "CRIME", "CYCLES", "CYCLES  12", "DTALK", "DTALK   12", "DWELLFIRE", "FIREALLIED", "GARAGE", "GENERALIAB", "HOMEOWNERS", "MOBILEHOME", "MOTORHOM12", "MOTORHOME", "PERSAIP", "PERSINLMAR", "PERSUMBREL", "SNOWMOBI12", "SNOWMOBILE", "WORKCOMP", "YACHT"],
+        "test_levels": ["ANNIV", "ANNIV   12", "BOILERMACH", "BOP", "COMMAUTO", "COMMINLMAR", "COMMUMBREL", "CRIME", "CYCLES", "CYCLES  12", "DTALK", "DTALK   12", "DWELLFIRE", "FIREALLIED", "GARAGE", "GENERALIAB", "HOMEOWNERS", "MOBILEHOME", "MOTORHOM12", "MOTORHOME", "PERSAIP", "PERSINLMAR", "PERSUMBREL", "SNOWMOBI12", "SNOWMOBILE", "WORKCOMP", "YACHT"],
+        "unseen_test_levels": [],
+        "unseen_level_detail": []
+      },
+      "VENDOR": {
+        "variable": "VENDOR",
+        "n_train_levels": 10,
+        "n_test_levels": 10,
+        "n_unseen_levels": 0,
+        "n_test_rows": 29527,
+        "n_test_rows_recoded": 0,
+        "pct_test_rows_recoded": 0,
+        "recoding_occurred": false,
+        "reference_level": "A",
+        "train_levels": ["A", "B", "C", "D", "E", "F", "G", "H", "J", "Unknown"],
+        "test_levels": ["A", "B", "C", "D", "E", "F", "G", "H", "J", "Unknown"],
+        "unseen_test_levels": [],
+        "unseen_level_detail": []
+      }
+    },
+    "TRUE_PARENT": {
+      "STATE_ABBR": {
+        "variable": "STATE_ABBR",
+        "n_train_levels": 6,
+        "n_test_levels": 6,
+        "n_unseen_levels": 0,
+        "n_test_rows": 9473,
+        "n_test_rows_recoded": 0,
+        "pct_test_rows_recoded": 0,
+        "recoding_occurred": false,
+        "reference_level": "IN",
+        "train_levels": ["IN", "KY", "MI", "OH", "PA", "WV"],
+        "test_levels": ["IN", "KY", "MI", "OH", "PA", "WV"],
+        "unseen_test_levels": [],
+        "unseen_level_detail": []
+      },
+      "PROD_ABBR": {
+        "variable": "PROD_ABBR",
+        "n_train_levels": 25,
+        "n_test_levels": 26,
+        "n_unseen_levels": 1,
+        "n_test_rows": 9473,
+        "n_test_rows_recoded": 1,
+        "pct_test_rows_recoded": 0.0106,
+        "recoding_occurred": true,
+        "reference_level": "ANNIV",
+        "train_levels": ["ANNIV", "ANNIV   12", "BOILERMACH", "BOP", "COMMAUTO", "COMMINLMAR", "COMMUMBREL", "CRIME", "CYCLES", "CYCLES  12", "DTALK", "DTALK   12", "DWELLFIRE", "FIREALLIED", "GARAGE", "GENERALIAB", "HOMEOWNERS", "MOBILEHOME", "MOTORHOM12", "MOTORHOME", "PERSINLMAR", "PERSUMBREL", "SNOWMOBILE", "WORKCOMP", "YACHT"],
+        "test_levels": ["ANNIV", "ANNIV   12", "BOILERMACH", "BOP", "COMMAUTO", "COMMINLMAR", "COMMUMBREL", "CRIME", "CYCLES", "CYCLES  12", "DTALK", "DTALK   12", "DWELLFIRE", "FIREALLIED", "GARAGE", "GENERALIAB", "HOMEOWNERS", "MOBILEHOME", "MOTORHOM12", "MOTORHOME", "PERSINLMAR", "PERSUMBREL", "SNOWMOBI12", "SNOWMOBILE", "WORKCOMP", "YACHT"],
+        "unseen_test_levels": "SNOWMOBI12",
+        "unseen_level_detail": [
+          {
+            "level": "SNOWMOBI12",
+            "n_test_rows": 1,
+            "pct_of_test_rows": 0.0106,
+            "recoded_to": "ANNIV"
+          }
+        ]
+      },
+      "VENDOR": {
+        "variable": "VENDOR",
+        "n_train_levels": 9,
+        "n_test_levels": 9,
+        "n_unseen_levels": 0,
+        "n_test_rows": 9473,
+        "n_test_rows_recoded": 0,
+        "pct_test_rows_recoded": 0,
+        "recoding_occurred": false,
+        "reference_level": "A",
+        "train_levels": ["A", "B", "C", "D", "E", "G", "H", "J", "Unknown"],
+        "test_levels": ["A", "B", "C", "D", "E", "G", "H", "J", "Unknown"],
+        "unseen_test_levels": [],
+        "unseen_level_detail": []
+      }
+    }
+  },
+  "summary_by_population": {
+    "FULL": {
+      "population": "FULL",
+      "any_recoding": false,
+      "vars_with_unseen": []
+    },
+    "PARENT_CC": {
+      "population": "PARENT_CC",
+      "any_recoding": false,
+      "vars_with_unseen": []
+    },
+    "TRUE_PARENT": {
+      "population": "TRUE_PARENT",
+      "any_recoding": true,
+      "vars_with_unseen": "PROD_ABBR"
+    }
+  }
+}

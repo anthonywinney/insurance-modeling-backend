@@ -1,0 +1,194 @@
+{
+  "description": "LMM prediction performance comparison. OLS and RF benchmark metrics are locked. LMM metrics are computed within this script on the applicable test population. Conditional predictions use training EBLUPs; unseen groups get random effect = 0. Marginal predictions use fixed effects only.",
+  "benchmark_metrics": {
+    "OLS_ADDITIVE_FINAL": {
+      "model": "OLS_ADDITIVE_FINAL",
+      "test_r2": 0.7552,
+      "test_rmse": 1.0937,
+      "test_mae": 0.699,
+      "train_r2": 0.781,
+      "train_rmse": 1.0238,
+      "train_mae": 0.6468,
+      "source": "locked from ols_model_comparison.json"
+    },
+    "RF_1_SAFE_TUNED": {
+      "model": "RF_1_SAFE_TUNED",
+      "test_r2": 0.8839,
+      "test_rmse": 0.7532,
+      "test_mae": 0.4428,
+      "source": "locked from rf_model_comparison.json"
+    }
+  },
+  "full_population_comparison": {
+    "population": "FULL (103,377 train / 30,981 test)",
+    "OLS_ADDITIVE_FINAL": {
+      "test_r2": 0.7552,
+      "test_rmse": 1.0937,
+      "test_mae": 0.699
+    },
+    "RF_1_SAFE_TUNED": {
+      "test_r2": 0.8839,
+      "test_rmse": 0.7532,
+      "test_mae": 0.4428
+    },
+    "AGENCY_LMM_FULL_conditional": {
+      "train_r2": 0.804,
+      "train_rmse": 0.9685,
+      "train_mae": 0.6266,
+      "test_r2": 0.7607,
+      "test_rmse": 1.0814,
+      "test_mae": 0.7071
+    },
+    "AGENCY_LMM_FULL_marginal": {
+      "train_r2": 0.7715,
+      "train_rmse": 1.0458,
+      "train_mae": 0.7014,
+      "test_r2": 0.7345,
+      "test_rmse": 1.1389,
+      "test_mae": 0.7768
+    },
+    "delta_conditional_vs_ols": {
+      "delta_test_r2": 0.0055,
+      "delta_test_rmse": -0.0123,
+      "delta_test_mae": 0.0081
+    },
+    "delta_marginal_vs_ols": {
+      "delta_test_r2": -0.0207,
+      "delta_test_rmse": 0.0452,
+      "delta_test_mae": 0.0778
+    },
+    "new_level_counts": {
+      "n_test_rows_seen_agency": 29994,
+      "n_test_rows_new_agency": 987,
+      "pct_test_rows_seen_agency": 96.81
+    }
+  },
+  "parent_cc_comparison": {
+    "population": "PARENT_CC (88,659 train / 29,527 test)",
+    "AGENCY_LMM_PARENT_CC_conditional": {
+      "train_r2": 0.8125,
+      "train_rmse": 0.9501,
+      "train_mae": 0.6046,
+      "test_r2": 0.7655,
+      "test_rmse": 1.0706,
+      "test_mae": 0.689
+    },
+    "AGENCY_LMM_PARENT_CC_marginal": {
+      "train_r2": 0.7901,
+      "train_rmse": 1.0054,
+      "train_mae": 0.658,
+      "test_r2": 0.7496,
+      "test_rmse": 1.1065,
+      "test_mae": 0.7329
+    },
+    "NESTED_LMM_PARENT_CC_conditional": {
+      "train_r2": 0.8125,
+      "train_rmse": 0.9501,
+      "train_mae": 0.6046,
+      "test_r2": 0.7659,
+      "test_rmse": 1.0699,
+      "test_mae": 0.6886
+    },
+    "NESTED_LMM_PARENT_CC_marginal": {
+      "train_r2": 0.7902,
+      "train_rmse": 1.005,
+      "train_mae": 0.6557,
+      "test_r2": 0.7518,
+      "test_rmse": 1.1015,
+      "test_mae": 0.7269
+    },
+    "delta_nested_vs_agency_conditional": {
+      "delta_test_r2": 0.0004,
+      "delta_test_rmse": -0.0007,
+      "delta_test_mae": -0.0004
+    },
+    "delta_nested_vs_agency_marginal": {
+      "delta_test_r2": 0.0022,
+      "delta_test_rmse": -0.005,
+      "delta_test_mae": -0.006
+    },
+    "agency_new_level_counts": {
+      "n_test_rows_seen_agency": 28596,
+      "n_test_rows_new_agency": 931,
+      "pct_test_rows_seen_agency": 96.85
+    },
+    "nested_new_level_counts": {
+      "n_test_rows_seen_agency": 28596,
+      "n_test_rows_new_agency": 931,
+      "pct_test_rows_seen_agency": 96.85,
+      "n_test_rows_seen_parent": 28875,
+      "n_test_rows_new_parent": 652,
+      "pct_test_rows_seen_parent": 97.79
+    }
+  },
+  "true_parent_comparison": {
+    "population": "TRUE_PARENT (29,216 train / 9,473 test)",
+    "AGENCY_LMM_TRUE_PARENT_conditional": {
+      "train_r2": 0.8035,
+      "train_rmse": 0.9393,
+      "train_mae": 0.6074,
+      "test_r2": 0.7646,
+      "test_rmse": 1.0184,
+      "test_mae": 0.6544
+    },
+    "AGENCY_LMM_TRUE_PARENT_marginal": {
+      "train_r2": 0.7752,
+      "train_rmse": 1.0045,
+      "train_mae": 0.6771,
+      "test_r2": 0.7433,
+      "test_rmse": 1.0636,
+      "test_mae": 0.7147
+    },
+    "NESTED_LMM_TRUE_PARENT_conditional": {
+      "train_r2": 0.8035,
+      "train_rmse": 0.9393,
+      "train_mae": 0.6073,
+      "test_r2": 0.7644,
+      "test_rmse": 1.0189,
+      "test_mae": 0.6548
+    },
+    "NESTED_LMM_TRUE_PARENT_marginal": {
+      "train_r2": 0.7753,
+      "train_rmse": 1.0045,
+      "train_mae": 0.6774,
+      "test_r2": 0.744,
+      "test_rmse": 1.0621,
+      "test_mae": 0.7138
+    },
+    "delta_nested_vs_agency_conditional": {
+      "delta_test_r2": -0.0002,
+      "delta_test_rmse": 0.0005,
+      "delta_test_mae": 0.0004
+    },
+    "delta_nested_vs_agency_marginal": {
+      "delta_test_r2": 0.0007,
+      "delta_test_rmse": -0.0015,
+      "delta_test_mae": -0.0009
+    },
+    "agency_new_level_counts": {
+      "n_test_rows_seen_agency": 9186,
+      "n_test_rows_new_agency": 287,
+      "pct_test_rows_seen_agency": 96.97
+    },
+    "nested_new_level_counts": {
+      "n_test_rows_seen_agency": 9186,
+      "n_test_rows_new_agency": 287,
+      "pct_test_rows_seen_agency": 96.97,
+      "n_test_rows_seen_parent": 9394,
+      "n_test_rows_new_parent": 79,
+      "pct_test_rows_seen_parent": 99.17
+    }
+  },
+  "conditional_vs_marginal_summary": {
+    "AGENCY_LMM_FULL": {
+      "delta_cond_minus_marg_test_r2": 0.0262,
+      "interpretation": "Positive delta = conditional (EBLUP) predictions outperform fixed-effects-only predictions on test."
+    },
+    "AGENCY_LMM_PARENT_CC": {
+      "delta_cond_minus_marg_test_r2": 0.0159
+    },
+    "NESTED_LMM_PARENT_CC": {
+      "delta_cond_minus_marg_test_r2": 0.0141
+    }
+  }
+}

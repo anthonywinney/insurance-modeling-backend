@@ -1,0 +1,164 @@
+{
+  "purpose": "Final OLS and LMM all-data refit artifacts for Dataset A Part 2. Model selection is complete. OLS_ADDITIVE_FINAL_ALL_DATA and AGENCY_LMM_FULL_ALL_DATA are supporting reference artifacts. RF_FINAL_ALL_DATA remains the primary deployment/prediction artifact.",
+  "models_fit": [
+    "OLS_ADDITIVE_FINAL_ALL_DATA",
+    "AGENCY_LMM_FULL_ALL_DATA"
+  ],
+  "training_years": "2006-2014",
+  "excluded_years": [
+    2005,
+    2015
+  ],
+  "n_training_rows": 134358,
+  "n_agencies": 1334,
+  "row_count_check": {
+    "expected": 134358,
+    "actual": 134358,
+    "pass": true,
+    "note": "PASS"
+  },
+  "year_check": {
+    "training_years": [
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014
+    ],
+    "excluded_2005": true,
+    "excluded_2015": true,
+    "pass": true,
+    "method": "setequal(sort(unique(as.integer(...))), 2006:2014)"
+  },
+  "predictor_check": {
+    "ols_predictors": ["log_prev_wp", "log_prev_poly", "ACTIVE_PRODUCERS", "AGENCY_APPOINTMENT_YEAR", "MAX_AGE", "MIN_AGE", "STATE_ABBR", "PROD_ABBR", "VENDOR", "STAT_PROFILE_DATE_YEAR"],
+    "lmm_fixed_effects": ["log_prev_wp", "log_prev_poly", "ACTIVE_PRODUCERS", "AGENCY_APPOINTMENT_YEAR", "MAX_AGE", "MIN_AGE", "STATE_ABBR", "PROD_ABBR", "VENDOR", "STAT_PROFILE_DATE_YEAR"],
+    "lmm_random_effect": "(1 | AGENCY_ID)",
+    "agency_cluster_excluded": true,
+    "agency_id_as_fixed_excluded": true,
+    "primary_agency_id_excluded": true,
+    "leakage_vars_excluded": true
+  },
+  "ols_all_data": {
+    "model_name": "OLS_ADDITIVE_FINAL_ALL_DATA",
+    "formula": ["log_wp ~ log_prev_wp + log_prev_poly + ACTIVE_PRODUCERS + AGENCY_APPOINTMENT_YEAR + ", "    MAX_AGE + MIN_AGE + STATE_ABBR + PROD_ABBR + VENDOR + STAT_PROFILE_DATE_YEAR"],
+    "n_coefficients": 48,
+    "runtime_s": 0.5,
+    "within_sample_diagnostics": {
+      "note": "WITHIN-SAMPLE FIT. NOT holdout evaluation. All 2006-2014 data used for training.",
+      "r2": 0.7809,
+      "rmse": 1.0267,
+      "mae": 0.6523,
+      "n": 134358
+    },
+    "locked_holdout_metrics": {
+      "model": "OLS_ADDITIVE_FINAL",
+      "train_years": "2006-2012",
+      "test_years": "2013-2014",
+      "n_train": 103377,
+      "n_test": 30981,
+      "train_r2": 0.781,
+      "train_rmse": 1.0238,
+      "train_mae": 0.6468,
+      "test_r2": 0.7552,
+      "test_rmse": 1.0937,
+      "test_mae": 0.699,
+      "source": "locked from modeling/dataset_a_part2/outputs/ols_model_comparison.json"
+    }
+  },
+  "lmm_all_data": {
+    "model_name": "AGENCY_LMM_FULL_ALL_DATA",
+    "formula": ["log_wp ~ log_prev_wp + log_prev_poly + ACTIVE_PRODUCERS + AGENCY_APPOINTMENT_YEAR + ", "    MAX_AGE + MIN_AGE + STATE_ABBR + PROD_ABBR + VENDOR + STAT_PROFILE_DATE_YEAR + ", "    (1 | AGENCY_ID)"],
+    "optimizer": "bobyqa",
+    "reml": true,
+    "singular": false,
+    "convergence_warnings": "Some predictor variables are on very different scales: consider rescaling. \nYou may also use (g)lmerControl(autoscale = TRUE) to improve numerical stability.",
+    "runtime_s": 6.3,
+    "n_agencies_fitted": 1334,
+    "within_sample_diagnostics": {
+      "note": "WITHIN-SAMPLE FIT. NOT holdout evaluation. Conditional predictions use training EBLUPs.",
+      "conditional": {
+        "r2": 0.8033,
+        "rmse": 0.9727,
+        "mae": 0.6332,
+        "n": 134358
+      },
+      "marginal": {
+        "r2": 0.7712,
+        "rmse": 1.0492,
+        "mae": 0.7051,
+        "n": 134358
+      }
+    },
+    "variance_components": {
+      "agency_variance": 0.341073,
+      "residual_variance": 0.954844,
+      "total_variance": 1.295917,
+      "agency_icc": 0.2632,
+      "comparison_to_locked": {
+        "locked_agency_variance": 0.303105,
+        "locked_residual_variance": 0.948602,
+        "locked_agency_icc": 0.2422,
+        "note": "Locked values from AGENCY_LMM_FULL fit on 2006-2012 training data only."
+      }
+    },
+    "locked_holdout_metrics": {
+      "model": "AGENCY_LMM_FULL",
+      "train_years": "2006-2012",
+      "test_years": "2013-2014",
+      "n_train": 103377,
+      "n_test": 30981,
+      "conditional": {
+        "test_r2": 0.7607,
+        "test_rmse": 1.0814,
+        "test_mae": 0.7071
+      },
+      "marginal": {
+        "test_r2": 0.7345,
+        "test_rmse": 1.1389,
+        "test_mae": 0.7768
+      },
+      "variance_components": {
+        "agency_variance": 0.303105,
+        "residual_variance": 0.948602,
+        "total_variance": 1.251707,
+        "agency_icc": 0.2422
+      },
+      "source": "locked from modeling/dataset_a_part2/outputs/lmm_variance_components.json"
+    }
+  },
+  "locked_rf_reference": {
+    "model": "RF_1_SAFE_TUNED",
+    "test_years": "2013-2014",
+    "test_r2": 0.8839,
+    "test_rmse": 0.7532,
+    "test_mae": 0.4428,
+    "source": "locked from modeling/dataset_a_part2/outputs/rf_summary.json"
+  },
+  "prediction_checks": {
+    "ols_sample_n": 2000,
+    "ols_finite_pred_log_wp": 2000,
+    "ols_pred_wp_nonneg": true,
+    "lmm_sample_n": 2000,
+    "lmm_cond_finite": 2000,
+    "lmm_marg_finite": 2000,
+    "lmm_cond_pred_wp_nonneg": true,
+    "lmm_marg_pred_wp_nonneg": true
+  },
+  "model_objects": {
+    "ols_rds_saved": true,
+    "lmm_rds_saved": true
+  },
+  "inverse_transform_note": "Predictions generated on log scale. Dollar values use direct inverse transform: exp(pred_log_wp) - 1. No lognormal bias correction or smearing correction applied. Official evaluation remains on the log target scale.",
+  "final_interpretation": {
+    "ols": "OLS_ADDITIVE_FINAL_ALL_DATA is the all-data refit of the final evaluated OLS benchmark.",
+    "lmm": "AGENCY_LMM_FULL_ALL_DATA is the all-data refit of the final evaluated agency LMM benchmark.",
+    "use": "These artifacts are for completeness, interpretability, and reference. They do not replace the locked holdout metrics from model selection.",
+    "rf": "RF_FINAL_ALL_DATA remains the primary final prediction artifact because RF_1_SAFE_TUNED was the best evaluated predictive model.",
+    "holdout_note": "Holdout evidence from 2013-2014 is the official evaluation for all three specifications."
+  }
+}

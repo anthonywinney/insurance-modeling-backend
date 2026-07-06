@@ -1,0 +1,162 @@
+{
+  "description": "User-input prediction template for RF_FINAL_ALL_DATA. Defines fields a user must provide to generate a Written Premium prediction. Categorical inputs use dropdowns from allowed_values. Do not allow STATE_ABBR/PROD_ABBR/VENDOR values outside allowed_values.",
+  "model": "RF_FINAL_ALL_DATA",
+  "target": "log_wp = log(WRTN_PREM_AMT + 1)",
+  "inverse_transform": "pred_wp = exp(pred_log_wp) - 1",
+  "prediction_outputs": [
+    {
+      "field": "pred_log_wp",
+      "type": "numeric",
+      "description": "Predicted log(WRTN_PREM_AMT + 1)"
+    },
+    {
+      "field": "pred_wp",
+      "type": "numeric",
+      "description": "Predicted written premium in dollars: exp(pred_log_wp) - 1"
+    }
+  ],
+  "user_input_fields": [
+    {
+      "field": "PREV_WRTN_PREM_AMT",
+      "type": "numeric",
+      "required": true,
+      "description": "Prior-year written premium amount (dollars).",
+      "validation": "PREV_WRTN_PREM_AMT >= 0",
+      "transform": "log_prev_wp = log(PREV_WRTN_PREM_AMT + 1)"
+    },
+    {
+      "field": "PREV_POLY_INFORCE_QTY",
+      "type": "numeric",
+      "required": true,
+      "description": "Prior-year policies in force count.",
+      "validation": "PREV_POLY_INFORCE_QTY >= 0",
+      "transform": "log_prev_poly = log(PREV_POLY_INFORCE_QTY + 1)"
+    },
+    {
+      "field": "ACTIVE_PRODUCERS",
+      "type": "numeric",
+      "required": true,
+      "description": "Number of active producers at the agency.",
+      "validation": "Integer >= 0"
+    },
+    {
+      "field": "AGENCY_APPOINTMENT_YEAR",
+      "type": "numeric",
+      "required": true,
+      "description": "Year agency was appointed (4-digit year).",
+      "validation": "Integer year, e.g. 1990-2015"
+    },
+    {
+      "field": "MAX_AGE",
+      "type": "numeric",
+      "required": true,
+      "description": "Maximum producer age at agency.",
+      "validation": "Positive numeric"
+    },
+    {
+      "field": "MIN_AGE",
+      "type": "numeric",
+      "required": true,
+      "description": "Minimum producer age at agency.",
+      "validation": "Positive numeric; MIN_AGE <= MAX_AGE"
+    },
+    {
+      "field": "STAT_PROFILE_DATE_YEAR",
+      "type": "numeric",
+      "required": true,
+      "description": "Prediction year (numeric, not categorical). Training range: 2006-2014. 2015 supported for one-year-ahead prediction.",
+      "validation": "Integer year; typically 2006-2015 for this model"
+    },
+    {
+      "field": "STATE_ABBR",
+      "type": "categorical",
+      "required": true,
+      "description": "Two-letter state abbreviation.",
+      "allowed_values": ["IN", "KY", "MI", "OH", "PA", "WV"],
+      "ui_note": "Dropdown from allowed_values. Unseen values are rejected."
+    },
+    {
+      "field": "PROD_ABBR",
+      "type": "categorical",
+      "required": true,
+      "description": "Product abbreviation code.",
+      "allowed_values": ["ANNIV", "ANNIV   12", "BOILERMACH", "BOP", "COMMAUTO", "COMMINLMAR", "COMMUMBREL", "CRIME", "CYCLES", "CYCLES  12", "DTALK", "DTALK   12", "DWELLFIRE", "FIREALLIED", "GARAGE", "GENERALIAB", "HOMEOWNERS", "MOBILEHOME", "MOTORHOM12", "MOTORHOME", "PERSAIP", "PERSINLMAR", "PERSUMBREL", "SNOWMOBI12", "SNOWMOBILE", "WORKCOMP", "YACHT"],
+      "ui_note": "Dropdown from allowed_values. COMMPOL excluded from model population."
+    },
+    {
+      "field": "VENDOR",
+      "type": "categorical",
+      "required": true,
+      "description": "Vendor identifier.",
+      "allowed_values": ["A", "B", "C", "D", "E", "F", "G", "H", "J", "Unknown"],
+      "ui_note": "Dropdown from allowed_values."
+    }
+  ],
+  "backend_computed_fields": [
+    {
+      "field": "log_prev_wp",
+      "formula": "log(PREV_WRTN_PREM_AMT + 1)",
+      "description": "Log-transformed prior written premium. Computed by backend before prediction."
+    },
+    {
+      "field": "log_prev_poly",
+      "formula": "log(PREV_POLY_INFORCE_QTY + 1)",
+      "description": "Log-transformed prior policies in force. Computed by backend before prediction."
+    }
+  ],
+  "example_inputs": [
+    {
+      "label": "Generic valid example (year 2013)",
+      "PREV_WRTN_PREM_AMT": 150000,
+      "PREV_POLY_INFORCE_QTY": 320,
+      "ACTIVE_PRODUCERS": 5,
+      "AGENCY_APPOINTMENT_YEAR": 2001,
+      "MAX_AGE": 55,
+      "MIN_AGE": 38,
+      "STAT_PROFILE_DATE_YEAR": 2013,
+      "STATE_ABBR": "IN",
+      "PROD_ABBR": "ANNIV",
+      "VENDOR": "A",
+      "backend_computed": {
+        "log_prev_wp": 11.9184,
+        "log_prev_poly": 5.7714
+      }
+    },
+    {
+      "label": "2015 prediction example",
+      "PREV_WRTN_PREM_AMT": 200000,
+      "PREV_POLY_INFORCE_QTY": 480,
+      "ACTIVE_PRODUCERS": 8,
+      "AGENCY_APPOINTMENT_YEAR": 1998,
+      "MAX_AGE": 60,
+      "MIN_AGE": 42,
+      "STAT_PROFILE_DATE_YEAR": 2015,
+      "STATE_ABBR": "IN",
+      "PROD_ABBR": "ANNIV",
+      "VENDOR": "A",
+      "note": "STAT_PROFILE_DATE_YEAR=2015 is numeric. RF routes year=2015 via split structure on highest training-period year values. One-year-ahead prediction only — not a multi-year forecast.",
+      "backend_computed": {
+        "log_prev_wp": 12.2061,
+        "log_prev_poly": 6.1759
+      }
+    },
+    {
+      "label": "Example with VENDOR = 'Unknown'",
+      "PREV_WRTN_PREM_AMT": 75000,
+      "PREV_POLY_INFORCE_QTY": 180,
+      "ACTIVE_PRODUCERS": 3,
+      "AGENCY_APPOINTMENT_YEAR": 2005,
+      "MAX_AGE": 48,
+      "MIN_AGE": 35,
+      "STAT_PROFILE_DATE_YEAR": 2015,
+      "STATE_ABBR": "IN",
+      "PROD_ABBR": "ANNIV",
+      "VENDOR": "Unknown",
+      "note": "'Unknown' is a valid VENDOR level in the training population.",
+      "backend_computed": {
+        "log_prev_wp": 11.2253,
+        "log_prev_poly": 5.1985
+      }
+    }
+  ]
+}

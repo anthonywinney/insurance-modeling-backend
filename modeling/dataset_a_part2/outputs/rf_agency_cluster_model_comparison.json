@@ -1,0 +1,183 @@
+{
+  "description": "Model-by-model performance comparison. Primary: seen-agency test rows (n=29,994). Secondary: full test (n=30,981) with NEW_AGENCY fallback. delta_seen_r2 / delta_full_r2: relative to RF_BASE. OOB metrics from 2006-2012 training (no test data in k selection). Gain thresholds: delta seen R2 < 0.005 = none; 0.005-0.01 = modest; > 0.01 = material.",
+  "n_test_seen": 29994,
+  "n_test_full": 30981,
+  "selected_k": 50,
+  "gain_category": "NONE",
+  "models": [
+    {
+      "model_id": "RF_BASE",
+      "k": null,
+      "n_predictors": 10,
+      "oob_rmse": 0.6955,
+      "oob_r2": 0.8989,
+      "perf_train": {
+        "n": 103377,
+        "r2": 0.9609,
+        "rmse": 0.4326,
+        "mae": 0.2385
+      },
+      "seen_agency_test": {
+        "n": 29994,
+        "r2": 0.8997,
+        "rmse": 0.7022,
+        "mae": 0.4148
+      },
+      "full_test": {
+        "n": 30981,
+        "r2": 0.8839,
+        "rmse": 0.7532,
+        "mae": 0.4428
+      },
+      "delta_seen_r2": 0,
+      "delta_full_r2": 0,
+      "is_oob_selected": false,
+      "is_baseline": true
+    },
+    {
+      "model_id": "RF_CLUSTER_k5",
+      "k": 5,
+      "n_predictors": 11,
+      "oob_rmse": 0.6904,
+      "oob_r2": 0.9004,
+      "perf_train": {
+        "n": 103377,
+        "r2": 0.9605,
+        "rmse": 0.4349,
+        "mae": 0.2416
+      },
+      "seen_agency_test": {
+        "n": 29994,
+        "r2": 0.8993,
+        "rmse": 0.7038,
+        "mae": 0.4172
+      },
+      "full_test": {
+        "n": 30981,
+        "r2": 0.8798,
+        "rmse": 0.7663,
+        "mae": 0.4493
+      },
+      "delta_seen_r2": -0.0004,
+      "delta_full_r2": -0.0041,
+      "is_oob_selected": false,
+      "is_baseline": false
+    },
+    {
+      "model_id": "RF_CLUSTER_k10",
+      "k": 10,
+      "n_predictors": 11,
+      "oob_rmse": 0.6896,
+      "oob_r2": 0.9006,
+      "perf_train": {
+        "n": 103377,
+        "r2": 0.9609,
+        "rmse": 0.4325,
+        "mae": 0.2404
+      },
+      "seen_agency_test": {
+        "n": 29994,
+        "r2": 0.8956,
+        "rmse": 0.7164,
+        "mae": 0.4245
+      },
+      "full_test": {
+        "n": 30981,
+        "r2": 0.8793,
+        "rmse": 0.7679,
+        "mae": 0.4532
+      },
+      "delta_seen_r2": -0.0041,
+      "delta_full_r2": -0.0046,
+      "is_oob_selected": false,
+      "is_baseline": false
+    },
+    {
+      "model_id": "RF_CLUSTER_k20",
+      "k": 20,
+      "n_predictors": 11,
+      "oob_rmse": 0.6884,
+      "oob_r2": 0.901,
+      "perf_train": {
+        "n": 103377,
+        "r2": 0.9612,
+        "rmse": 0.4309,
+        "mae": 0.2399
+      },
+      "seen_agency_test": {
+        "n": 29994,
+        "r2": 0.8965,
+        "rmse": 0.7133,
+        "mae": 0.4234
+      },
+      "full_test": {
+        "n": 30981,
+        "r2": 0.8808,
+        "rmse": 0.763,
+        "mae": 0.4511
+      },
+      "delta_seen_r2": -0.0032,
+      "delta_full_r2": -0.0031,
+      "is_oob_selected": false,
+      "is_baseline": false
+    },
+    {
+      "model_id": "RF_CLUSTER_k30",
+      "k": 30,
+      "n_predictors": 11,
+      "oob_rmse": 0.6875,
+      "oob_r2": 0.9013,
+      "perf_train": {
+        "n": 103377,
+        "r2": 0.9615,
+        "rmse": 0.4292,
+        "mae": 0.239
+      },
+      "seen_agency_test": {
+        "n": 29994,
+        "r2": 0.897,
+        "rmse": 0.7115,
+        "mae": 0.422
+      },
+      "full_test": {
+        "n": 30981,
+        "r2": 0.8812,
+        "rmse": 0.7618,
+        "mae": 0.4499
+      },
+      "delta_seen_r2": -0.0027,
+      "delta_full_r2": -0.0027,
+      "is_oob_selected": false,
+      "is_baseline": false
+    },
+    {
+      "model_id": "RF_CLUSTER_k50",
+      "k": 50,
+      "n_predictors": 11,
+      "oob_rmse": 0.6872,
+      "oob_r2": 0.9013,
+      "perf_train": {
+        "n": 103377,
+        "r2": 0.9617,
+        "rmse": 0.4281,
+        "mae": 0.2386
+      },
+      "seen_agency_test": {
+        "n": 29994,
+        "r2": 0.8981,
+        "rmse": 0.7078,
+        "mae": 0.42
+      },
+      "full_test": {
+        "n": 30981,
+        "r2": 0.8829,
+        "rmse": 0.7564,
+        "mae": 0.447
+      },
+      "delta_seen_r2": -0.0016,
+      "delta_full_r2": -0.001,
+      "is_oob_selected": true,
+      "is_baseline": false
+    }
+  ]
+}

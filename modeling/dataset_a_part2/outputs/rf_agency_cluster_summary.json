@@ -1,0 +1,234 @@
+{
+  "description": "RF agency cluster sensitivity test for Dataset A Part 2. K-means (k=5,10,20,30,50) on 2006-2012 agency profiles (15 z-scored features, 1254 agencies). Agency cluster labels joined to row-level data as AGENCY_CLUSTER predictor. Baseline RF (no cluster) vs 5 clustered RFs trained on full 2006-2012 training population. Primary evaluation: seen-agency test rows (agencies present in training). Secondary: full 2013-2014 test with NEW_AGENCY fallback for unseen agencies. K selection criterion: OOB RMSE only (test set not used for model selection).",
+  "modeling_population": {
+    "target": "log_wp = log(WRTN_PREM_AMT + 1)",
+    "train_years": "2006-2012",
+    "test_years": "2013-2014",
+    "n_train_rows": 103377,
+    "n_test_rows": 30981,
+    "n_test_seen_rows": 29994,
+    "n_test_new_rows": 987,
+    "n_train_agencies": 1254,
+    "n_test_agencies": 1054,
+    "n_seen_agencies": 974,
+    "n_new_agencies": 80,
+    "pct_test_rows_seen": 96.81
+  },
+  "hyperparameters": {
+    "num_trees": 500,
+    "mtry": 3,
+    "min_node_size": 5,
+    "sample_fraction": 0.6,
+    "replace": false,
+    "importance": "permutation",
+    "respect_unordered_factors": "order",
+    "seed": 42,
+    "note": "mtry=3 fixed for all models (baseline p=10, clustered p=11). Same hyperparameters as RF_1_SAFE_TUNED from rf_summary.json."
+  },
+  "clustering_config": {
+    "k_values": [5, 10, 20, 30, 50],
+    "nstart": 25,
+    "iter_max": 100,
+    "seed": 42,
+    "n_features": 15,
+    "n_agencies": 1254,
+    "source_file": "agency_profile_clustering_scaled.csv",
+    "note": "Full k-means statistics in rf_agency_cluster_diagnostics.json"
+  },
+  "RF_BASE": {
+    "model_id": "RF_BASE",
+    "n_predictors": 10,
+    "oob_rmse": 0.6955,
+    "oob_r2": 0.8989,
+    "runtime_s": 101.8,
+    "perf_train": {
+      "n": 103377,
+      "r2": 0.9609,
+      "rmse": 0.4326,
+      "mae": 0.2385
+    },
+    "perf_seen": {
+      "n": 29994,
+      "r2": 0.8997,
+      "rmse": 0.7022,
+      "mae": 0.4148
+    },
+    "perf_full": {
+      "n": 30981,
+      "r2": 0.8839,
+      "rmse": 0.7532,
+      "mae": 0.4428
+    }
+  },
+  "clustered_rf_results": {
+    "k5": {
+      "k": 5,
+      "model_id": "RF_CLUSTER_k5",
+      "oob_rmse": 0.6904,
+      "oob_r2": 0.9004,
+      "delta_oob_rmse_vs_base": -0.0051,
+      "runtime_s": 106,
+      "perf_train": {
+        "n": 103377,
+        "r2": 0.9605,
+        "rmse": 0.4349,
+        "mae": 0.2416
+      },
+      "perf_seen": {
+        "n": 29994,
+        "r2": 0.8993,
+        "rmse": 0.7038,
+        "mae": 0.4172
+      },
+      "perf_full": {
+        "n": 30981,
+        "r2": 0.8798,
+        "rmse": 0.7663,
+        "mae": 0.4493
+      },
+      "delta_seen_r2": -0.0004,
+      "delta_full_r2": -0.0041,
+      "agency_cluster_rank": 6,
+      "agency_cluster_imp_pct": 2
+    },
+    "k10": {
+      "k": 10,
+      "model_id": "RF_CLUSTER_k10",
+      "oob_rmse": 0.6896,
+      "oob_r2": 0.9006,
+      "delta_oob_rmse_vs_base": -0.0059,
+      "runtime_s": 111.5,
+      "perf_train": {
+        "n": 103377,
+        "r2": 0.9609,
+        "rmse": 0.4325,
+        "mae": 0.2404
+      },
+      "perf_seen": {
+        "n": 29994,
+        "r2": 0.8956,
+        "rmse": 0.7164,
+        "mae": 0.4245
+      },
+      "perf_full": {
+        "n": 30981,
+        "r2": 0.8793,
+        "rmse": 0.7679,
+        "mae": 0.4532
+      },
+      "delta_seen_r2": -0.0041,
+      "delta_full_r2": -0.0046,
+      "agency_cluster_rank": 5,
+      "agency_cluster_imp_pct": 2.72
+    },
+    "k20": {
+      "k": 20,
+      "model_id": "RF_CLUSTER_k20",
+      "oob_rmse": 0.6884,
+      "oob_r2": 0.901,
+      "delta_oob_rmse_vs_base": -0.0071,
+      "runtime_s": 99.5,
+      "perf_train": {
+        "n": 103377,
+        "r2": 0.9612,
+        "rmse": 0.4309,
+        "mae": 0.2399
+      },
+      "perf_seen": {
+        "n": 29994,
+        "r2": 0.8965,
+        "rmse": 0.7133,
+        "mae": 0.4234
+      },
+      "perf_full": {
+        "n": 30981,
+        "r2": 0.8808,
+        "rmse": 0.763,
+        "mae": 0.4511
+      },
+      "delta_seen_r2": -0.0032,
+      "delta_full_r2": -0.0031,
+      "agency_cluster_rank": 4,
+      "agency_cluster_imp_pct": 3.64
+    },
+    "k30": {
+      "k": 30,
+      "model_id": "RF_CLUSTER_k30",
+      "oob_rmse": 0.6875,
+      "oob_r2": 0.9013,
+      "delta_oob_rmse_vs_base": -0.008,
+      "runtime_s": 103,
+      "perf_train": {
+        "n": 103377,
+        "r2": 0.9615,
+        "rmse": 0.4292,
+        "mae": 0.239
+      },
+      "perf_seen": {
+        "n": 29994,
+        "r2": 0.897,
+        "rmse": 0.7115,
+        "mae": 0.422
+      },
+      "perf_full": {
+        "n": 30981,
+        "r2": 0.8812,
+        "rmse": 0.7618,
+        "mae": 0.4499
+      },
+      "delta_seen_r2": -0.0027,
+      "delta_full_r2": -0.0027,
+      "agency_cluster_rank": 4,
+      "agency_cluster_imp_pct": 4
+    },
+    "k50": {
+      "k": 50,
+      "model_id": "RF_CLUSTER_k50",
+      "oob_rmse": 0.6872,
+      "oob_r2": 0.9013,
+      "delta_oob_rmse_vs_base": -0.0083,
+      "runtime_s": 102.2,
+      "perf_train": {
+        "n": 103377,
+        "r2": 0.9617,
+        "rmse": 0.4281,
+        "mae": 0.2386
+      },
+      "perf_seen": {
+        "n": 29994,
+        "r2": 0.8981,
+        "rmse": 0.7078,
+        "mae": 0.42
+      },
+      "perf_full": {
+        "n": 30981,
+        "r2": 0.8829,
+        "rmse": 0.7564,
+        "mae": 0.447
+      },
+      "delta_seen_r2": -0.0016,
+      "delta_full_r2": -0.001,
+      "agency_cluster_rank": 4,
+      "agency_cluster_imp_pct": 3.84
+    }
+  },
+  "oob_k_selection": {
+    "method": "minimum OOB RMSE across k values",
+    "baseline_oob_rmse": 0.6955,
+    "oob_rmse_by_k": {
+      "5": 0.6904,
+      "10": 0.6896,
+      "20": 0.6884,
+      "30": 0.6875,
+      "50": 0.6872
+    },
+    "best_k": 50,
+    "best_oob_rmse": 0.6872
+  },
+  "recommendation": {
+    "decision": "NO_MATERIAL_GAIN_FROM_CLUSTERING",
+    "best_k": 50,
+    "threshold_used": "delta seen-agency test R2 < 0.005",
+    "justification": "Best k by OOB RMSE: k=50 (OOB RMSE=0.6872 vs baseline=0.6955, d=-0.0083). Seen-agency test R2 improves by only -0.0016 (threshold: <0.005 = no material gain). Agency cluster adds no material predictive lift. Retain RF_BASE (equivalent to RF_1_SAFE_TUNED) as primary RF specification."
+  }
+}

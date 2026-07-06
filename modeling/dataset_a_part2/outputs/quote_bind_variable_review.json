@@ -1,0 +1,2219 @@
+{
+  "description": "Investigation of quote/bind activity variables (CL platforms: MDS, SBZ, eQT; PL platforms: ELINKS, PLRANK, eQTte, APPLIED, TRANSACTNOW). Parts: (A) temporal meaning determined from multi-year agency tracking, (B) leakage classification for WP modeling, (C) lagged version coverage on the modeling population (non-COMMPOL, WP>0, 2006-2014), (D) predictive screening via correlations with log_wp / log_prev_wp / log_prev_poly, (E) recommendations. No models are fitted.",
+  "variables_present": [
+    "CL_BOUND_CT_MDS",
+    "CL_QUO_CT_MDS",
+    "CL_BOUND_CT_SBZ",
+    "CL_QUO_CT_SBZ",
+    "CL_BOUND_CT_eQT",
+    "CL_QUO_CT_eQT",
+    "PL_BOUND_CT_ELINKS",
+    "PL_QUO_CT_ELINKS",
+    "PL_BOUND_CT_PLRANK",
+    "PL_QUO_CT_PLRANK",
+    "PL_BOUND_CT_eQTte",
+    "PL_QUO_CT_eQTte",
+    "PL_BOUND_CT_APPLIED",
+    "PL_QUO_CT_APPLIED",
+    "PL_BOUND_CT_TRANSACTNOW",
+    "PL_QUO_CT_TRANSACTNOW"
+  ],
+  "variables_absent": [],
+  "part_a_temporal": {
+    "CL_BOUND_CT_MDS": {
+      "basic_stats": {
+        "n_total": 213328,
+        "n_null": 0,
+        "n_zero": 62749,
+        "n_positive": 150579,
+        "pct_null": 0,
+        "pct_zero": 29.41,
+        "pct_positive": 70.59
+      },
+      "temporal_stats": {
+        "n_multi_year_series": 3856,
+        "pct_constant": 100,
+        "pct_monotone_nondecreasing": 100,
+        "pct_has_any_decrease": 0,
+        "pct_has_any_increase": 0,
+        "temporal_classification": "CONSTANT"
+      },
+      "temporal_classification": "CONSTANT",
+      "example_series": [
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "IN",
+          "n_years": 11,
+          "by_year": {
+            "2005": 0,
+            "2006": 0,
+            "2007": 0,
+            "2008": 0,
+            "2009": 0,
+            "2010": 0,
+            "2011": 0,
+            "2012": 0,
+            "2013": 0,
+            "2014": 0,
+            "2015": 0
+          }
+        },
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "KY",
+          "n_years": 11,
+          "by_year": {
+            "2005": 0,
+            "2006": 0,
+            "2007": 0,
+            "2008": 0,
+            "2009": 0,
+            "2010": 0,
+            "2011": 0,
+            "2012": 0,
+            "2013": 0,
+            "2014": 0,
+            "2015": 0
+          }
+        },
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "OH",
+          "n_years": 11,
+          "by_year": {
+            "2005": 0,
+            "2006": 0,
+            "2007": 0,
+            "2008": 0,
+            "2009": 0,
+            "2010": 0,
+            "2011": 0,
+            "2012": 0,
+            "2013": 0,
+            "2014": 0,
+            "2015": 0
+          }
+        }
+      ]
+    },
+    "CL_QUO_CT_MDS": {
+      "basic_stats": {
+        "n_total": 213328,
+        "n_null": 0,
+        "n_zero": 34519,
+        "n_positive": 178809,
+        "pct_null": 0,
+        "pct_zero": 16.18,
+        "pct_positive": 83.82
+      },
+      "temporal_stats": {
+        "n_multi_year_series": 3856,
+        "pct_constant": 100,
+        "pct_monotone_nondecreasing": 100,
+        "pct_has_any_decrease": 0,
+        "pct_has_any_increase": 0,
+        "temporal_classification": "CONSTANT"
+      },
+      "temporal_classification": "CONSTANT",
+      "example_series": [
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "IN",
+          "n_years": 11,
+          "by_year": {
+            "2005": 1,
+            "2006": 1,
+            "2007": 1,
+            "2008": 1,
+            "2009": 1,
+            "2010": 1,
+            "2011": 1,
+            "2012": 1,
+            "2013": 1,
+            "2014": 1,
+            "2015": 1
+          }
+        },
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "KY",
+          "n_years": 11,
+          "by_year": {
+            "2005": 1,
+            "2006": 1,
+            "2007": 1,
+            "2008": 1,
+            "2009": 1,
+            "2010": 1,
+            "2011": 1,
+            "2012": 1,
+            "2013": 1,
+            "2014": 1,
+            "2015": 1
+          }
+        },
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "OH",
+          "n_years": 11,
+          "by_year": {
+            "2005": 1,
+            "2006": 1,
+            "2007": 1,
+            "2008": 1,
+            "2009": 1,
+            "2010": 1,
+            "2011": 1,
+            "2012": 1,
+            "2013": 1,
+            "2014": 1,
+            "2015": 1
+          }
+        }
+      ]
+    },
+    "CL_BOUND_CT_SBZ": {
+      "basic_stats": {
+        "n_total": 213328,
+        "n_null": 0,
+        "n_zero": 37148,
+        "n_positive": 176180,
+        "pct_null": 0,
+        "pct_zero": 17.41,
+        "pct_positive": 82.59
+      },
+      "temporal_stats": {
+        "n_multi_year_series": 3856,
+        "pct_constant": 100,
+        "pct_monotone_nondecreasing": 100,
+        "pct_has_any_decrease": 0,
+        "pct_has_any_increase": 0,
+        "temporal_classification": "CONSTANT"
+      },
+      "temporal_classification": "CONSTANT",
+      "example_series": [
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "IN",
+          "n_years": 11,
+          "by_year": {
+            "2005": 0,
+            "2006": 0,
+            "2007": 0,
+            "2008": 0,
+            "2009": 0,
+            "2010": 0,
+            "2011": 0,
+            "2012": 0,
+            "2013": 0,
+            "2014": 0,
+            "2015": 0
+          }
+        },
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "KY",
+          "n_years": 11,
+          "by_year": {
+            "2005": 0,
+            "2006": 0,
+            "2007": 0,
+            "2008": 0,
+            "2009": 0,
+            "2010": 0,
+            "2011": 0,
+            "2012": 0,
+            "2013": 0,
+            "2014": 0,
+            "2015": 0
+          }
+        },
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "OH",
+          "n_years": 11,
+          "by_year": {
+            "2005": 0,
+            "2006": 0,
+            "2007": 0,
+            "2008": 0,
+            "2009": 0,
+            "2010": 0,
+            "2011": 0,
+            "2012": 0,
+            "2013": 0,
+            "2014": 0,
+            "2015": 0
+          }
+        }
+      ]
+    },
+    "CL_QUO_CT_SBZ": {
+      "basic_stats": {
+        "n_total": 213328,
+        "n_null": 0,
+        "n_zero": 21557,
+        "n_positive": 191771,
+        "pct_null": 0,
+        "pct_zero": 10.11,
+        "pct_positive": 89.89
+      },
+      "temporal_stats": {
+        "n_multi_year_series": 3856,
+        "pct_constant": 100,
+        "pct_monotone_nondecreasing": 100,
+        "pct_has_any_decrease": 0,
+        "pct_has_any_increase": 0,
+        "temporal_classification": "CONSTANT"
+      },
+      "temporal_classification": "CONSTANT",
+      "example_series": [
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "IN",
+          "n_years": 11,
+          "by_year": {
+            "2005": 0,
+            "2006": 0,
+            "2007": 0,
+            "2008": 0,
+            "2009": 0,
+            "2010": 0,
+            "2011": 0,
+            "2012": 0,
+            "2013": 0,
+            "2014": 0,
+            "2015": 0
+          }
+        },
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "KY",
+          "n_years": 11,
+          "by_year": {
+            "2005": 0,
+            "2006": 0,
+            "2007": 0,
+            "2008": 0,
+            "2009": 0,
+            "2010": 0,
+            "2011": 0,
+            "2012": 0,
+            "2013": 0,
+            "2014": 0,
+            "2015": 0
+          }
+        },
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "OH",
+          "n_years": 11,
+          "by_year": {
+            "2005": 0,
+            "2006": 0,
+            "2007": 0,
+            "2008": 0,
+            "2009": 0,
+            "2010": 0,
+            "2011": 0,
+            "2012": 0,
+            "2013": 0,
+            "2014": 0,
+            "2015": 0
+          }
+        }
+      ]
+    },
+    "CL_BOUND_CT_eQT": {
+      "basic_stats": {
+        "n_total": 213328,
+        "n_null": 0,
+        "n_zero": 60328,
+        "n_positive": 153000,
+        "pct_null": 0,
+        "pct_zero": 28.28,
+        "pct_positive": 71.72
+      },
+      "temporal_stats": {
+        "n_multi_year_series": 3856,
+        "pct_constant": 100,
+        "pct_monotone_nondecreasing": 100,
+        "pct_has_any_decrease": 0,
+        "pct_has_any_increase": 0,
+        "temporal_classification": "CONSTANT"
+      },
+      "temporal_classification": "CONSTANT",
+      "example_series": [
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "IN",
+          "n_years": 11,
+          "by_year": {
+            "2005": 0,
+            "2006": 0,
+            "2007": 0,
+            "2008": 0,
+            "2009": 0,
+            "2010": 0,
+            "2011": 0,
+            "2012": 0,
+            "2013": 0,
+            "2014": 0,
+            "2015": 0
+          }
+        },
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "KY",
+          "n_years": 11,
+          "by_year": {
+            "2005": 0,
+            "2006": 0,
+            "2007": 0,
+            "2008": 0,
+            "2009": 0,
+            "2010": 0,
+            "2011": 0,
+            "2012": 0,
+            "2013": 0,
+            "2014": 0,
+            "2015": 0
+          }
+        },
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "OH",
+          "n_years": 11,
+          "by_year": {
+            "2005": 0,
+            "2006": 0,
+            "2007": 0,
+            "2008": 0,
+            "2009": 0,
+            "2010": 0,
+            "2011": 0,
+            "2012": 0,
+            "2013": 0,
+            "2014": 0,
+            "2015": 0
+          }
+        }
+      ]
+    },
+    "CL_QUO_CT_eQT": {
+      "basic_stats": {
+        "n_total": 213328,
+        "n_null": 0,
+        "n_zero": 53453,
+        "n_positive": 159875,
+        "pct_null": 0,
+        "pct_zero": 25.06,
+        "pct_positive": 74.94
+      },
+      "temporal_stats": {
+        "n_multi_year_series": 3856,
+        "pct_constant": 100,
+        "pct_monotone_nondecreasing": 100,
+        "pct_has_any_decrease": 0,
+        "pct_has_any_increase": 0,
+        "temporal_classification": "CONSTANT"
+      },
+      "temporal_classification": "CONSTANT",
+      "example_series": [
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "IN",
+          "n_years": 11,
+          "by_year": {
+            "2005": 0,
+            "2006": 0,
+            "2007": 0,
+            "2008": 0,
+            "2009": 0,
+            "2010": 0,
+            "2011": 0,
+            "2012": 0,
+            "2013": 0,
+            "2014": 0,
+            "2015": 0
+          }
+        },
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "KY",
+          "n_years": 11,
+          "by_year": {
+            "2005": 0,
+            "2006": 0,
+            "2007": 0,
+            "2008": 0,
+            "2009": 0,
+            "2010": 0,
+            "2011": 0,
+            "2012": 0,
+            "2013": 0,
+            "2014": 0,
+            "2015": 0
+          }
+        },
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "OH",
+          "n_years": 11,
+          "by_year": {
+            "2005": 0,
+            "2006": 0,
+            "2007": 0,
+            "2008": 0,
+            "2009": 0,
+            "2010": 0,
+            "2011": 0,
+            "2012": 0,
+            "2013": 0,
+            "2014": 0,
+            "2015": 0
+          }
+        }
+      ]
+    },
+    "PL_BOUND_CT_ELINKS": {
+      "basic_stats": {
+        "n_total": 213328,
+        "n_null": 0,
+        "n_zero": 145598,
+        "n_positive": 67730,
+        "pct_null": 0,
+        "pct_zero": 68.25,
+        "pct_positive": 31.75
+      },
+      "temporal_stats": {
+        "n_multi_year_series": 3856,
+        "pct_constant": 100,
+        "pct_monotone_nondecreasing": 100,
+        "pct_has_any_decrease": 0,
+        "pct_has_any_increase": 0,
+        "temporal_classification": "CONSTANT"
+      },
+      "temporal_classification": "CONSTANT",
+      "example_series": [
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "IN",
+          "n_years": 11,
+          "by_year": {
+            "2005": 0,
+            "2006": 0,
+            "2007": 0,
+            "2008": 0,
+            "2009": 0,
+            "2010": 0,
+            "2011": 0,
+            "2012": 0,
+            "2013": 0,
+            "2014": 0,
+            "2015": 0
+          }
+        },
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "KY",
+          "n_years": 11,
+          "by_year": {
+            "2005": 0,
+            "2006": 0,
+            "2007": 0,
+            "2008": 0,
+            "2009": 0,
+            "2010": 0,
+            "2011": 0,
+            "2012": 0,
+            "2013": 0,
+            "2014": 0,
+            "2015": 0
+          }
+        },
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "OH",
+          "n_years": 11,
+          "by_year": {
+            "2005": 0,
+            "2006": 0,
+            "2007": 0,
+            "2008": 0,
+            "2009": 0,
+            "2010": 0,
+            "2011": 0,
+            "2012": 0,
+            "2013": 0,
+            "2014": 0,
+            "2015": 0
+          }
+        }
+      ]
+    },
+    "PL_QUO_CT_ELINKS": {
+      "basic_stats": {
+        "n_total": 213328,
+        "n_null": 0,
+        "n_zero": 138645,
+        "n_positive": 74683,
+        "pct_null": 0,
+        "pct_zero": 64.99,
+        "pct_positive": 35.01
+      },
+      "temporal_stats": {
+        "n_multi_year_series": 3856,
+        "pct_constant": 100,
+        "pct_monotone_nondecreasing": 100,
+        "pct_has_any_decrease": 0,
+        "pct_has_any_increase": 0,
+        "temporal_classification": "CONSTANT"
+      },
+      "temporal_classification": "CONSTANT",
+      "example_series": [
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "IN",
+          "n_years": 11,
+          "by_year": {
+            "2005": 0,
+            "2006": 0,
+            "2007": 0,
+            "2008": 0,
+            "2009": 0,
+            "2010": 0,
+            "2011": 0,
+            "2012": 0,
+            "2013": 0,
+            "2014": 0,
+            "2015": 0
+          }
+        },
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "KY",
+          "n_years": 11,
+          "by_year": {
+            "2005": 0,
+            "2006": 0,
+            "2007": 0,
+            "2008": 0,
+            "2009": 0,
+            "2010": 0,
+            "2011": 0,
+            "2012": 0,
+            "2013": 0,
+            "2014": 0,
+            "2015": 0
+          }
+        },
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "OH",
+          "n_years": 11,
+          "by_year": {
+            "2005": 0,
+            "2006": 0,
+            "2007": 0,
+            "2008": 0,
+            "2009": 0,
+            "2010": 0,
+            "2011": 0,
+            "2012": 0,
+            "2013": 0,
+            "2014": 0,
+            "2015": 0
+          }
+        }
+      ]
+    },
+    "PL_BOUND_CT_PLRANK": {
+      "basic_stats": {
+        "n_total": 213328,
+        "n_null": 0,
+        "n_zero": 126299,
+        "n_positive": 87029,
+        "pct_null": 0,
+        "pct_zero": 59.2,
+        "pct_positive": 40.8
+      },
+      "temporal_stats": {
+        "n_multi_year_series": 3856,
+        "pct_constant": 100,
+        "pct_monotone_nondecreasing": 100,
+        "pct_has_any_decrease": 0,
+        "pct_has_any_increase": 0,
+        "temporal_classification": "CONSTANT"
+      },
+      "temporal_classification": "CONSTANT",
+      "example_series": [
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "IN",
+          "n_years": 11,
+          "by_year": {
+            "2005": 0,
+            "2006": 0,
+            "2007": 0,
+            "2008": 0,
+            "2009": 0,
+            "2010": 0,
+            "2011": 0,
+            "2012": 0,
+            "2013": 0,
+            "2014": 0,
+            "2015": 0
+          }
+        },
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "KY",
+          "n_years": 11,
+          "by_year": {
+            "2005": 0,
+            "2006": 0,
+            "2007": 0,
+            "2008": 0,
+            "2009": 0,
+            "2010": 0,
+            "2011": 0,
+            "2012": 0,
+            "2013": 0,
+            "2014": 0,
+            "2015": 0
+          }
+        },
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "OH",
+          "n_years": 11,
+          "by_year": {
+            "2005": 0,
+            "2006": 0,
+            "2007": 0,
+            "2008": 0,
+            "2009": 0,
+            "2010": 0,
+            "2011": 0,
+            "2012": 0,
+            "2013": 0,
+            "2014": 0,
+            "2015": 0
+          }
+        }
+      ]
+    },
+    "PL_QUO_CT_PLRANK": {
+      "basic_stats": {
+        "n_total": 213328,
+        "n_null": 0,
+        "n_zero": 115946,
+        "n_positive": 97382,
+        "pct_null": 0,
+        "pct_zero": 54.35,
+        "pct_positive": 45.65
+      },
+      "temporal_stats": {
+        "n_multi_year_series": 3856,
+        "pct_constant": 100,
+        "pct_monotone_nondecreasing": 100,
+        "pct_has_any_decrease": 0,
+        "pct_has_any_increase": 0,
+        "temporal_classification": "CONSTANT"
+      },
+      "temporal_classification": "CONSTANT",
+      "example_series": [
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "IN",
+          "n_years": 11,
+          "by_year": {
+            "2005": 103,
+            "2006": 103,
+            "2007": 103,
+            "2008": 103,
+            "2009": 103,
+            "2010": 103,
+            "2011": 103,
+            "2012": 103,
+            "2013": 103,
+            "2014": 103,
+            "2015": 103
+          }
+        },
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "KY",
+          "n_years": 11,
+          "by_year": {
+            "2005": 103,
+            "2006": 103,
+            "2007": 103,
+            "2008": 103,
+            "2009": 103,
+            "2010": 103,
+            "2011": 103,
+            "2012": 103,
+            "2013": 103,
+            "2014": 103,
+            "2015": 103
+          }
+        },
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "OH",
+          "n_years": 11,
+          "by_year": {
+            "2005": 103,
+            "2006": 103,
+            "2007": 103,
+            "2008": 103,
+            "2009": 103,
+            "2010": 103,
+            "2011": 103,
+            "2012": 103,
+            "2013": 103,
+            "2014": 103,
+            "2015": 103
+          }
+        }
+      ]
+    },
+    "PL_BOUND_CT_eQTte": {
+      "basic_stats": {
+        "n_total": 213328,
+        "n_null": 0,
+        "n_zero": 14008,
+        "n_positive": 199320,
+        "pct_null": 0,
+        "pct_zero": 6.57,
+        "pct_positive": 93.43
+      },
+      "temporal_stats": {
+        "n_multi_year_series": 3856,
+        "pct_constant": 100,
+        "pct_monotone_nondecreasing": 100,
+        "pct_has_any_decrease": 0,
+        "pct_has_any_increase": 0,
+        "temporal_classification": "CONSTANT"
+      },
+      "temporal_classification": "CONSTANT",
+      "example_series": [
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "IN",
+          "n_years": 11,
+          "by_year": {
+            "2005": 50,
+            "2006": 50,
+            "2007": 50,
+            "2008": 50,
+            "2009": 50,
+            "2010": 50,
+            "2011": 50,
+            "2012": 50,
+            "2013": 50,
+            "2014": 50,
+            "2015": 50
+          }
+        },
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "KY",
+          "n_years": 11,
+          "by_year": {
+            "2005": 50,
+            "2006": 50,
+            "2007": 50,
+            "2008": 50,
+            "2009": 50,
+            "2010": 50,
+            "2011": 50,
+            "2012": 50,
+            "2013": 50,
+            "2014": 50,
+            "2015": 50
+          }
+        },
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "OH",
+          "n_years": 11,
+          "by_year": {
+            "2005": 50,
+            "2006": 50,
+            "2007": 50,
+            "2008": 50,
+            "2009": 50,
+            "2010": 50,
+            "2011": 50,
+            "2012": 50,
+            "2013": 50,
+            "2014": 50,
+            "2015": 50
+          }
+        }
+      ]
+    },
+    "PL_QUO_CT_eQTte": {
+      "basic_stats": {
+        "n_total": 213328,
+        "n_null": 0,
+        "n_zero": 2376,
+        "n_positive": 210952,
+        "pct_null": 0,
+        "pct_zero": 1.11,
+        "pct_positive": 98.89
+      },
+      "temporal_stats": {
+        "n_multi_year_series": 3856,
+        "pct_constant": 100,
+        "pct_monotone_nondecreasing": 100,
+        "pct_has_any_decrease": 0,
+        "pct_has_any_increase": 0,
+        "temporal_classification": "CONSTANT"
+      },
+      "temporal_classification": "CONSTANT",
+      "example_series": [
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "IN",
+          "n_years": 11,
+          "by_year": {
+            "2005": 288,
+            "2006": 288,
+            "2007": 288,
+            "2008": 288,
+            "2009": 288,
+            "2010": 288,
+            "2011": 288,
+            "2012": 288,
+            "2013": 288,
+            "2014": 288,
+            "2015": 288
+          }
+        },
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "KY",
+          "n_years": 11,
+          "by_year": {
+            "2005": 288,
+            "2006": 288,
+            "2007": 288,
+            "2008": 288,
+            "2009": 288,
+            "2010": 288,
+            "2011": 288,
+            "2012": 288,
+            "2013": 288,
+            "2014": 288,
+            "2015": 288
+          }
+        },
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "OH",
+          "n_years": 11,
+          "by_year": {
+            "2005": 288,
+            "2006": 288,
+            "2007": 288,
+            "2008": 288,
+            "2009": 288,
+            "2010": 288,
+            "2011": 288,
+            "2012": 288,
+            "2013": 288,
+            "2014": 288,
+            "2015": 288
+          }
+        }
+      ]
+    },
+    "PL_BOUND_CT_APPLIED": {
+      "basic_stats": {
+        "n_total": 213328,
+        "n_null": 0,
+        "n_zero": 144875,
+        "n_positive": 68453,
+        "pct_null": 0,
+        "pct_zero": 67.91,
+        "pct_positive": 32.09
+      },
+      "temporal_stats": {
+        "n_multi_year_series": 3856,
+        "pct_constant": 100,
+        "pct_monotone_nondecreasing": 100,
+        "pct_has_any_decrease": 0,
+        "pct_has_any_increase": 0,
+        "temporal_classification": "CONSTANT"
+      },
+      "temporal_classification": "CONSTANT",
+      "example_series": [
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "IN",
+          "n_years": 11,
+          "by_year": {
+            "2005": 0,
+            "2006": 0,
+            "2007": 0,
+            "2008": 0,
+            "2009": 0,
+            "2010": 0,
+            "2011": 0,
+            "2012": 0,
+            "2013": 0,
+            "2014": 0,
+            "2015": 0
+          }
+        },
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "KY",
+          "n_years": 11,
+          "by_year": {
+            "2005": 0,
+            "2006": 0,
+            "2007": 0,
+            "2008": 0,
+            "2009": 0,
+            "2010": 0,
+            "2011": 0,
+            "2012": 0,
+            "2013": 0,
+            "2014": 0,
+            "2015": 0
+          }
+        },
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "OH",
+          "n_years": 11,
+          "by_year": {
+            "2005": 0,
+            "2006": 0,
+            "2007": 0,
+            "2008": 0,
+            "2009": 0,
+            "2010": 0,
+            "2011": 0,
+            "2012": 0,
+            "2013": 0,
+            "2014": 0,
+            "2015": 0
+          }
+        }
+      ]
+    },
+    "PL_QUO_CT_APPLIED": {
+      "basic_stats": {
+        "n_total": 213328,
+        "n_null": 0,
+        "n_zero": 137616,
+        "n_positive": 75712,
+        "pct_null": 0,
+        "pct_zero": 64.51,
+        "pct_positive": 35.49
+      },
+      "temporal_stats": {
+        "n_multi_year_series": 3856,
+        "pct_constant": 100,
+        "pct_monotone_nondecreasing": 100,
+        "pct_has_any_decrease": 0,
+        "pct_has_any_increase": 0,
+        "temporal_classification": "CONSTANT"
+      },
+      "temporal_classification": "CONSTANT",
+      "example_series": [
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "IN",
+          "n_years": 11,
+          "by_year": {
+            "2005": 0,
+            "2006": 0,
+            "2007": 0,
+            "2008": 0,
+            "2009": 0,
+            "2010": 0,
+            "2011": 0,
+            "2012": 0,
+            "2013": 0,
+            "2014": 0,
+            "2015": 0
+          }
+        },
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "KY",
+          "n_years": 11,
+          "by_year": {
+            "2005": 0,
+            "2006": 0,
+            "2007": 0,
+            "2008": 0,
+            "2009": 0,
+            "2010": 0,
+            "2011": 0,
+            "2012": 0,
+            "2013": 0,
+            "2014": 0,
+            "2015": 0
+          }
+        },
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "OH",
+          "n_years": 11,
+          "by_year": {
+            "2005": 0,
+            "2006": 0,
+            "2007": 0,
+            "2008": 0,
+            "2009": 0,
+            "2010": 0,
+            "2011": 0,
+            "2012": 0,
+            "2013": 0,
+            "2014": 0,
+            "2015": 0
+          }
+        }
+      ]
+    },
+    "PL_BOUND_CT_TRANSACTNOW": {
+      "basic_stats": {
+        "n_total": 213328,
+        "n_null": 0,
+        "n_zero": 153886,
+        "n_positive": 59442,
+        "pct_null": 0,
+        "pct_zero": 72.14,
+        "pct_positive": 27.86
+      },
+      "temporal_stats": {
+        "n_multi_year_series": 3856,
+        "pct_constant": 100,
+        "pct_monotone_nondecreasing": 100,
+        "pct_has_any_decrease": 0,
+        "pct_has_any_increase": 0,
+        "temporal_classification": "CONSTANT"
+      },
+      "temporal_classification": "CONSTANT",
+      "example_series": [
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "IN",
+          "n_years": 11,
+          "by_year": {
+            "2005": 0,
+            "2006": 0,
+            "2007": 0,
+            "2008": 0,
+            "2009": 0,
+            "2010": 0,
+            "2011": 0,
+            "2012": 0,
+            "2013": 0,
+            "2014": 0,
+            "2015": 0
+          }
+        },
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "KY",
+          "n_years": 11,
+          "by_year": {
+            "2005": 0,
+            "2006": 0,
+            "2007": 0,
+            "2008": 0,
+            "2009": 0,
+            "2010": 0,
+            "2011": 0,
+            "2012": 0,
+            "2013": 0,
+            "2014": 0,
+            "2015": 0
+          }
+        },
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "OH",
+          "n_years": 11,
+          "by_year": {
+            "2005": 0,
+            "2006": 0,
+            "2007": 0,
+            "2008": 0,
+            "2009": 0,
+            "2010": 0,
+            "2011": 0,
+            "2012": 0,
+            "2013": 0,
+            "2014": 0,
+            "2015": 0
+          }
+        }
+      ]
+    },
+    "PL_QUO_CT_TRANSACTNOW": {
+      "basic_stats": {
+        "n_total": 213328,
+        "n_null": 0,
+        "n_zero": 151070,
+        "n_positive": 62258,
+        "pct_null": 0,
+        "pct_zero": 70.82,
+        "pct_positive": 29.18
+      },
+      "temporal_stats": {
+        "n_multi_year_series": 3856,
+        "pct_constant": 100,
+        "pct_monotone_nondecreasing": 100,
+        "pct_has_any_decrease": 0,
+        "pct_has_any_increase": 0,
+        "temporal_classification": "CONSTANT"
+      },
+      "temporal_classification": "CONSTANT",
+      "example_series": [
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "IN",
+          "n_years": 11,
+          "by_year": {
+            "2005": 0,
+            "2006": 0,
+            "2007": 0,
+            "2008": 0,
+            "2009": 0,
+            "2010": 0,
+            "2011": 0,
+            "2012": 0,
+            "2013": 0,
+            "2014": 0,
+            "2015": 0
+          }
+        },
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "KY",
+          "n_years": 11,
+          "by_year": {
+            "2005": 0,
+            "2006": 0,
+            "2007": 0,
+            "2008": 0,
+            "2009": 0,
+            "2010": 0,
+            "2011": 0,
+            "2012": 0,
+            "2013": 0,
+            "2014": 0,
+            "2015": 0
+          }
+        },
+        {
+          "AGENCY_ID": 3,
+          "PROD_LINE": "CL",
+          "STATE_ABBR": "OH",
+          "n_years": 11,
+          "by_year": {
+            "2005": 0,
+            "2006": 0,
+            "2007": 0,
+            "2008": 0,
+            "2009": 0,
+            "2010": 0,
+            "2011": 0,
+            "2012": 0,
+            "2013": 0,
+            "2014": 0,
+            "2015": 0
+          }
+        }
+      ]
+    }
+  },
+  "part_b_leakage": {
+    "CL_BOUND_CT_MDS": {
+      "temporal_basis": "CONSTANT",
+      "classification": "SAFE_FORWARD_LOOKING",
+      "reasoning": "Values do not change across years — this behaves as a static agency attribute. No year-Y activity is encoded, so it is known before year Y begins. However, constant predictors provide no year-over-year variation and will have negligible predictive value for changes in written premium."
+    },
+    "CL_QUO_CT_MDS": {
+      "temporal_basis": "CONSTANT",
+      "classification": "SAFE_FORWARD_LOOKING",
+      "reasoning": "Values do not change across years — this behaves as a static agency attribute. No year-Y activity is encoded, so it is known before year Y begins. However, constant predictors provide no year-over-year variation and will have negligible predictive value for changes in written premium."
+    },
+    "CL_BOUND_CT_SBZ": {
+      "temporal_basis": "CONSTANT",
+      "classification": "SAFE_FORWARD_LOOKING",
+      "reasoning": "Values do not change across years — this behaves as a static agency attribute. No year-Y activity is encoded, so it is known before year Y begins. However, constant predictors provide no year-over-year variation and will have negligible predictive value for changes in written premium."
+    },
+    "CL_QUO_CT_SBZ": {
+      "temporal_basis": "CONSTANT",
+      "classification": "SAFE_FORWARD_LOOKING",
+      "reasoning": "Values do not change across years — this behaves as a static agency attribute. No year-Y activity is encoded, so it is known before year Y begins. However, constant predictors provide no year-over-year variation and will have negligible predictive value for changes in written premium."
+    },
+    "CL_BOUND_CT_eQT": {
+      "temporal_basis": "CONSTANT",
+      "classification": "SAFE_FORWARD_LOOKING",
+      "reasoning": "Values do not change across years — this behaves as a static agency attribute. No year-Y activity is encoded, so it is known before year Y begins. However, constant predictors provide no year-over-year variation and will have negligible predictive value for changes in written premium."
+    },
+    "CL_QUO_CT_eQT": {
+      "temporal_basis": "CONSTANT",
+      "classification": "SAFE_FORWARD_LOOKING",
+      "reasoning": "Values do not change across years — this behaves as a static agency attribute. No year-Y activity is encoded, so it is known before year Y begins. However, constant predictors provide no year-over-year variation and will have negligible predictive value for changes in written premium."
+    },
+    "PL_BOUND_CT_ELINKS": {
+      "temporal_basis": "CONSTANT",
+      "classification": "SAFE_FORWARD_LOOKING",
+      "reasoning": "Values do not change across years — this behaves as a static agency attribute. No year-Y activity is encoded, so it is known before year Y begins. However, constant predictors provide no year-over-year variation and will have negligible predictive value for changes in written premium."
+    },
+    "PL_QUO_CT_ELINKS": {
+      "temporal_basis": "CONSTANT",
+      "classification": "SAFE_FORWARD_LOOKING",
+      "reasoning": "Values do not change across years — this behaves as a static agency attribute. No year-Y activity is encoded, so it is known before year Y begins. However, constant predictors provide no year-over-year variation and will have negligible predictive value for changes in written premium."
+    },
+    "PL_BOUND_CT_PLRANK": {
+      "temporal_basis": "CONSTANT",
+      "classification": "SAFE_FORWARD_LOOKING",
+      "reasoning": "Values do not change across years — this behaves as a static agency attribute. No year-Y activity is encoded, so it is known before year Y begins. However, constant predictors provide no year-over-year variation and will have negligible predictive value for changes in written premium."
+    },
+    "PL_QUO_CT_PLRANK": {
+      "temporal_basis": "CONSTANT",
+      "classification": "SAFE_FORWARD_LOOKING",
+      "reasoning": "Values do not change across years — this behaves as a static agency attribute. No year-Y activity is encoded, so it is known before year Y begins. However, constant predictors provide no year-over-year variation and will have negligible predictive value for changes in written premium."
+    },
+    "PL_BOUND_CT_eQTte": {
+      "temporal_basis": "CONSTANT",
+      "classification": "SAFE_FORWARD_LOOKING",
+      "reasoning": "Values do not change across years — this behaves as a static agency attribute. No year-Y activity is encoded, so it is known before year Y begins. However, constant predictors provide no year-over-year variation and will have negligible predictive value for changes in written premium."
+    },
+    "PL_QUO_CT_eQTte": {
+      "temporal_basis": "CONSTANT",
+      "classification": "SAFE_FORWARD_LOOKING",
+      "reasoning": "Values do not change across years — this behaves as a static agency attribute. No year-Y activity is encoded, so it is known before year Y begins. However, constant predictors provide no year-over-year variation and will have negligible predictive value for changes in written premium."
+    },
+    "PL_BOUND_CT_APPLIED": {
+      "temporal_basis": "CONSTANT",
+      "classification": "SAFE_FORWARD_LOOKING",
+      "reasoning": "Values do not change across years — this behaves as a static agency attribute. No year-Y activity is encoded, so it is known before year Y begins. However, constant predictors provide no year-over-year variation and will have negligible predictive value for changes in written premium."
+    },
+    "PL_QUO_CT_APPLIED": {
+      "temporal_basis": "CONSTANT",
+      "classification": "SAFE_FORWARD_LOOKING",
+      "reasoning": "Values do not change across years — this behaves as a static agency attribute. No year-Y activity is encoded, so it is known before year Y begins. However, constant predictors provide no year-over-year variation and will have negligible predictive value for changes in written premium."
+    },
+    "PL_BOUND_CT_TRANSACTNOW": {
+      "temporal_basis": "CONSTANT",
+      "classification": "SAFE_FORWARD_LOOKING",
+      "reasoning": "Values do not change across years — this behaves as a static agency attribute. No year-Y activity is encoded, so it is known before year Y begins. However, constant predictors provide no year-over-year variation and will have negligible predictive value for changes in written premium."
+    },
+    "PL_QUO_CT_TRANSACTNOW": {
+      "temporal_basis": "CONSTANT",
+      "classification": "SAFE_FORWARD_LOOKING",
+      "reasoning": "Values do not change across years — this behaves as a static agency attribute. No year-Y activity is encoded, so it is known before year Y begins. However, constant predictors provide no year-over-year variation and will have negligible predictive value for changes in written premium."
+    }
+  },
+  "part_c_lag_coverage": {
+    "CL_BOUND_CT_MDS": {
+      "prev_variable_name": "PREV_CL_BOUND_CT_MDS",
+      "coverage": {
+        "n_total": 135067,
+        "n_available": 125841,
+        "n_missing": 9226,
+        "pct_available": 93.17,
+        "pct_missing": 6.83,
+        "train": {
+          "n": 103923,
+          "n_available": 96647,
+          "pct": 93
+        },
+        "test": {
+          "n": 31144,
+          "n_available": 29194,
+          "pct": 93.74
+        }
+      },
+      "distribution": {
+        "n": 125841,
+        "min": 0,
+        "p01": 0,
+        "p25": 0,
+        "median": 2,
+        "mean": 41902.35,
+        "p75": 99999,
+        "p99": 99999,
+        "max": 99999,
+        "n_zero": 41136,
+        "pct_zero": 32.69
+      }
+    },
+    "CL_QUO_CT_MDS": {
+      "prev_variable_name": "PREV_CL_QUO_CT_MDS",
+      "coverage": {
+        "n_total": 135067,
+        "n_available": 125841,
+        "n_missing": 9226,
+        "pct_available": 93.17,
+        "pct_missing": 6.83,
+        "train": {
+          "n": 103923,
+          "n_available": 96647,
+          "pct": 93
+        },
+        "test": {
+          "n": 31144,
+          "n_available": 29194,
+          "pct": 93.74
+        }
+      },
+      "distribution": {
+        "n": 125841,
+        "min": 0,
+        "p01": 0,
+        "p25": 1,
+        "median": 9,
+        "mean": 41904.07,
+        "p75": 99999,
+        "p99": 99999,
+        "max": 99999,
+        "n_zero": 23078,
+        "pct_zero": 18.34
+      }
+    },
+    "CL_BOUND_CT_SBZ": {
+      "prev_variable_name": "PREV_CL_BOUND_CT_SBZ",
+      "coverage": {
+        "n_total": 135067,
+        "n_available": 125841,
+        "n_missing": 9226,
+        "pct_available": 93.17,
+        "pct_missing": 6.83,
+        "train": {
+          "n": 103923,
+          "n_available": 96647,
+          "pct": 93
+        },
+        "test": {
+          "n": 31144,
+          "n_available": 29194,
+          "pct": 93.74
+        }
+      },
+      "distribution": {
+        "n": 125841,
+        "min": 0,
+        "p01": 0,
+        "p25": 1,
+        "median": 5,
+        "mean": 41903.25,
+        "p75": 99999,
+        "p99": 99999,
+        "max": 99999,
+        "n_zero": 23125,
+        "pct_zero": 18.38
+      }
+    },
+    "CL_QUO_CT_SBZ": {
+      "prev_variable_name": "PREV_CL_QUO_CT_SBZ",
+      "coverage": {
+        "n_total": 135067,
+        "n_available": 125841,
+        "n_missing": 9226,
+        "pct_available": 93.17,
+        "pct_missing": 6.83,
+        "train": {
+          "n": 103923,
+          "n_available": 96647,
+          "pct": 93
+        },
+        "test": {
+          "n": 31144,
+          "n_available": 29194,
+          "pct": 93.74
+        }
+      },
+      "distribution": {
+        "n": 125841,
+        "min": 0,
+        "p01": 0,
+        "p25": 2,
+        "median": 8,
+        "mean": 41904.07,
+        "p75": 99999,
+        "p99": 99999,
+        "max": 99999,
+        "n_zero": 13219,
+        "pct_zero": 10.5
+      }
+    },
+    "CL_BOUND_CT_eQT": {
+      "prev_variable_name": "PREV_CL_BOUND_CT_eQT",
+      "coverage": {
+        "n_total": 135067,
+        "n_available": 125841,
+        "n_missing": 9226,
+        "pct_available": 93.17,
+        "pct_missing": 6.83,
+        "train": {
+          "n": 103923,
+          "n_available": 96647,
+          "pct": 93
+        },
+        "test": {
+          "n": 31144,
+          "n_available": 29194,
+          "pct": 93.74
+        }
+      },
+      "distribution": {
+        "n": 125841,
+        "min": 0,
+        "p01": 0,
+        "p25": 0,
+        "median": 4,
+        "mean": 41902.7,
+        "p75": 99999,
+        "p99": 99999,
+        "max": 99999,
+        "n_zero": 38059,
+        "pct_zero": 30.24
+      }
+    },
+    "CL_QUO_CT_eQT": {
+      "prev_variable_name": "PREV_CL_QUO_CT_eQT",
+      "coverage": {
+        "n_total": 135067,
+        "n_available": 125841,
+        "n_missing": 9226,
+        "pct_available": 93.17,
+        "pct_missing": 6.83,
+        "train": {
+          "n": 103923,
+          "n_available": 96647,
+          "pct": 93
+        },
+        "test": {
+          "n": 31144,
+          "n_available": 29194,
+          "pct": 93.74
+        }
+      },
+      "distribution": {
+        "n": 125841,
+        "min": 0,
+        "p01": 0,
+        "p25": 0,
+        "median": 5,
+        "mean": 41902.98,
+        "p75": 99999,
+        "p99": 99999,
+        "max": 99999,
+        "n_zero": 33823,
+        "pct_zero": 26.88
+      }
+    },
+    "PL_BOUND_CT_ELINKS": {
+      "prev_variable_name": "PREV_PL_BOUND_CT_ELINKS",
+      "coverage": {
+        "n_total": 135067,
+        "n_available": 125841,
+        "n_missing": 9226,
+        "pct_available": 93.17,
+        "pct_missing": 6.83,
+        "train": {
+          "n": 103923,
+          "n_available": 96647,
+          "pct": 93
+        },
+        "test": {
+          "n": 31144,
+          "n_available": 29194,
+          "pct": 93.74
+        }
+      },
+      "distribution": {
+        "n": 125841,
+        "min": 0,
+        "p01": 0,
+        "p25": 0,
+        "median": 0,
+        "mean": 20197.67,
+        "p75": 2,
+        "p99": 99999,
+        "max": 99999,
+        "n_zero": 93862,
+        "pct_zero": 74.59
+      }
+    },
+    "PL_QUO_CT_ELINKS": {
+      "prev_variable_name": "PREV_PL_QUO_CT_ELINKS",
+      "coverage": {
+        "n_total": 135067,
+        "n_available": 125841,
+        "n_missing": 9226,
+        "pct_available": 93.17,
+        "pct_missing": 6.83,
+        "train": {
+          "n": 103923,
+          "n_available": 96647,
+          "pct": 93
+        },
+        "test": {
+          "n": 31144,
+          "n_available": 29194,
+          "pct": 93.74
+        }
+      },
+      "distribution": {
+        "n": 125841,
+        "min": 0,
+        "p01": 0,
+        "p25": 0,
+        "median": 0,
+        "mean": 20242.59,
+        "p75": 150,
+        "p99": 99999,
+        "max": 99999,
+        "n_zero": 89370,
+        "pct_zero": 71.02
+      }
+    },
+    "PL_BOUND_CT_PLRANK": {
+      "prev_variable_name": "PREV_PL_BOUND_CT_PLRANK",
+      "coverage": {
+        "n_total": 135067,
+        "n_available": 125841,
+        "n_missing": 9226,
+        "pct_available": 93.17,
+        "pct_missing": 6.83,
+        "train": {
+          "n": 103923,
+          "n_available": 96647,
+          "pct": 93
+        },
+        "test": {
+          "n": 31144,
+          "n_available": 29194,
+          "pct": 93.74
+        }
+      },
+      "distribution": {
+        "n": 125841,
+        "min": 0,
+        "p01": 0,
+        "p25": 0,
+        "median": 0,
+        "mean": 20201.62,
+        "p75": 27,
+        "p99": 99999,
+        "max": 99999,
+        "n_zero": 81920,
+        "pct_zero": 65.1
+      }
+    },
+    "PL_QUO_CT_PLRANK": {
+      "prev_variable_name": "PREV_PL_QUO_CT_PLRANK",
+      "coverage": {
+        "n_total": 135067,
+        "n_available": 125841,
+        "n_missing": 9226,
+        "pct_available": 93.17,
+        "pct_missing": 6.83,
+        "train": {
+          "n": 103923,
+          "n_available": 96647,
+          "pct": 93
+        },
+        "test": {
+          "n": 31144,
+          "n_available": 29194,
+          "pct": 93.74
+        }
+      },
+      "distribution": {
+        "n": 125841,
+        "min": 0,
+        "p01": 0,
+        "p25": 0,
+        "median": 0,
+        "mean": 20317.03,
+        "p75": 1048,
+        "p99": 99999,
+        "max": 99999,
+        "n_zero": 75825,
+        "pct_zero": 60.25
+      }
+    },
+    "PL_BOUND_CT_eQTte": {
+      "prev_variable_name": "PREV_PL_BOUND_CT_eQTte",
+      "coverage": {
+        "n_total": 135067,
+        "n_available": 125841,
+        "n_missing": 9226,
+        "pct_available": 93.17,
+        "pct_missing": 6.83,
+        "train": {
+          "n": 103923,
+          "n_available": 96647,
+          "pct": 93
+        },
+        "test": {
+          "n": 31144,
+          "n_available": 29194,
+          "pct": 93.74
+        }
+      },
+      "distribution": {
+        "n": 125841,
+        "min": 0,
+        "p01": 0,
+        "p25": 10,
+        "median": 43,
+        "mean": 20237.58,
+        "p75": 190,
+        "p99": 99999,
+        "max": 99999,
+        "n_zero": 8260,
+        "pct_zero": 6.56
+      }
+    },
+    "PL_QUO_CT_eQTte": {
+      "prev_variable_name": "PREV_PL_QUO_CT_eQTte",
+      "coverage": {
+        "n_total": 135067,
+        "n_available": 125841,
+        "n_missing": 9226,
+        "pct_available": 93.17,
+        "pct_missing": 6.83,
+        "train": {
+          "n": 103923,
+          "n_available": 96647,
+          "pct": 93
+        },
+        "test": {
+          "n": 31144,
+          "n_available": 29194,
+          "pct": 93.74
+        }
+      },
+      "distribution": {
+        "n": 125841,
+        "min": 0,
+        "p01": 0,
+        "p25": 60,
+        "median": 221,
+        "mean": 20379.53,
+        "p75": 679,
+        "p99": 99999,
+        "max": 99999,
+        "n_zero": 1414,
+        "pct_zero": 1.12
+      }
+    },
+    "PL_BOUND_CT_APPLIED": {
+      "prev_variable_name": "PREV_PL_BOUND_CT_APPLIED",
+      "coverage": {
+        "n_total": 135067,
+        "n_available": 125841,
+        "n_missing": 9226,
+        "pct_available": 93.17,
+        "pct_missing": 6.83,
+        "train": {
+          "n": 103923,
+          "n_available": 96647,
+          "pct": 93
+        },
+        "test": {
+          "n": 31144,
+          "n_available": 29194,
+          "pct": 93.74
+        }
+      },
+      "distribution": {
+        "n": 125841,
+        "min": 0,
+        "p01": 0,
+        "p25": 0,
+        "median": 0,
+        "mean": 20197.58,
+        "p75": 1,
+        "p99": 99999,
+        "max": 99999,
+        "n_zero": 93404,
+        "pct_zero": 74.22
+      }
+    },
+    "PL_QUO_CT_APPLIED": {
+      "prev_variable_name": "PREV_PL_QUO_CT_APPLIED",
+      "coverage": {
+        "n_total": 135067,
+        "n_available": 125841,
+        "n_missing": 9226,
+        "pct_available": 93.17,
+        "pct_missing": 6.83,
+        "train": {
+          "n": 103923,
+          "n_available": 96647,
+          "pct": 93
+        },
+        "test": {
+          "n": 31144,
+          "n_available": 29194,
+          "pct": 93.74
+        }
+      },
+      "distribution": {
+        "n": 125841,
+        "min": 0,
+        "p01": 0,
+        "p25": 0,
+        "median": 0,
+        "mean": 20203.51,
+        "p75": 12,
+        "p99": 99999,
+        "max": 99999,
+        "n_zero": 89101,
+        "pct_zero": 70.8
+      }
+    },
+    "PL_BOUND_CT_TRANSACTNOW": {
+      "prev_variable_name": "PREV_PL_BOUND_CT_TRANSACTNOW",
+      "coverage": {
+        "n_total": 135067,
+        "n_available": 125841,
+        "n_missing": 9226,
+        "pct_available": 93.17,
+        "pct_missing": 6.83,
+        "train": {
+          "n": 103923,
+          "n_available": 96647,
+          "pct": 93
+        },
+        "test": {
+          "n": 31144,
+          "n_available": 29194,
+          "pct": 93.74
+        }
+      },
+      "distribution": {
+        "n": 125841,
+        "min": 0,
+        "p01": 0,
+        "p25": 0,
+        "median": 0,
+        "mean": 20196.74,
+        "p75": 0,
+        "p99": 99999,
+        "max": 99999,
+        "n_zero": 99220,
+        "pct_zero": 78.85
+      }
+    },
+    "PL_QUO_CT_TRANSACTNOW": {
+      "prev_variable_name": "PREV_PL_QUO_CT_TRANSACTNOW",
+      "coverage": {
+        "n_total": 135067,
+        "n_available": 125841,
+        "n_missing": 9226,
+        "pct_available": 93.17,
+        "pct_missing": 6.83,
+        "train": {
+          "n": 103923,
+          "n_available": 96647,
+          "pct": 93
+        },
+        "test": {
+          "n": 31144,
+          "n_available": 29194,
+          "pct": 93.74
+        }
+      },
+      "distribution": {
+        "n": 125841,
+        "min": 0,
+        "p01": 0,
+        "p25": 0,
+        "median": 0,
+        "mean": 20196.89,
+        "p75": 0,
+        "p99": 99999,
+        "max": 99999,
+        "n_zero": 97357,
+        "pct_zero": 77.37
+      }
+    }
+  },
+  "part_d_correlations": {
+    "CL_BOUND_CT_MDS": {
+      "contemporaneous": {
+        "n_pairs_with_log_wp": 135067,
+        "cor_with_log_wp": -0.1422,
+        "cor_with_log_prev_wp": -0.1156,
+        "cor_with_log_prev_poly": 0.0277
+      },
+      "lagged": {
+        "n_pairs_with_log_wp": 125841,
+        "cor_with_log_wp": -0.1502,
+        "cor_with_log_prev_wp": -0.1267,
+        "cor_with_log_prev_poly": 0.0436
+      }
+    },
+    "CL_QUO_CT_MDS": {
+      "contemporaneous": {
+        "n_pairs_with_log_wp": 135067,
+        "cor_with_log_wp": -0.1422,
+        "cor_with_log_prev_wp": -0.1156,
+        "cor_with_log_prev_poly": 0.0277
+      },
+      "lagged": {
+        "n_pairs_with_log_wp": 125841,
+        "cor_with_log_wp": -0.1502,
+        "cor_with_log_prev_wp": -0.1267,
+        "cor_with_log_prev_poly": 0.0436
+      }
+    },
+    "CL_BOUND_CT_SBZ": {
+      "contemporaneous": {
+        "n_pairs_with_log_wp": 135067,
+        "cor_with_log_wp": -0.1422,
+        "cor_with_log_prev_wp": -0.1156,
+        "cor_with_log_prev_poly": 0.0277
+      },
+      "lagged": {
+        "n_pairs_with_log_wp": 125841,
+        "cor_with_log_wp": -0.1502,
+        "cor_with_log_prev_wp": -0.1267,
+        "cor_with_log_prev_poly": 0.0436
+      }
+    },
+    "CL_QUO_CT_SBZ": {
+      "contemporaneous": {
+        "n_pairs_with_log_wp": 135067,
+        "cor_with_log_wp": -0.1422,
+        "cor_with_log_prev_wp": -0.1156,
+        "cor_with_log_prev_poly": 0.0277
+      },
+      "lagged": {
+        "n_pairs_with_log_wp": 125841,
+        "cor_with_log_wp": -0.1502,
+        "cor_with_log_prev_wp": -0.1267,
+        "cor_with_log_prev_poly": 0.0436
+      }
+    },
+    "CL_BOUND_CT_eQT": {
+      "contemporaneous": {
+        "n_pairs_with_log_wp": 135067,
+        "cor_with_log_wp": -0.1422,
+        "cor_with_log_prev_wp": -0.1156,
+        "cor_with_log_prev_poly": 0.0277
+      },
+      "lagged": {
+        "n_pairs_with_log_wp": 125841,
+        "cor_with_log_wp": -0.1502,
+        "cor_with_log_prev_wp": -0.1267,
+        "cor_with_log_prev_poly": 0.0436
+      }
+    },
+    "CL_QUO_CT_eQT": {
+      "contemporaneous": {
+        "n_pairs_with_log_wp": 135067,
+        "cor_with_log_wp": -0.1422,
+        "cor_with_log_prev_wp": -0.1156,
+        "cor_with_log_prev_poly": 0.0277
+      },
+      "lagged": {
+        "n_pairs_with_log_wp": 125841,
+        "cor_with_log_wp": -0.1502,
+        "cor_with_log_prev_wp": -0.1267,
+        "cor_with_log_prev_poly": 0.0436
+      }
+    },
+    "PL_BOUND_CT_ELINKS": {
+      "contemporaneous": {
+        "n_pairs_with_log_wp": 135067,
+        "cor_with_log_wp": -0.1046,
+        "cor_with_log_prev_wp": -0.0527,
+        "cor_with_log_prev_poly": 0.0157
+      },
+      "lagged": {
+        "n_pairs_with_log_wp": 125841,
+        "cor_with_log_wp": -0.1044,
+        "cor_with_log_prev_wp": -0.0921,
+        "cor_with_log_prev_poly": -0.0577
+      }
+    },
+    "PL_QUO_CT_ELINKS": {
+      "contemporaneous": {
+        "n_pairs_with_log_wp": 135067,
+        "cor_with_log_wp": -0.1045,
+        "cor_with_log_prev_wp": -0.0526,
+        "cor_with_log_prev_poly": 0.0157
+      },
+      "lagged": {
+        "n_pairs_with_log_wp": 125841,
+        "cor_with_log_wp": -0.1042,
+        "cor_with_log_prev_wp": -0.0919,
+        "cor_with_log_prev_poly": -0.0577
+      }
+    },
+    "PL_BOUND_CT_PLRANK": {
+      "contemporaneous": {
+        "n_pairs_with_log_wp": 135067,
+        "cor_with_log_wp": -0.1046,
+        "cor_with_log_prev_wp": -0.0527,
+        "cor_with_log_prev_poly": 0.0157
+      },
+      "lagged": {
+        "n_pairs_with_log_wp": 125841,
+        "cor_with_log_wp": -0.1044,
+        "cor_with_log_prev_wp": -0.0921,
+        "cor_with_log_prev_poly": -0.0578
+      }
+    },
+    "PL_QUO_CT_PLRANK": {
+      "contemporaneous": {
+        "n_pairs_with_log_wp": 135067,
+        "cor_with_log_wp": -0.1044,
+        "cor_with_log_prev_wp": -0.0525,
+        "cor_with_log_prev_poly": 0.0155
+      },
+      "lagged": {
+        "n_pairs_with_log_wp": 125841,
+        "cor_with_log_wp": -0.1042,
+        "cor_with_log_prev_wp": -0.0919,
+        "cor_with_log_prev_poly": -0.0581
+      }
+    },
+    "PL_BOUND_CT_eQTte": {
+      "contemporaneous": {
+        "n_pairs_with_log_wp": 135067,
+        "cor_with_log_wp": -0.1045,
+        "cor_with_log_prev_wp": -0.0526,
+        "cor_with_log_prev_poly": 0.0157
+      },
+      "lagged": {
+        "n_pairs_with_log_wp": 125841,
+        "cor_with_log_wp": -0.1043,
+        "cor_with_log_prev_wp": -0.092,
+        "cor_with_log_prev_poly": -0.0576
+      }
+    },
+    "PL_QUO_CT_eQTte": {
+      "contemporaneous": {
+        "n_pairs_with_log_wp": 135067,
+        "cor_with_log_wp": -0.1043,
+        "cor_with_log_prev_wp": -0.0524,
+        "cor_with_log_prev_poly": 0.0159
+      },
+      "lagged": {
+        "n_pairs_with_log_wp": 125841,
+        "cor_with_log_wp": -0.104,
+        "cor_with_log_prev_wp": -0.0918,
+        "cor_with_log_prev_poly": -0.0573
+      }
+    },
+    "PL_BOUND_CT_APPLIED": {
+      "contemporaneous": {
+        "n_pairs_with_log_wp": 135067,
+        "cor_with_log_wp": -0.1046,
+        "cor_with_log_prev_wp": -0.0527,
+        "cor_with_log_prev_poly": 0.0157
+      },
+      "lagged": {
+        "n_pairs_with_log_wp": 125841,
+        "cor_with_log_wp": -0.1044,
+        "cor_with_log_prev_wp": -0.0921,
+        "cor_with_log_prev_poly": -0.0577
+      }
+    },
+    "PL_QUO_CT_APPLIED": {
+      "contemporaneous": {
+        "n_pairs_with_log_wp": 135067,
+        "cor_with_log_wp": -0.1046,
+        "cor_with_log_prev_wp": -0.0527,
+        "cor_with_log_prev_poly": 0.0157
+      },
+      "lagged": {
+        "n_pairs_with_log_wp": 125841,
+        "cor_with_log_wp": -0.1044,
+        "cor_with_log_prev_wp": -0.0921,
+        "cor_with_log_prev_poly": -0.0577
+      }
+    },
+    "PL_BOUND_CT_TRANSACTNOW": {
+      "contemporaneous": {
+        "n_pairs_with_log_wp": 135067,
+        "cor_with_log_wp": -0.1046,
+        "cor_with_log_prev_wp": -0.0527,
+        "cor_with_log_prev_poly": 0.0157
+      },
+      "lagged": {
+        "n_pairs_with_log_wp": 125841,
+        "cor_with_log_wp": -0.1044,
+        "cor_with_log_prev_wp": -0.0921,
+        "cor_with_log_prev_poly": -0.0578
+      }
+    },
+    "PL_QUO_CT_TRANSACTNOW": {
+      "contemporaneous": {
+        "n_pairs_with_log_wp": 135067,
+        "cor_with_log_wp": -0.1046,
+        "cor_with_log_prev_wp": -0.0527,
+        "cor_with_log_prev_poly": 0.0157
+      },
+      "lagged": {
+        "n_pairs_with_log_wp": 125841,
+        "cor_with_log_wp": -0.1044,
+        "cor_with_log_prev_wp": -0.0921,
+        "cor_with_log_prev_poly": -0.0578
+      }
+    }
+  },
+  "part_e_recommendations": {
+    "CL_BOUND_CT_MDS": {
+      "recommendation": "EXCLUDE",
+      "justification": "No year-over-year variation. Does not carry predictive information."
+    },
+    "CL_QUO_CT_MDS": {
+      "recommendation": "EXCLUDE",
+      "justification": "No year-over-year variation. Does not carry predictive information."
+    },
+    "CL_BOUND_CT_SBZ": {
+      "recommendation": "EXCLUDE",
+      "justification": "No year-over-year variation. Does not carry predictive information."
+    },
+    "CL_QUO_CT_SBZ": {
+      "recommendation": "EXCLUDE",
+      "justification": "No year-over-year variation. Does not carry predictive information."
+    },
+    "CL_BOUND_CT_eQT": {
+      "recommendation": "EXCLUDE",
+      "justification": "No year-over-year variation. Does not carry predictive information."
+    },
+    "CL_QUO_CT_eQT": {
+      "recommendation": "EXCLUDE",
+      "justification": "No year-over-year variation. Does not carry predictive information."
+    },
+    "PL_BOUND_CT_ELINKS": {
+      "recommendation": "EXCLUDE",
+      "justification": "No year-over-year variation. Does not carry predictive information."
+    },
+    "PL_QUO_CT_ELINKS": {
+      "recommendation": "EXCLUDE",
+      "justification": "No year-over-year variation. Does not carry predictive information."
+    },
+    "PL_BOUND_CT_PLRANK": {
+      "recommendation": "EXCLUDE",
+      "justification": "No year-over-year variation. Does not carry predictive information."
+    },
+    "PL_QUO_CT_PLRANK": {
+      "recommendation": "EXCLUDE",
+      "justification": "No year-over-year variation. Does not carry predictive information."
+    },
+    "PL_BOUND_CT_eQTte": {
+      "recommendation": "EXCLUDE",
+      "justification": "No year-over-year variation. Does not carry predictive information."
+    },
+    "PL_QUO_CT_eQTte": {
+      "recommendation": "EXCLUDE",
+      "justification": "No year-over-year variation. Does not carry predictive information."
+    },
+    "PL_BOUND_CT_APPLIED": {
+      "recommendation": "EXCLUDE",
+      "justification": "No year-over-year variation. Does not carry predictive information."
+    },
+    "PL_QUO_CT_APPLIED": {
+      "recommendation": "EXCLUDE",
+      "justification": "No year-over-year variation. Does not carry predictive information."
+    },
+    "PL_BOUND_CT_TRANSACTNOW": {
+      "recommendation": "EXCLUDE",
+      "justification": "No year-over-year variation. Does not carry predictive information."
+    },
+    "PL_QUO_CT_TRANSACTNOW": {
+      "recommendation": "EXCLUDE",
+      "justification": "No year-over-year variation. Does not carry predictive information."
+    }
+  },
+  "part_e_summary": {
+    "n_create_lagged": 0,
+    "n_exclude": 16,
+    "n_investigate": 0,
+    "n_absent": 0,
+    "create_lagged_vars": [],
+    "exclude_vars": [
+      "CL_BOUND_CT_MDS",
+      "CL_QUO_CT_MDS",
+      "CL_BOUND_CT_SBZ",
+      "CL_QUO_CT_SBZ",
+      "CL_BOUND_CT_eQT",
+      "CL_QUO_CT_eQT",
+      "PL_BOUND_CT_ELINKS",
+      "PL_QUO_CT_ELINKS",
+      "PL_BOUND_CT_PLRANK",
+      "PL_QUO_CT_PLRANK",
+      "PL_BOUND_CT_eQTte",
+      "PL_QUO_CT_eQTte",
+      "PL_BOUND_CT_APPLIED",
+      "PL_QUO_CT_APPLIED",
+      "PL_BOUND_CT_TRANSACTNOW",
+      "PL_QUO_CT_TRANSACTNOW"
+    ],
+    "investigate_vars": [],
+    "overall_assessment": "No quote/bind variables meet the threshold for lagged version construction. Contemporaneous versions introduce leakage and must not be used directly in predictive models."
+  }
+}

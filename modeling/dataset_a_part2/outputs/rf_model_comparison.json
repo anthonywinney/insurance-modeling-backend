@@ -1,0 +1,75 @@
+{
+  "description": "OLS vs RF model comparison on the same target, predictor set, and train/test split. OLS metrics from locked OLS outputs. RF metrics from full 103,377 train / 30,981 test effective population.",
+  "row_count_note": "Candidate population: 103,923 train / 31,144 test (rows after WP modeling filters: PROD_ABBR != COMMPOL, WRTN_PREM_AMT > 0, years 2006-2014). Effective RF rows: 103,377 train / 30,981 test (rows with non-NA log_prev_wp and log_prev_poly). Rows dropped: 546 train, 163 test. Matches OLS effective evaluated row counts.",
+  "models": {
+    "ols_additive_final": {
+      "model": "OLS_ADDITIVE_FINAL",
+      "n_coefficients": 48,
+      "n_aliased": 0,
+      "train": {
+        "r2": 0.781,
+        "rmse": 1.0238,
+        "mae": 0.6468
+      },
+      "test": {
+        "r2": 0.7552,
+        "rmse": 1.0937,
+        "mae": 0.699
+      }
+    },
+    "rf_0_safe_default": {
+      "model": "RF_0_SAFE_DEFAULT",
+      "hyperparameters": {
+        "num_trees": 500,
+        "mtry": 3,
+        "min_node_size": 5,
+        "replace": true,
+        "sample_fraction": 1
+      },
+      "oob_rmse": 0.696,
+      "oob_r2": 0.8988,
+      "train": {
+        "r2": 0.9703,
+        "rmse": 0.3773,
+        "mae": 0.2075
+      },
+      "test": {
+        "r2": 0.8833,
+        "rmse": 0.7552,
+        "mae": 0.4434
+      },
+      "delta_vs_ols": {
+        "test_r2": 0.1281,
+        "test_rmse": -0.3385,
+        "test_mae": -0.2556
+      }
+    },
+    "rf_1_safe_tuned": {
+      "model": "RF_1_SAFE_TUNED",
+      "hyperparameters": {
+        "num_trees": 500,
+        "mtry": 3,
+        "min_node_size": 5,
+        "replace": false,
+        "sample_fraction": 0.6
+      },
+      "oob_rmse": 0.6955,
+      "oob_r2": 0.8989,
+      "train": {
+        "r2": 0.9609,
+        "rmse": 0.4326,
+        "mae": 0.2385
+      },
+      "test": {
+        "r2": 0.8839,
+        "rmse": 0.7532,
+        "mae": 0.4428
+      },
+      "delta_vs_ols": {
+        "test_r2": 0.1287,
+        "test_rmse": -0.3405,
+        "test_mae": -0.2562
+      }
+    }
+  }
+}

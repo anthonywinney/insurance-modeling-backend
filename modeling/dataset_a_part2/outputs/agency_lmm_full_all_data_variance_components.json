@@ -1,0 +1,23 @@
+{
+  "description": "Variance components from AGENCY_LMM_FULL_ALL_DATA (all 2006-2014 data). Agency ICC reflects residual agency clustering after adjusting for all fixed effects. Comparison to locked AGENCY_LMM_FULL (2006-2012 only) provided for reference.",
+  "model_name": "AGENCY_LMM_FULL_ALL_DATA",
+  "all_data_refit_variance_components": {
+    "agency_variance": 0.341073,
+    "agency_std_dev": 0.584014,
+    "agency_variance_pct": 26.32,
+    "residual_variance": 0.954844,
+    "residual_std_dev": 0.977161,
+    "residual_variance_pct": 73.68,
+    "total_variance": 1.295917,
+    "agency_icc": 0.2632,
+    "singular": false
+  },
+  "locked_agency_lmm_full_variance_components": {
+    "note": "From AGENCY_LMM_FULL fit on 2006-2012 training data only.",
+    "agency_variance": 0.303105,
+    "residual_variance": 0.948602,
+    "total_variance": 1.251707,
+    "agency_icc": 0.2422
+  },
+  "interpretation": "Agency ICC = 0.2632 in the all-data refit. This indicates that agency identity accounts for approximately 26.3% of total variance in log_wp after adjusting for all fixed effects. Comparison locked value (2006-2012 only): ICC=0.2422. Differences reflect training-period composition and should not be over-interpreted."
+}

@@ -1,0 +1,550 @@
+{
+  "description": "Full pairwise interaction evaluation. OLS_INTERACTION_FULL = (OLS_ADDITIVE_FINAL terms)^2. Purpose: determine whether interaction effects materially improve out-of-sample predictive performance over the additive baseline. Does not advance to pruning.",
+  "row_count_note": "Candidate population: 103,923 train / 31,144 test. These are all rows passing the written-premium modeling filters (PROD_ABBR != COMMPOL, WRTN_PREM_AMT > 0, STAT_PROFILE_DATE_YEAR 2006-2014). Effective evaluated rows: 103,377 train / 30,981 test. These are rows included in metric calculations after excluding observations where log_prev_wp or log_prev_poly is NA. log_prev_wp = log(PREV_WRTN_PREM_AMT + 1) and log_prev_poly = log(PREV_POLY_INFORCE_QTY + 1) are set to NA when the underlying PREV_ column is negative (rare accounting adjustments). lm() silently drops these rows during fitting; predict() returns NA for them. Rows dropped: 546 train, 163 test.",
+  "part_a_ols_interaction_full": {
+    "model": "OLS_INTERACTION_FULL",
+    "formula": "(log_prev_wp + log_prev_poly + ACTIVE_PRODUCERS + AGENCY_APPOINTMENT_YEAR + MAX_AGE + MIN_AGE + STATE_ABBR + PROD_ABBR + VENDOR + STAT_PROFILE_DATE_YEAR)^2",
+    "n_candidate_train": 103923,
+    "n_candidate_test": 31144,
+    "n_eval_train": 103377,
+    "n_eval_test": 30981,
+    "train": {
+      "r2": 0.8297,
+      "rmse": 0.9028,
+      "mae": 0.559
+    },
+    "test": {
+      "r2": -42.161,
+      "rmse": 14.5224,
+      "mae": 0.8683
+    }
+  },
+  "part_b_comparison_vs_additive": {
+    "ols_additive_final": {
+      "train": {
+        "r2": 0.781,
+        "rmse": 1.0238,
+        "mae": 0.6468
+      },
+      "test": {
+        "r2": 0.7552,
+        "rmse": 1.0937,
+        "mae": 0.699
+      }
+    },
+    "ols_interaction_full": {
+      "train": {
+        "r2": 0.8297,
+        "rmse": 0.9028,
+        "mae": 0.559
+      },
+      "test": {
+        "r2": -42.161,
+        "rmse": 14.5224,
+        "mae": 0.8683
+      }
+    },
+    "delta_train_r2": 0.0487,
+    "delta_test_r2": -42.9162,
+    "delta_train_rmse": -0.121,
+    "delta_test_rmse": 13.4287,
+    "delta_train_mae": -0.0878,
+    "delta_test_mae": 0.1693
+  },
+  "part_c_complexity": {
+    "ols_additive_final": {
+      "n_estimated": 48,
+      "n_significant": 43,
+      "aic": 298329.53,
+      "bic": 298797.29
+    },
+    "ols_interaction_full": {
+      "n_in_formula": 758,
+      "n_aliased": 82,
+      "n_estimated": 676,
+      "n_main_effects": 48,
+      "n_interaction_terms": 628,
+      "n_sig_main": 26,
+      "n_sig_interaction": 315,
+      "aic": 273575.31,
+      "bic": 280038.05
+    },
+    "delta_aic": -24754.22,
+    "delta_bic": -18759.24
+  },
+  "part_d_interaction_terms": {
+    "top_20_most_positive_significant": [
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "PROD_ABBRWORKCOMP:VENDORF",
+        "estimate": 2.067523,
+        "std_error": 1.026031,
+        "t_stat": 2.0151,
+        "p_value": 0.0439,
+        "significant_p05": true,
+        "interaction_type": "product x vendor"
+      },
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "STATE_ABBRKY:PROD_ABBRANNIV   12",
+        "estimate": 1.355102,
+        "std_error": 0.136987,
+        "t_stat": 9.8922,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "product x state"
+      },
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "PROD_ABBRANNIV   12:VENDORJ",
+        "estimate": 1.230192,
+        "std_error": 0.503519,
+        "t_stat": 2.4432,
+        "p_value": 0.01456,
+        "significant_p05": true,
+        "interaction_type": "product x vendor"
+      },
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "STATE_ABBRWV:PROD_ABBRANNIV   12",
+        "estimate": 1.176375,
+        "std_error": 0.200913,
+        "t_stat": 5.8551,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "product x state"
+      },
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "PROD_ABBRDTALK   12:VENDORC",
+        "estimate": 1.010521,
+        "std_error": 0.365215,
+        "t_stat": 2.7669,
+        "p_value": 0.00566,
+        "significant_p05": true,
+        "interaction_type": "product x vendor"
+      },
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "STATE_ABBRPA:PROD_ABBRANNIV   12",
+        "estimate": 0.966512,
+        "std_error": 0.147337,
+        "t_stat": 6.5599,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "product x state"
+      },
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "PROD_ABBRDTALK   12:VENDORE",
+        "estimate": 0.843471,
+        "std_error": 0.333932,
+        "t_stat": 2.5259,
+        "p_value": 0.011542,
+        "significant_p05": true,
+        "interaction_type": "product x vendor"
+      },
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "PROD_ABBRDTALK   12:VENDORUnknown",
+        "estimate": 0.839078,
+        "std_error": 0.322759,
+        "t_stat": 2.5997,
+        "p_value": 0.009332,
+        "significant_p05": true,
+        "interaction_type": "product x vendor"
+      },
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "PROD_ABBRANNIV   12:VENDORH",
+        "estimate": 0.765619,
+        "std_error": 0.344727,
+        "t_stat": 2.2209,
+        "p_value": 0.026357,
+        "significant_p05": true,
+        "interaction_type": "product x vendor"
+      },
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "STATE_ABBROH:PROD_ABBRANNIV   12",
+        "estimate": 0.736986,
+        "std_error": 0.117359,
+        "t_stat": 6.2797,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "product x state"
+      },
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "STATE_ABBRWV:PROD_ABBRMOTORHOM12",
+        "estimate": 0.736015,
+        "std_error": 0.353842,
+        "t_stat": 2.0801,
+        "p_value": 0.037522,
+        "significant_p05": true,
+        "interaction_type": "product x state"
+      },
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "STATE_ABBRKY:PROD_ABBRMOTORHOM12",
+        "estimate": 0.654051,
+        "std_error": 0.262215,
+        "t_stat": 2.4943,
+        "p_value": 0.012621,
+        "significant_p05": true,
+        "interaction_type": "product x state"
+      },
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "PROD_ABBRMOBILEHOME:VENDORH",
+        "estimate": 0.595743,
+        "std_error": 0.205507,
+        "t_stat": 2.8989,
+        "p_value": 0.003746,
+        "significant_p05": true,
+        "interaction_type": "product x vendor"
+      },
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "PROD_ABBRANNIV   12:VENDORD",
+        "estimate": 0.589981,
+        "std_error": 0.225307,
+        "t_stat": 2.6186,
+        "p_value": 0.008831,
+        "significant_p05": true,
+        "interaction_type": "product x vendor"
+      },
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "STATE_ABBRWV:PROD_ABBRMOBILEHOME",
+        "estimate": 0.517762,
+        "std_error": 0.110859,
+        "t_stat": 4.6705,
+        "p_value": 3e-06,
+        "significant_p05": true,
+        "interaction_type": "product x state"
+      },
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "STATE_ABBRKY:PROD_ABBRMOBILEHOME",
+        "estimate": 0.494676,
+        "std_error": 0.08104,
+        "t_stat": 6.1041,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "product x state"
+      },
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "STATE_ABBROH:PROD_ABBRPERSUMBREL",
+        "estimate": 0.494027,
+        "std_error": 0.051229,
+        "t_stat": 9.6434,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "product x state"
+      },
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "STATE_ABBRWV:PROD_ABBRGARAGE",
+        "estimate": 0.491456,
+        "std_error": 0.093635,
+        "t_stat": 5.2486,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "product x state"
+      },
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "PROD_ABBRANNIV   12:VENDORC",
+        "estimate": 0.490507,
+        "std_error": 0.146583,
+        "t_stat": 3.3463,
+        "p_value": 0.000819,
+        "significant_p05": true,
+        "interaction_type": "product x vendor"
+      },
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "STATE_ABBROH:PROD_ABBRDWELLFIRE",
+        "estimate": 0.476357,
+        "std_error": 0.050199,
+        "t_stat": 9.4894,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "product x state"
+      }
+    ],
+    "top_20_most_negative_significant": [
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "PROD_ABBRPERSINLMAR:VENDORF",
+        "estimate": -1.516249,
+        "std_error": 0.670951,
+        "t_stat": -2.2598,
+        "p_value": 0.023833,
+        "significant_p05": true,
+        "interaction_type": "product x vendor"
+      },
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "STATE_ABBROH:VENDORJ",
+        "estimate": -1.433538,
+        "std_error": 0.210191,
+        "t_stat": -6.8202,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "state x vendor"
+      },
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "STATE_ABBRMI:VENDORH",
+        "estimate": -1.200251,
+        "std_error": 0.324375,
+        "t_stat": -3.7002,
+        "p_value": 0.000216,
+        "significant_p05": true,
+        "interaction_type": "state x vendor"
+      },
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "STATE_ABBRMI:VENDORB",
+        "estimate": -1.19731,
+        "std_error": 0.427451,
+        "t_stat": -2.801,
+        "p_value": 0.005095,
+        "significant_p05": true,
+        "interaction_type": "state x vendor"
+      },
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "STATE_ABBRKY:VENDORJ",
+        "estimate": -1.17632,
+        "std_error": 0.301644,
+        "t_stat": -3.8997,
+        "p_value": 0.000096,
+        "significant_p05": true,
+        "interaction_type": "state x vendor"
+      },
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "STATE_ABBRPA:VENDORJ",
+        "estimate": -1.145108,
+        "std_error": 0.365088,
+        "t_stat": -3.1365,
+        "p_value": 0.00171,
+        "significant_p05": true,
+        "interaction_type": "state x vendor"
+      },
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "STATE_ABBRWV:PROD_ABBRCYCLES  12",
+        "estimate": -1.0487,
+        "std_error": 0.455759,
+        "t_stat": -2.301,
+        "p_value": 0.021394,
+        "significant_p05": true,
+        "interaction_type": "product x state"
+      },
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "STATE_ABBROH:PROD_ABBRCYCLES  12",
+        "estimate": -0.90874,
+        "std_error": 0.309456,
+        "t_stat": -2.9366,
+        "p_value": 0.003319,
+        "significant_p05": true,
+        "interaction_type": "product x state"
+      },
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "log_prev_wp:PROD_ABBRSNOWMOBILE",
+        "estimate": -0.864139,
+        "std_error": 0.037145,
+        "t_stat": -23.2638,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "STATE_ABBROH:VENDORG",
+        "estimate": -0.856877,
+        "std_error": 0.1456,
+        "t_stat": -5.8852,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "state x vendor"
+      },
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "log_prev_wp:PROD_ABBRGARAGE",
+        "estimate": -0.757566,
+        "std_error": 0.015585,
+        "t_stat": -48.6079,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "PROD_ABBRCYCLES  12:VENDORE",
+        "estimate": -0.750321,
+        "std_error": 0.310799,
+        "t_stat": -2.4142,
+        "p_value": 0.015773,
+        "significant_p05": true,
+        "interaction_type": "product x vendor"
+      },
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "log_prev_wp:PROD_ABBRWORKCOMP",
+        "estimate": -0.720238,
+        "std_error": 0.015366,
+        "t_stat": -46.8731,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "log_prev_wp:PROD_ABBRYACHT",
+        "estimate": -0.713884,
+        "std_error": 0.027706,
+        "t_stat": -25.7664,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "log_prev_wp:PROD_ABBRCOMMUMBREL",
+        "estimate": -0.705694,
+        "std_error": 0.015196,
+        "t_stat": -46.4387,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "log_prev_wp:PROD_ABBRPERSINLMAR",
+        "estimate": -0.684029,
+        "std_error": 0.033021,
+        "t_stat": -20.7147,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "log_prev_wp:PROD_ABBRBOP",
+        "estimate": -0.668299,
+        "std_error": 0.015502,
+        "t_stat": -43.1099,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "log_prev_wp:PROD_ABBRCRIME",
+        "estimate": -0.660573,
+        "std_error": 0.017079,
+        "t_stat": -38.6779,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "log_prev_wp:PROD_ABBRCOMMINLMAR",
+        "estimate": -0.622787,
+        "std_error": 0.014393,
+        "t_stat": -43.271,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_FULL",
+        "term": "PROD_ABBRCOMMAUTO:VENDORC",
+        "estimate": -0.616572,
+        "std_error": 0.070529,
+        "t_stat": -8.7422,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "product x vendor"
+      }
+    ],
+    "by_interaction_type": [
+      {
+        "interaction_type": "numeric x numeric",
+        "n_terms": 21,
+        "n_significant_p05": 15,
+        "largest_abs_coef": 0.0065,
+        "interpretation": "Synergy or attenuation between two continuous agency-level metrics"
+      },
+      {
+        "interaction_type": "numeric x product",
+        "n_terms": 163,
+        "n_significant_p05": 102,
+        "largest_abs_coef": 5.0001,
+        "interpretation": "Product-specific slope on a continuous predictor (e.g., volume carry-forward effect varies by product)"
+      },
+      {
+        "interaction_type": "numeric x state",
+        "n_terms": 35,
+        "n_significant_p05": 19,
+        "largest_abs_coef": 0.0793,
+        "interpretation": "State-specific slope on a continuous predictor (e.g., year trend varies by state)"
+      },
+      {
+        "interaction_type": "numeric x vendor",
+        "n_terms": 60,
+        "n_significant_p05": 34,
+        "largest_abs_coef": 0.2944,
+        "interpretation": "Vendor-specific slope on a continuous predictor"
+      },
+      {
+        "interaction_type": "product x state",
+        "n_terms": 103,
+        "n_significant_p05": 56,
+        "largest_abs_coef": 1.4567,
+        "interpretation": "Product x state combination: product performance varies geographically"
+      },
+      {
+        "interaction_type": "product x vendor",
+        "n_terms": 211,
+        "n_significant_p05": 65,
+        "largest_abs_coef": 2.0675,
+        "interpretation": "Product x vendor combination: vendor strength differs by product"
+      },
+      {
+        "interaction_type": "state x vendor",
+        "n_terms": 35,
+        "n_significant_p05": 24,
+        "largest_abs_coef": 1.4335,
+        "interpretation": "State x vendor combination: vendor relationships differ by state"
+      }
+    ]
+  },
+  "part_e_overfitting": {
+    "delta_train_r2": 0.0487,
+    "delta_test_r2": -42.9162,
+    "delta_train_rmse": -0.121,
+    "delta_test_rmse": 13.4287,
+    "overfit_flag": true,
+    "overfit_criterion": "Flagged if (delta_train_r2 - delta_test_r2) > 0.02",
+    "rank_deficient_warning": true,
+    "rank_deficient_note": "R issued a rank-deficient fit warning during test-set prediction: 'prediction from rank-deficient fit; attr(*, non-estim) has doubtful cases'. The model matrix has 82 aliased (exactly collinear) terms. For test rows involving interaction patterns not seen in training, the corresponding coefficients are undetermined and predictions are unreliable. This causes the catastrophic test R² = -42.16.",
+    "bic_improved_not_worsened": true,
+    "bic_delta": -18759.24,
+    "bic_note": "AIC and BIC both improved substantially (lower is better): AIC delta = -24754, BIC delta = -18759. This reflects the large improvement in training log-likelihood from 628 interaction terms. However, AIC/BIC are not reliable for rank-deficient models — they assume the model is well-identified, which is violated here. The training improvement captured by AIC/BIC is real but corresponds to overfitting, not genuine signal extraction.",
+    "interpretation": "Catastrophic test performance (R² = -42.16, RMSE = 14.52 vs additive RMSE = 1.09). Train R² improved by +0.0487 while test R² collapsed. Cause: rank-deficient model with 628 interaction terms memorizes training patterns; many product × vendor and product × state interactions are specific to training data. AIC/BIC show improvement but are not valid for rank-deficient fits."
+  },
+  "part_f_recommendation": {
+    "decision": "KEEP_ADDITIVE_BASELINE",
+    "justification": "OLS_INTERACTION_FULL achieves delta test R² = -42.9162 vs OLS_ADDITIVE_FINAL (0.7552 → -42.1610). Out-of-sample performance collapses: the model fails catastrophically on held-out data due to a rank-deficient fit (R warning: 'prediction from rank-deficient fit; doubtful cases'). AIC and BIC both improved numerically (AIC delta = -24754, BIC delta = -18759) but are not reliable for a rank-deficient model — the training log-likelihood improvement reflects overfitting of 628 interaction terms, not generalizable signal. Complexity expanded from 48 to 676 estimated coefficients with 82 aliased. Recommend retaining OLS_ADDITIVE_FINAL as the OLS specification. Note: log_prev_wp:PROD_ABBR interactions show strong signal in isolation (|t| > 40 for GARAGE, WORKCOMP) and may merit a targeted future test."
+  }
+}

@@ -1,0 +1,439 @@
+{
+  "description": "Variance components and ICCs for all 10 LMMs. Null model ICCs reflect unconditional clustering (before fixed effects). Full LMM variance shares reflect residual clustering after OLS_ADDITIVE_FINAL fixed effects. Singularity flag isSingular() = TRUE indicates variance component collapsed to zero or boundary.",
+  "null_model_variance_components": {
+    "AGENCY_NULL_FULL": {
+      "model_id": "AGENCY_NULL_FULL",
+      "singular": false,
+      "convergence_warnings": [],
+      "random_effects": [
+        {
+          "group": "AGENCY_ID",
+          "variance": 0.564804,
+          "std_dev": 0.751534,
+          "variance_share": 11.46
+        }
+      ],
+      "residual_variance": 4.362757,
+      "residual_std_dev": 2.088721,
+      "residual_variance_share": 88.54,
+      "total_variance": 4.927561,
+      "icc_agency": 0.1146,
+      "group_counts": [
+        {
+          "grouping_variable": "AGENCY_ID",
+          "n_groups_in_fit": 1254,
+          "rows_per_group": {
+            "min": 1,
+            "median": 78,
+            "mean": 82.4,
+            "max": 348
+          }
+        }
+      ]
+    },
+    "AGENCY_NULL_PARENT_CC": {
+      "model_id": "AGENCY_NULL_PARENT_CC",
+      "singular": false,
+      "convergence_warnings": [],
+      "random_effects": [
+        {
+          "group": "AGENCY_ID",
+          "variance": 0.484436,
+          "std_dev": 0.696015,
+          "variance_share": 9.84
+        }
+      ],
+      "residual_variance": 4.439663,
+      "residual_std_dev": 2.107051,
+      "residual_variance_share": 90.16,
+      "total_variance": 4.924099,
+      "icc_agency": 0.0984,
+      "group_counts": [
+        {
+          "grouping_variable": "AGENCY_ID",
+          "n_groups_in_fit": 911,
+          "rows_per_group": {
+            "min": 1,
+            "median": 99,
+            "mean": 97.3,
+            "max": 348
+          }
+        }
+      ]
+    },
+    "NESTED_NULL_PARENT_CC": {
+      "model_id": "NESTED_NULL_PARENT_CC",
+      "singular": false,
+      "convergence_warnings": [],
+      "random_effects": [
+        {
+          "group": "AGENCY_ID",
+          "variance": 0.448931,
+          "std_dev": 0.670023,
+          "variance_share": 9.12
+        },
+        {
+          "group": "PRIMARY_AGENCY_ID",
+          "variance": 0.034179,
+          "std_dev": 0.184875,
+          "variance_share": 0.69
+        }
+      ],
+      "residual_variance": 4.439655,
+      "residual_std_dev": 2.107049,
+      "residual_variance_share": 90.19,
+      "total_variance": 4.922765,
+      "icc_agency": 0.0912,
+      "icc_parent": 0.0069,
+      "icc_hierarchy": 0.0981,
+      "group_counts": [
+        {
+          "grouping_variable": "AGENCY_ID",
+          "n_groups_in_fit": 911,
+          "rows_per_group": {
+            "min": 1,
+            "median": 99,
+            "mean": 97.3,
+            "max": 348
+          }
+        },
+        {
+          "grouping_variable": "PRIMARY_AGENCY_ID",
+          "n_groups_in_fit": 540,
+          "rows_per_group": {
+            "min": 1,
+            "median": 129.5,
+            "mean": 164.2,
+            "max": 1167
+          }
+        }
+      ]
+    },
+    "AGENCY_NULL_TRUE_PARENT": {
+      "model_id": "AGENCY_NULL_TRUE_PARENT",
+      "singular": false,
+      "convergence_warnings": [],
+      "random_effects": [
+        {
+          "group": "AGENCY_ID",
+          "variance": 0.42962,
+          "std_dev": 0.655454,
+          "variance_share": 9.49
+        }
+      ],
+      "residual_variance": 4.095263,
+      "residual_std_dev": 2.023676,
+      "residual_variance_share": 90.51,
+      "total_variance": 4.524883,
+      "icc_agency": 0.0949,
+      "group_counts": [
+        {
+          "grouping_variable": "AGENCY_ID",
+          "n_groups_in_fit": 384,
+          "rows_per_group": {
+            "min": 1,
+            "median": 71,
+            "mean": 76.1,
+            "max": 275
+          }
+        }
+      ]
+    },
+    "NESTED_NULL_TRUE_PARENT": {
+      "model_id": "NESTED_NULL_TRUE_PARENT",
+      "singular": false,
+      "convergence_warnings": [],
+      "random_effects": [
+        {
+          "group": "AGENCY_ID",
+          "variance": 0.387675,
+          "std_dev": 0.622636,
+          "variance_share": 8.57
+        },
+        {
+          "group": "PRIMARY_AGENCY_ID",
+          "variance": 0.041416,
+          "std_dev": 0.20351,
+          "variance_share": 0.92
+        }
+      ],
+      "residual_variance": 4.095116,
+      "residual_std_dev": 2.023639,
+      "residual_variance_share": 90.52,
+      "total_variance": 4.524207,
+      "icc_agency": 0.0857,
+      "icc_parent": 0.0092,
+      "icc_hierarchy": 0.0948,
+      "group_counts": [
+        {
+          "grouping_variable": "AGENCY_ID",
+          "n_groups_in_fit": 384,
+          "rows_per_group": {
+            "min": 1,
+            "median": 71,
+            "mean": 76.1,
+            "max": 275
+          }
+        },
+        {
+          "grouping_variable": "PRIMARY_AGENCY_ID",
+          "n_groups_in_fit": 193,
+          "rows_per_group": {
+            "min": 1,
+            "median": 111,
+            "mean": 151.4,
+            "max": 886
+          }
+        }
+      ]
+    }
+  },
+  "full_model_variance_components": {
+    "AGENCY_LMM_FULL": {
+      "model_id": "AGENCY_LMM_FULL",
+      "singular": false,
+      "convergence_warnings": "Some predictor variables are on very different scales: consider rescaling. \nYou may also use (g)lmerControl(autoscale = TRUE) to improve numerical stability.",
+      "random_effects": [
+        {
+          "group": "AGENCY_ID",
+          "variance": 0.303105,
+          "std_dev": 0.55055,
+          "variance_share": 24.22
+        }
+      ],
+      "residual_variance": 0.948602,
+      "residual_std_dev": 0.973962,
+      "residual_variance_share": 75.78,
+      "total_variance": 1.251707,
+      "icc_agency": 0.2422,
+      "group_counts": [
+        {
+          "grouping_variable": "AGENCY_ID",
+          "n_groups_in_fit": 1254,
+          "rows_per_group": {
+            "min": 1,
+            "median": 78,
+            "mean": 82.4,
+            "max": 348
+          }
+        }
+      ]
+    },
+    "AGENCY_LMM_PARENT_CC": {
+      "model_id": "AGENCY_LMM_PARENT_CC",
+      "singular": false,
+      "convergence_warnings": "Some predictor variables are on very different scales: consider rescaling. \nYou may also use (g)lmerControl(autoscale = TRUE) to improve numerical stability.",
+      "random_effects": [
+        {
+          "group": "AGENCY_ID",
+          "variance": 0.194126,
+          "std_dev": 0.440597,
+          "variance_share": 17.56
+        }
+      ],
+      "residual_variance": 0.911456,
+      "residual_std_dev": 0.954702,
+      "residual_variance_share": 82.44,
+      "total_variance": 1.105582,
+      "icc_agency": 0.1756,
+      "group_counts": [
+        {
+          "grouping_variable": "AGENCY_ID",
+          "n_groups_in_fit": 911,
+          "rows_per_group": {
+            "min": 1,
+            "median": 99,
+            "mean": 97.3,
+            "max": 348
+          }
+        }
+      ]
+    },
+    "NESTED_LMM_PARENT_CC": {
+      "model_id": "NESTED_LMM_PARENT_CC",
+      "singular": false,
+      "convergence_warnings": "Some predictor variables are on very different scales: consider rescaling. \nYou may also use (g)lmerControl(autoscale = TRUE) to improve numerical stability.",
+      "random_effects": [
+        {
+          "group": "AGENCY_ID",
+          "variance": 0.144971,
+          "std_dev": 0.380751,
+          "variance_share": 13.12
+        },
+        {
+          "group": "PRIMARY_AGENCY_ID",
+          "variance": 0.048421,
+          "std_dev": 0.220047,
+          "variance_share": 4.38
+        }
+      ],
+      "residual_variance": 0.911448,
+      "residual_std_dev": 0.954698,
+      "residual_variance_share": 82.5,
+      "total_variance": 1.10484,
+      "icc_agency": 0.1312,
+      "icc_parent": 0.0438,
+      "icc_hierarchy": 0.175,
+      "group_counts": [
+        {
+          "grouping_variable": "AGENCY_ID",
+          "n_groups_in_fit": 911,
+          "rows_per_group": {
+            "min": 1,
+            "median": 99,
+            "mean": 97.3,
+            "max": 348
+          }
+        },
+        {
+          "grouping_variable": "PRIMARY_AGENCY_ID",
+          "n_groups_in_fit": 540,
+          "rows_per_group": {
+            "min": 1,
+            "median": 129.5,
+            "mean": 164.2,
+            "max": 1167
+          }
+        }
+      ]
+    },
+    "AGENCY_LMM_TRUE_PARENT": {
+      "model_id": "AGENCY_LMM_TRUE_PARENT",
+      "singular": false,
+      "convergence_warnings": [],
+      "random_effects": [
+        {
+          "group": "AGENCY_ID",
+          "variance": 0.189193,
+          "std_dev": 0.434963,
+          "variance_share": 17.47
+        }
+      ],
+      "residual_variance": 0.893565,
+      "residual_std_dev": 0.945286,
+      "residual_variance_share": 82.53,
+      "total_variance": 1.082759,
+      "icc_agency": 0.1747,
+      "group_counts": [
+        {
+          "grouping_variable": "AGENCY_ID",
+          "n_groups_in_fit": 384,
+          "rows_per_group": {
+            "min": 1,
+            "median": 71,
+            "mean": 76.1,
+            "max": 275
+          }
+        }
+      ]
+    },
+    "NESTED_LMM_TRUE_PARENT": {
+      "model_id": "NESTED_LMM_TRUE_PARENT",
+      "singular": false,
+      "convergence_warnings": [],
+      "random_effects": [
+        {
+          "group": "AGENCY_ID",
+          "variance": 0.152358,
+          "std_dev": 0.390331,
+          "variance_share": 14.05
+        },
+        {
+          "group": "PRIMARY_AGENCY_ID",
+          "variance": 0.038211,
+          "std_dev": 0.195476,
+          "variance_share": 3.52
+        }
+      ],
+      "residual_variance": 0.893522,
+      "residual_std_dev": 0.945263,
+      "residual_variance_share": 82.42,
+      "total_variance": 1.08409,
+      "icc_agency": 0.1405,
+      "icc_parent": 0.0352,
+      "icc_hierarchy": 0.1758,
+      "group_counts": [
+        {
+          "grouping_variable": "AGENCY_ID",
+          "n_groups_in_fit": 384,
+          "rows_per_group": {
+            "min": 1,
+            "median": 71,
+            "mean": 76.1,
+            "max": 275
+          }
+        },
+        {
+          "grouping_variable": "PRIMARY_AGENCY_ID",
+          "n_groups_in_fit": 193,
+          "rows_per_group": {
+            "min": 1,
+            "median": 111,
+            "mean": 151.4,
+            "max": 886
+          }
+        }
+      ]
+    }
+  },
+  "icc_summary": {
+    "null_unconditional": {
+      "AGENCY_NULL_FULL_icc_agency": 0.1146,
+      "NESTED_NULL_PARENT_CC_icc_parent": 0.0069,
+      "NESTED_NULL_PARENT_CC_icc_agency": 0.0912,
+      "NESTED_NULL_PARENT_CC_icc_hierarchy": 0.0981,
+      "NESTED_NULL_TRUE_PARENT_icc_parent": 0.0092,
+      "NESTED_NULL_TRUE_PARENT_icc_agency": 0.0857,
+      "NESTED_NULL_TRUE_PARENT_icc_hierarchy": 0.0948
+    },
+    "full_residual": {
+      "AGENCY_LMM_FULL_residual_icc_agency": 0.2422,
+      "NESTED_LMM_PARENT_CC_residual_icc_parent": 0.0438,
+      "NESTED_LMM_PARENT_CC_residual_icc_agency": 0.1312,
+      "NESTED_LMM_TRUE_PARENT_residual_icc_parent": 0.0352,
+      "NESTED_LMM_TRUE_PARENT_residual_icc_agency": 0.1405
+    }
+  },
+  "singularity_diagnostics": {
+    "AGENCY_NULL_FULL": {
+      "singular": false,
+      "warnings": []
+    },
+    "AGENCY_NULL_PARENT_CC": {
+      "singular": false,
+      "warnings": []
+    },
+    "NESTED_NULL_PARENT_CC": {
+      "singular": false,
+      "warnings": []
+    },
+    "AGENCY_NULL_TRUE_PARENT": {
+      "singular": false,
+      "warnings": []
+    },
+    "NESTED_NULL_TRUE_PARENT": {
+      "singular": false,
+      "warnings": []
+    },
+    "AGENCY_LMM_FULL": {
+      "singular": false,
+      "warnings": "Some predictor variables are on very different scales: consider rescaling. \nYou may also use (g)lmerControl(autoscale = TRUE) to improve numerical stability."
+    },
+    "AGENCY_LMM_PARENT_CC": {
+      "singular": false,
+      "warnings": "Some predictor variables are on very different scales: consider rescaling. \nYou may also use (g)lmerControl(autoscale = TRUE) to improve numerical stability."
+    },
+    "NESTED_LMM_PARENT_CC": {
+      "singular": false,
+      "warnings": "Some predictor variables are on very different scales: consider rescaling. \nYou may also use (g)lmerControl(autoscale = TRUE) to improve numerical stability."
+    },
+    "AGENCY_LMM_TRUE_PARENT": {
+      "singular": false,
+      "warnings": []
+    },
+    "NESTED_LMM_TRUE_PARENT": {
+      "singular": false,
+      "warnings": []
+    }
+  }
+}

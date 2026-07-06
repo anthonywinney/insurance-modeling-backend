@@ -1,0 +1,644 @@
+{
+  "description": "WP modeling dataset construction and pre-specification diagnostics. Population: non-COMMPOL, WRTN_PREM_AMT > 0, years 2006-2014. Train: 2006-2012. Test: 2013-2014. No models are fitted in this section.",
+  "population_waterfall": {
+    "n_raw": 213328,
+    "n_after_year_filter": 175928,
+    "n_removed_by_year_filter": 37400,
+    "n_after_commpol_exclusion": 165010,
+    "n_removed_commpol": 10918,
+    "n_after_wp_filter": 135067,
+    "n_removed_wp_le0": 29943,
+    "n_final_train": 103923,
+    "n_final_test": 31144,
+    "note": "Year filter: 2006-2014 (2005 and 2015 excluded as partial reporting years). COMMPOL (PROD_ABBR = 'COMMPOL') excluded as structural reporting artifact with zero premium by design. WP > 0 conditions on active premium-producing observations."
+  },
+  "candidate_predictors": {
+    "core": [
+      {
+        "name": "STAT_PROFILE_DATE_YEAR",
+        "type": "integer",
+        "role": "year_index",
+        "leakage": "none"
+      },
+      {
+        "name": "STATE_ABBR",
+        "type": "categorical",
+        "role": "geography",
+        "leakage": "none"
+      },
+      {
+        "name": "PROD_LINE",
+        "type": "categorical",
+        "role": "product_line",
+        "leakage": "none"
+      },
+      {
+        "name": "PROD_ABBR",
+        "type": "categorical",
+        "role": "product",
+        "leakage": "none"
+      },
+      {
+        "name": "VENDOR",
+        "type": "categorical",
+        "role": "technology_vendor",
+        "leakage": "none"
+      },
+      {
+        "name": "ACTIVE_PRODUCERS",
+        "type": "numeric",
+        "role": "agency_size_proxy",
+        "leakage": "none"
+      },
+      {
+        "name": "AGENCY_APPOINTMENT_YEAR",
+        "type": "integer",
+        "role": "agency_tenure_proxy",
+        "leakage": "none"
+      },
+      {
+        "name": "MAX_AGE",
+        "type": "numeric",
+        "role": "producer_age_profile",
+        "leakage": "none"
+      },
+      {
+        "name": "MIN_AGE",
+        "type": "numeric",
+        "role": "producer_age_profile",
+        "leakage": "none"
+      },
+      {
+        "name": "PREV_WRTN_PREM_AMT",
+        "type": "numeric",
+        "role": "lagged_volume",
+        "leakage": "none",
+        "modeling_transform": "log(PREV_WRTN_PREM_AMT + 1)"
+      },
+      {
+        "name": "PREV_POLY_INFORCE_QTY",
+        "type": "numeric",
+        "role": "lagged_volume",
+        "leakage": "none",
+        "modeling_transform": "log(PREV_POLY_INFORCE_QTY + 1)"
+      }
+    ],
+    "lag_features_investigated": [
+      {
+        "name": "PREV_RETENTION_RATIO",
+        "type": "numeric",
+        "role": "lagged_behavior",
+        "source": "self_join_prior_year_RETENTION_RATIO_sentinel_cleaned",
+        "leakage": "none"
+      },
+      {
+        "name": "PREV_LOSS_RATIO",
+        "type": "numeric",
+        "role": "lagged_risk",
+        "source": "self_join_prior_year_LOSS_RATIO_sentinel_cleaned",
+        "leakage": "none"
+      },
+      {
+        "name": "AVG_PREMIUM_PER_POLICY_LY",
+        "type": "numeric",
+        "role": "pricing_intensity",
+        "source": "derived_PREV_WRTN_PREM_AMT_div_PREV_POLY_INFORCE_QTY",
+        "leakage": "none",
+        "collinearity_warning": "Perfectly collinear with PREV_WRTN_PREM_AMT + PREV_POLY_INFORCE_QTY if both are in the model"
+      }
+    ]
+  },
+  "coverage_summaries": {
+    "by_year": [
+      {
+        "year": 2006,
+        "split": "train",
+        "n": 14059
+      },
+      {
+        "year": 2007,
+        "split": "train",
+        "n": 14329
+      },
+      {
+        "year": 2008,
+        "split": "train",
+        "n": 14908
+      },
+      {
+        "year": 2009,
+        "split": "train",
+        "n": 15273
+      },
+      {
+        "year": 2010,
+        "split": "train",
+        "n": 15092
+      },
+      {
+        "year": 2011,
+        "split": "train",
+        "n": 14623
+      },
+      {
+        "year": 2012,
+        "split": "train",
+        "n": 15639
+      },
+      {
+        "year": 2013,
+        "split": "test",
+        "n": 15576
+      },
+      {
+        "year": 2014,
+        "split": "test",
+        "n": 15568
+      }
+    ],
+    "by_prod_line": [
+      {
+        "PROD_LINE": "CL",
+        "n_total": 74782,
+        "n_train": 57763,
+        "n_test": 17019
+      },
+      {
+        "PROD_LINE": "PL",
+        "n_total": 60285,
+        "n_train": 46160,
+        "n_test": 14125
+      }
+    ],
+    "by_prod_abbr": [
+      {
+        "PROD_ABBR": "HOMEOWNERS",
+        "n_total": 10338,
+        "n_train": 8148,
+        "n_test": 2190
+      },
+      {
+        "PROD_ABBR": "GENERALIAB",
+        "n_total": 10280,
+        "n_train": 7886,
+        "n_test": 2394
+      },
+      {
+        "PROD_ABBR": "BOILERMACH",
+        "n_total": 9759,
+        "n_train": 7524,
+        "n_test": 2235
+      },
+      {
+        "PROD_ABBR": "FIREALLIED",
+        "n_total": 9755,
+        "n_train": 7513,
+        "n_test": 2242
+      },
+      {
+        "PROD_ABBR": "ANNIV",
+        "n_total": 9591,
+        "n_train": 7738,
+        "n_test": 1853
+      },
+      {
+        "PROD_ABBR": "COMMAUTO",
+        "n_total": 9041,
+        "n_train": 6966,
+        "n_test": 2075
+      },
+      {
+        "PROD_ABBR": "COMMINLMAR",
+        "n_total": 8137,
+        "n_train": 6303,
+        "n_test": 1834
+      },
+      {
+        "PROD_ABBR": "DWELLFIRE",
+        "n_total": 6822,
+        "n_train": 5432,
+        "n_test": 1390
+      },
+      {
+        "PROD_ABBR": "BOP",
+        "n_total": 6638,
+        "n_train": 5235,
+        "n_test": 1403
+      },
+      {
+        "PROD_ABBR": "COMMUMBREL",
+        "n_total": 6603,
+        "n_train": 5066,
+        "n_test": 1537
+      },
+      {
+        "PROD_ABBR": "PERSUMBREL",
+        "n_total": 6392,
+        "n_train": 5000,
+        "n_test": 1392
+      },
+      {
+        "PROD_ABBR": "MOTORHOME",
+        "n_total": 5892,
+        "n_train": 4791,
+        "n_test": 1101
+      },
+      {
+        "PROD_ABBR": "GARAGE",
+        "n_total": 5666,
+        "n_train": 4383,
+        "n_test": 1283
+      },
+      {
+        "PROD_ABBR": "CRIME",
+        "n_total": 4650,
+        "n_train": 3623,
+        "n_test": 1027
+      },
+      {
+        "PROD_ABBR": "WORKCOMP",
+        "n_total": 4253,
+        "n_train": 3264,
+        "n_test": 989
+      },
+      {
+        "PROD_ABBR": "CYCLES",
+        "n_total": 4065,
+        "n_train": 3324,
+        "n_test": 741
+      },
+      {
+        "PROD_ABBR": "DTALK",
+        "n_total": 4005,
+        "n_train": 3339,
+        "n_test": 666
+      },
+      {
+        "PROD_ABBR": "MOBILEHOME",
+        "n_total": 3932,
+        "n_train": 3105,
+        "n_test": 827
+      },
+      {
+        "PROD_ABBR": "YACHT",
+        "n_total": 2772,
+        "n_train": 2271,
+        "n_test": 501
+      },
+      {
+        "PROD_ABBR": "ANNIV   12",
+        "n_total": 2300,
+        "n_train": 687,
+        "n_test": 1613
+      },
+      {
+        "PROD_ABBR": "PERSINLMAR",
+        "n_total": 1377,
+        "n_train": 1138,
+        "n_test": 239
+      },
+      {
+        "PROD_ABBR": "MOTORHOM12",
+        "n_total": 1047,
+        "n_train": 279,
+        "n_test": 768
+      },
+      {
+        "PROD_ABBR": "SNOWMOBILE",
+        "n_total": 747,
+        "n_train": 633,
+        "n_test": 114
+      },
+      {
+        "PROD_ABBR": "CYCLES  12",
+        "n_total": 538,
+        "n_train": 167,
+        "n_test": 371
+      },
+      {
+        "PROD_ABBR": "DTALK   12",
+        "n_total": 424,
+        "n_train": 95,
+        "n_test": 329
+      },
+      {
+        "PROD_ABBR": "SNOWMOBI12",
+        "n_total": 33,
+        "n_train": 5,
+        "n_test": 28
+      },
+      {
+        "PROD_ABBR": "PERSAIP",
+        "n_total": 10,
+        "n_train": 8,
+        "n_test": 2
+      }
+    ],
+    "by_state": [
+      {
+        "STATE_ABBR": "OH",
+        "n_total": 67098,
+        "n_train": 51594,
+        "n_test": 15504
+      },
+      {
+        "STATE_ABBR": "IN",
+        "n_total": 20889,
+        "n_train": 16498,
+        "n_test": 4391
+      },
+      {
+        "STATE_ABBR": "PA",
+        "n_total": 19714,
+        "n_train": 15307,
+        "n_test": 4407
+      },
+      {
+        "STATE_ABBR": "KY",
+        "n_total": 18039,
+        "n_train": 13811,
+        "n_test": 4228
+      },
+      {
+        "STATE_ABBR": "WV",
+        "n_total": 7300,
+        "n_train": 5542,
+        "n_test": 1758
+      },
+      {
+        "STATE_ABBR": "MI",
+        "n_total": 2027,
+        "n_train": 1171,
+        "n_test": 856
+      }
+    ]
+  },
+  "agency_diagnostics": {
+    "n_unique_train": 1254,
+    "n_unique_test": 1055,
+    "n_in_both": 975,
+    "n_train_only": 279,
+    "n_test_only": 80,
+    "pct_test_in_train": 92.42,
+    "note": "Agencies are not used as predictors. Reported for structural awareness only. Agency overlap between train and test sets informs how well the model is expected to generalize to agencies it has not seen, vs. agencies seen in training with different year profiles."
+  },
+  "missingness_review": {
+    "predictor_missingness": [
+      {
+        "predictor": "STAT_PROFILE_DATE_YEAR",
+        "n_missing": 0,
+        "pct_missing": 0,
+        "train_pct_missing": 0,
+        "test_pct_missing": 0
+      },
+      {
+        "predictor": "STATE_ABBR",
+        "n_missing": 0,
+        "pct_missing": 0,
+        "train_pct_missing": 0,
+        "test_pct_missing": 0
+      },
+      {
+        "predictor": "PROD_LINE",
+        "n_missing": 0,
+        "pct_missing": 0,
+        "train_pct_missing": 0,
+        "test_pct_missing": 0
+      },
+      {
+        "predictor": "PROD_ABBR",
+        "n_missing": 0,
+        "pct_missing": 0,
+        "train_pct_missing": 0,
+        "test_pct_missing": 0
+      },
+      {
+        "predictor": "VENDOR",
+        "n_missing": 0,
+        "pct_missing": 0,
+        "train_pct_missing": 0,
+        "test_pct_missing": 0
+      },
+      {
+        "predictor": "ACTIVE_PRODUCERS",
+        "n_missing": 0,
+        "pct_missing": 0,
+        "train_pct_missing": 0,
+        "test_pct_missing": 0
+      },
+      {
+        "predictor": "AGENCY_APPOINTMENT_YEAR",
+        "n_missing": 0,
+        "pct_missing": 0,
+        "train_pct_missing": 0,
+        "test_pct_missing": 0
+      },
+      {
+        "predictor": "MAX_AGE",
+        "n_missing": 0,
+        "pct_missing": 0,
+        "train_pct_missing": 0,
+        "test_pct_missing": 0
+      },
+      {
+        "predictor": "MIN_AGE",
+        "n_missing": 0,
+        "pct_missing": 0,
+        "train_pct_missing": 0,
+        "test_pct_missing": 0
+      },
+      {
+        "predictor": "PREV_WRTN_PREM_AMT",
+        "n_missing": 0,
+        "pct_missing": 0,
+        "train_pct_missing": 0,
+        "test_pct_missing": 0
+      },
+      {
+        "predictor": "PREV_POLY_INFORCE_QTY",
+        "n_missing": 0,
+        "pct_missing": 0,
+        "train_pct_missing": 0,
+        "test_pct_missing": 0
+      },
+      {
+        "predictor": "PREV_RETENTION_RATIO",
+        "n_missing": 85024,
+        "pct_missing": 62.95,
+        "train_pct_missing": 62.25,
+        "test_pct_missing": 65.28
+      },
+      {
+        "predictor": "PREV_LOSS_RATIO",
+        "n_missing": 11832,
+        "pct_missing": 8.76,
+        "train_pct_missing": 9.1,
+        "test_pct_missing": 7.61
+      },
+      {
+        "predictor": "AVG_PREMIUM_PER_POLICY_LY",
+        "n_missing": 69624,
+        "pct_missing": 51.55,
+        "train_pct_missing": 51.77,
+        "test_pct_missing": 50.82
+      }
+    ],
+    "predictors_gt5pct_missing": [
+      {
+        "predictor": "PREV_RETENTION_RATIO",
+        "pct_missing": 62.95
+      },
+      {
+        "predictor": "PREV_LOSS_RATIO",
+        "pct_missing": 8.76
+      },
+      {
+        "predictor": "AVG_PREMIUM_PER_POLICY_LY",
+        "pct_missing": 51.55
+      }
+    ],
+    "predictors_gt20pct_missing": [
+      {
+        "predictor": "PREV_RETENTION_RATIO",
+        "pct_missing": 62.95
+      },
+      {
+        "predictor": "AVG_PREMIUM_PER_POLICY_LY",
+        "pct_missing": 51.55
+      }
+    ],
+    "predictors_gt50pct_missing": [
+      {
+        "predictor": "PREV_RETENTION_RATIO",
+        "pct_missing": 62.95
+      },
+      {
+        "predictor": "AVG_PREMIUM_PER_POLICY_LY",
+        "pct_missing": 51.55
+      }
+    ]
+  },
+  "complete_case_impact": {
+    "core_only": {
+      "predictors_included": ["STAT_PROFILE_DATE_YEAR", "STATE_ABBR", "PROD_LINE", "PROD_ABBR", "VENDOR", "ACTIVE_PRODUCERS", "AGENCY_APPOINTMENT_YEAR", "MAX_AGE", "MIN_AGE", "PREV_WRTN_PREM_AMT", "PREV_POLY_INFORCE_QTY"],
+      "n_complete": 135067,
+      "n_dropped": 0,
+      "pct_complete": 100,
+      "pct_dropped": 0,
+      "train": {
+        "n_complete": 103923,
+        "n_dropped": 0,
+        "pct_complete": 100
+      },
+      "test": {
+        "n_complete": 31144,
+        "n_dropped": 0,
+        "pct_complete": 100
+      }
+    },
+    "core_plus_prev_retention_ratio": {
+      "predictors_included": ["STAT_PROFILE_DATE_YEAR", "STATE_ABBR", "PROD_LINE", "PROD_ABBR", "VENDOR", "ACTIVE_PRODUCERS", "AGENCY_APPOINTMENT_YEAR", "MAX_AGE", "MIN_AGE", "PREV_WRTN_PREM_AMT", "PREV_POLY_INFORCE_QTY", "PREV_RETENTION_RATIO"],
+      "n_complete": 50043,
+      "n_dropped": 85024,
+      "pct_complete": 37.05,
+      "pct_dropped": 62.95,
+      "train": {
+        "n_complete": 39231,
+        "n_dropped": 64692,
+        "pct_complete": 37.75
+      },
+      "test": {
+        "n_complete": 10812,
+        "n_dropped": 20332,
+        "pct_complete": 34.72
+      }
+    },
+    "core_plus_prev_loss_ratio": {
+      "predictors_included": ["STAT_PROFILE_DATE_YEAR", "STATE_ABBR", "PROD_LINE", "PROD_ABBR", "VENDOR", "ACTIVE_PRODUCERS", "AGENCY_APPOINTMENT_YEAR", "MAX_AGE", "MIN_AGE", "PREV_WRTN_PREM_AMT", "PREV_POLY_INFORCE_QTY", "PREV_LOSS_RATIO"],
+      "n_complete": 123235,
+      "n_dropped": 11832,
+      "pct_complete": 91.24,
+      "pct_dropped": 8.76,
+      "train": {
+        "n_complete": 94462,
+        "n_dropped": 9461,
+        "pct_complete": 90.9
+      },
+      "test": {
+        "n_complete": 28773,
+        "n_dropped": 2371,
+        "pct_complete": 92.39
+      }
+    },
+    "core_plus_avg_prem_per_policy_ly": {
+      "predictors_included": ["STAT_PROFILE_DATE_YEAR", "STATE_ABBR", "PROD_LINE", "PROD_ABBR", "VENDOR", "ACTIVE_PRODUCERS", "AGENCY_APPOINTMENT_YEAR", "MAX_AGE", "MIN_AGE", "PREV_WRTN_PREM_AMT", "PREV_POLY_INFORCE_QTY", "AVG_PREMIUM_PER_POLICY_LY"],
+      "n_complete": 65443,
+      "n_dropped": 69624,
+      "pct_complete": 48.45,
+      "pct_dropped": 51.55,
+      "train": {
+        "n_complete": 50125,
+        "n_dropped": 53798,
+        "pct_complete": 48.23
+      },
+      "test": {
+        "n_complete": 15318,
+        "n_dropped": 15826,
+        "pct_complete": 49.18
+      }
+    },
+    "all_candidates": {
+      "predictors_included": ["STAT_PROFILE_DATE_YEAR", "STATE_ABBR", "PROD_LINE", "PROD_ABBR", "VENDOR", "ACTIVE_PRODUCERS", "AGENCY_APPOINTMENT_YEAR", "MAX_AGE", "MIN_AGE", "PREV_WRTN_PREM_AMT", "PREV_POLY_INFORCE_QTY", "PREV_RETENTION_RATIO", "PREV_LOSS_RATIO", "AVG_PREMIUM_PER_POLICY_LY"],
+      "n_complete": 49478,
+      "n_dropped": 85589,
+      "pct_complete": 36.63,
+      "pct_dropped": 63.37,
+      "train": {
+        "n_complete": 38743,
+        "n_dropped": 65180,
+        "pct_complete": 37.28
+      },
+      "test": {
+        "n_complete": 10735,
+        "n_dropped": 20409,
+        "pct_complete": 34.47
+      }
+    }
+  },
+  "wp_log_transform_analysis": {
+    "wrtn_prem_raw": {
+      "label": "WRTN_PREM_AMT",
+      "n_valid": 135067,
+      "min": 0,
+      "p1": 24.8132,
+      "p5": 100,
+      "p25": 708,
+      "p50": 3084.56,
+      "mean": 27657.2931,
+      "p75": 15694.61,
+      "p95": 143961.22,
+      "p99": 398544.8588,
+      "max": 1715741.77,
+      "sd": 79191.4293
+    },
+    "log_wp": {
+      "label": "log(WRTN_PREM_AMT + 1)",
+      "n_valid": 135067,
+      "min": 0,
+      "p1": 3.2509,
+      "p5": 4.6151,
+      "p25": 6.5639,
+      "p50": 8.0345,
+      "mean": 8.1283,
+      "p75": 9.6611,
+      "p95": 11.8773,
+      "p99": 12.8956,
+      "max": 14.3554,
+      "sd": 2.1945
+    },
+    "skewness_raw": 6.5269,
+    "skewness_log": 0.0455,
+    "p99_to_p50_ratio_raw": 129.2,
+    "commentary": "WRTN_PREM_AMT is highly right-skewed (skewness = 6.5269). The p99/p50 ratio of 129.2 illustrates the extreme right tail: the 99th-percentile row writes roughly 129x more premium than the median row. A small fraction of agency-product-state-year cells dominate the variance in raw dollars. log(WRTN_PREM_AMT + 1) reduces skewness to 0.0455, compressing the right tail and producing a distribution that is far more consistent with OLS assumptions (near-symmetric, stabilized variance). Modeling raw WRTN_PREM_AMT directly would violate OLS homoskedasticity: residual variance would grow with fitted values across the premium range. The log transform is strongly justified as the primary specification. Raw-dollar modeling is not recommended but could be explored as a sensitivity check after the log-scale model is established, or as a comparison using a robust or quantile regression."
+  }
+}

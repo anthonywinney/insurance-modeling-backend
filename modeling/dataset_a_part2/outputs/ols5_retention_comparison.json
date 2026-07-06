@@ -1,0 +1,74 @@
+{
+  "description": "Population-controlled test of PREV_RETENTION_RATIO (OLS_5). Method: fit OLS_3_RET_CC (f3 baseline) and OLS_5 (f3 + PREV_RETENTION_RATIO) on the same PREV_RETENTION_RATIO complete-case population. OLS_3_RET_CC vs OLS_5 isolates the predictor contribution from population selection effects.",
+  "part_a_population": {
+    "full_train": 103923,
+    "full_test": 31144,
+    "retention_cc_train": 39231,
+    "retention_cc_test": 10812,
+    "n_removed_train": 64692,
+    "n_removed_test": 20332,
+    "pct_removed_train": 62.25,
+    "pct_removed_test": 65.28,
+    "population_note": "Rows removed are those without a prior-year join for RETENTION_RATIO, or where prior-year RETENTION_RATIO is a sentinel value (99997/99998/99999). These are primarily first-year observations and agencies whose retention ratio was not reported. PREV_RETENTION_RATIO covers only ~37% of the full modeling population — a substantially more severe restriction than PREV_LOSS_RATIO (~91%)."
+  },
+  "part_b_ols3_ret_cc": {
+    "model": "OLS_3_RET_CC",
+    "description": "OLS 3 formula on PREV_RETENTION_RATIO CC population. Baseline for OLS_5 comparison.",
+    "n_train": 39120,
+    "n_test": 10338,
+    "train": {
+      "r2": 0.93,
+      "rmse": 0.6112,
+      "mae": 0.3337
+    },
+    "test": {
+      "r2": 0.9378,
+      "rmse": 0.5778,
+      "mae": 0.3218
+    }
+  },
+  "part_c_ols5": {
+    "model": "OLS_5",
+    "description": "OLS_3_RET_CC + PREV_RETENTION_RATIO. Same RET CC population.",
+    "n_train": 39120,
+    "n_test": 10338,
+    "train": {
+      "r2": 0.9306,
+      "rmse": 0.6086,
+      "mae": 0.3343
+    },
+    "test": {
+      "r2": 0.9387,
+      "rmse": 0.5734,
+      "mae": 0.3204
+    }
+  },
+  "part_d_comparison": {
+    "models_compared": "OLS_3_RET_CC vs OLS_5 on identical PREV_RETENTION_RATIO CC population",
+    "delta_train_r2": 0.0006,
+    "delta_test_r2": 0.0009,
+    "delta_train_rmse": -0.0026,
+    "delta_test_rmse": -0.0044,
+    "delta_train_mae": 0.0006,
+    "delta_test_mae": -0.0014,
+    "population_selection_note": {
+      "description": "OLS 3 (full) vs OLS_3_RET_CC: quantifies how much the RET CC restriction alone changes performance",
+      "delta_train_r2": 0.149,
+      "delta_test_r2": 0.1826
+    }
+  },
+  "part_e_prev_retention_ratio_coefficient": {
+    "coefficient": {
+      "estimate": -0.344731,
+      "std_error": 0.018792,
+      "t_stat": -18.3446,
+      "p_value": 0,
+      "significant_p05": true
+    },
+    "business_interpretation": "PREV_RETENTION_RATIO is the prior-year agency-product-state retention ratio. A positive coefficient means agencies that retained more business in the prior year tend to write more premium in the current year, after controlling for prior-year volume, product, state, vendor, and year effects. A negative or near-zero coefficient would suggest retention rate is not independently predictive of written premium once volume and fixed effects are controlled. Statistical significance at the p<0.05 level alone does not justify inclusion — with ~38K training rows, small effects can be significant without being practically meaningful."
+  },
+  "part_f_decision": {
+    "decision": "EXCLUDE",
+    "justification": "PREV_RETENTION_RATIO contributes 0.0009 test R² on the RET CC population (OLS_3_RET_CC: 0.9378 → OLS_5: 0.9387). This is negligible. Statistical significance of the coefficient does not establish practical value. Additionally, PREV_RETENTION_RATIO is missing for 62.2% of the full modeling population, which would reduce usable rows by 64,692 for every prediction requiring it. Exclude from future specifications."
+  }
+}

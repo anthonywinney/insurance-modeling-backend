@@ -1,0 +1,174 @@
+{
+  "description": "Additive baseline finalization. OLS_ADDITIVE_FINAL = OLS 3 with PROD_LINE removed. PROD_ABBR determines PROD_LINE exactly (nested relationship); the PROD_LINE term is structurally redundant. Removing it produces a cleaner, more stable specification.",
+  "part_a_ols_additive_final": {
+    "model": "OLS_ADDITIVE_FINAL",
+    "formula": "log_wp ~ log_prev_wp + log_prev_poly + ACTIVE_PRODUCERS + AGENCY_APPOINTMENT_YEAR + MAX_AGE + MIN_AGE + STATE_ABBR + PROD_ABBR + VENDOR + STAT_PROFILE_DATE_YEAR",
+    "predictors_excluded_vs_ols3": "PROD_LINE",
+    "n_train": 103377,
+    "n_test": 30981,
+    "train": {
+      "r2": 0.781,
+      "rmse": 1.0238,
+      "mae": 0.6468
+    },
+    "test": {
+      "r2": 0.7552,
+      "rmse": 1.0937,
+      "mae": 0.699
+    }
+  },
+  "part_b_comparison_vs_ols3": {
+    "ols3": {
+      "train": {
+        "r2": 0.781,
+        "rmse": 1.0238,
+        "mae": 0.6468
+      },
+      "test": {
+        "r2": 0.7552,
+        "rmse": 1.0937,
+        "mae": 0.699
+      }
+    },
+    "ols_additive_final": {
+      "train": {
+        "r2": 0.781,
+        "rmse": 1.0238,
+        "mae": 0.6468
+      },
+      "test": {
+        "r2": 0.7552,
+        "rmse": 1.0937,
+        "mae": 0.699
+      }
+    },
+    "delta_train_r2": 0,
+    "delta_test_r2": 0,
+    "delta_train_rmse": 0,
+    "delta_test_rmse": 0,
+    "delta_train_mae": 0,
+    "delta_test_mae": 0
+  },
+  "part_c_coefficient_review": {
+    "n_coefficients_in_formula": 48,
+    "n_aliased": 0,
+    "aliased_terms": "none",
+    "n_estimated": 48,
+    "n_significant_p05": 43,
+    "n_nonsignificant": 5,
+    "ols3_coefficient_count": 48,
+    "delta_vs_ols3": 0,
+    "prod_line_instability_note": "In OLS 3, PROD_LINEPL = +1.849 on the full population but PROD_LINEPL = -0.209 on the LR CC population — a sign flip of magnitude 2.06. This instability arises because PROD_LINE is a linear combination of PROD_ABBR indicators; the partial effect of PROD_LINE cannot be cleanly separated from PROD_ABBR when both are in the same model. Removing PROD_LINE stabilizes the PROD_ABBR coefficients.",
+    "largest_significant_effects": {
+      "most_positive": [
+        {
+          "term": "log_prev_wp",
+          "estimate": 0.855796,
+          "p_value": 0
+        },
+        {
+          "term": "VENDORJ",
+          "estimate": 0.306637,
+          "p_value": 0
+        },
+        {
+          "term": "STATE_ABBRMI",
+          "estimate": 0.291276,
+          "p_value": 0
+        },
+        {
+          "term": "STATE_ABBROH",
+          "estimate": 0.244345,
+          "p_value": 0
+        },
+        {
+          "term": "STATE_ABBRPA",
+          "estimate": 0.109906,
+          "p_value": 0
+        },
+        {
+          "term": "STATE_ABBRWV",
+          "estimate": 0.083182,
+          "p_value": 0
+        },
+        {
+          "term": "STATE_ABBRKY",
+          "estimate": 0.066465,
+          "p_value": 0
+        },
+        {
+          "term": "VENDORC",
+          "estimate": 0.055136,
+          "p_value": 0.000018
+        },
+        {
+          "term": "VENDORE",
+          "estimate": 0.043457,
+          "p_value": 0.000015
+        },
+        {
+          "term": "MAX_AGE",
+          "estimate": 0.0031,
+          "p_value": 0
+        }
+      ],
+      "most_negative": [
+        {
+          "term": "PROD_ABBRSNOWMOBI12",
+          "estimate": -4.54057,
+          "p_value": 0
+        },
+        {
+          "term": "PROD_ABBRMOTORHOM12",
+          "estimate": -4.126915,
+          "p_value": 0
+        },
+        {
+          "term": "PROD_ABBRDTALK   12",
+          "estimate": -3.666503,
+          "p_value": 0
+        },
+        {
+          "term": "PROD_ABBRCYCLES  12",
+          "estimate": -3.494377,
+          "p_value": 0
+        },
+        {
+          "term": "PROD_ABBRBOILERMACH",
+          "estimate": -2.621376,
+          "p_value": 0
+        },
+        {
+          "term": "PROD_ABBRCRIME",
+          "estimate": -2.567072,
+          "p_value": 0
+        },
+        {
+          "term": "PROD_ABBRCOMMINLMAR",
+          "estimate": -2.294381,
+          "p_value": 0
+        },
+        {
+          "term": "PROD_ABBRBOP",
+          "estimate": -2.216646,
+          "p_value": 0
+        },
+        {
+          "term": "PROD_ABBRCOMMUMBREL",
+          "estimate": -2.114664,
+          "p_value": 0
+        },
+        {
+          "term": "PROD_ABBRGENERALIAB",
+          "estimate": -2.114118,
+          "p_value": 0
+        }
+      ]
+    }
+  },
+  "part_d_baseline_decision": {
+    "replace_ols3_as_baseline": true,
+    "decision": "REPLACE",
+    "justification": "OLS_ADDITIVE_FINAL achieves test R² 0.7552 vs OLS 3 test R² 0.7552 (delta = +0.0000). Performance is statistically equivalent. Removing PROD_LINE eliminates a structurally redundant degree of freedom whose coefficient was unstable across populations (+1.85 in OLS 3 full vs -0.21 in OLS 3CC). PROD_ABBR fully captures product-level variation. OLS_ADDITIVE_FINAL is the preferred additive baseline for all subsequent modeling (interaction testing, Random Forest, LMM)."
+  }
+}

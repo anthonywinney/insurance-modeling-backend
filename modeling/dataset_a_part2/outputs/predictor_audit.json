@@ -1,0 +1,517 @@
+{
+  "description": "Predictor audit for Dataset A Part 2. Covers Written Premium (WP), Loss Ratio (LR), and Retention Ratio (RR) forward-looking models.",
+  "audit_date": "2026-06-13",
+  "summary": {
+    "total_variables_audited": 49,
+    "wp_safe_count": 37,
+    "wp_excluded_count": 9,
+    "wp_group_factor_count": 2,
+    "wp_target_count": 1,
+    "columns_not_in_audit": "none"
+  },
+  "modeling_decisions": {
+    "specification": "Specification A (forward-looking): uses only lagged and contemporaneously-safe predictors",
+    "train_years": [2006, 2007, 2008, 2009, 2010, 2011, 2012],
+    "test_years": [2013, 2014],
+    "excluded_years": [2005, 2015],
+    "excluded_years_reason": "Partial reporting years confirmed by data completeness review",
+    "excluded_products": "COMMPOL",
+    "wp_filter": "WRTN_PREM_AMT > 0",
+    "model_condition": "Forward-looking Written Premium models are conditioned on active premium-producing observations (PROD_ABBR != 'COMMPOL', WRTN_PREM_AMT > 0).",
+    "poly_inforce_decision": "POLY_INFORCE_QTY is excluded from forward-looking WP models because it is jointly determined with WRTN_PREM_AMT in the same reporting period. PREV_POLY_INFORCE_QTY (lagged) is used instead. No secondary explanatory model is built for this relationship in Dataset A Part 2.",
+    "forward_looking_wp_exclusions": ["POLY_INFORCE_QTY", "RETENTION_RATIO", "RETENTION_POLY_QTY", "NB_WRTN_PREM_AMT", "PRD_ERND_PREM_AMT", "PRD_INCRD_LOSSES_AMT", "LOSS_RATIO", "LOSS_RATIO_3YR", "GROWTH_RATE_3YR"],
+    "safe_lagged_predictors": ["PREV_WRTN_PREM_AMT", "PREV_POLY_INFORCE_QTY"]
+  },
+  "variables": [
+    {
+      "name": "AGENCY_ID",
+      "type": "identifier",
+      "description": "Agency identifier — used as grouping factor in LMM random effects, not a fixed-effect predictor",
+      "wp_classification": "group_factor",
+      "lr_classification": "group_factor",
+      "rr_classification": "group_factor",
+      "leakage_concern": {},
+      "recommendation": "Use as random effect grouping factor only: (1 | AGENCY_ID)"
+    },
+    {
+      "name": "PRIMARY_AGENCY_ID",
+      "type": "identifier",
+      "description": "Parent agency identifier — used as grouping factor in nested LMM, not a fixed-effect predictor",
+      "wp_classification": "group_factor",
+      "lr_classification": "group_factor",
+      "rr_classification": "group_factor",
+      "leakage_concern": {},
+      "recommendation": "Use as random effect grouping factor only: (1 | PRIMARY_AGENCY_ID / AGENCY_ID)"
+    },
+    {
+      "name": "WRTN_PREM_AMT",
+      "type": "target",
+      "description": "Written premium — the primary modeling target. Modeled as log(WRTN_PREM_AMT + 1). Rows with WP <= 0 or COMMPOL excluded.",
+      "wp_classification": "target",
+      "lr_classification": "leakage_if_used_as_predictor",
+      "rr_classification": "safe",
+      "leakage_concern": "If used as a predictor for LR: WRTN_PREM_AMT is correlated with the LR denominator. Use with caution.",
+      "recommendation": "Primary target for WP modeling. Not a predictor."
+    },
+    {
+      "name": "STAT_PROFILE_DATE_YEAR",
+      "type": "numeric",
+      "description": "Reporting year (2005-2015) — captures temporal trend and macroeconomic context",
+      "wp_classification": "safe",
+      "lr_classification": "safe",
+      "rr_classification": "safe",
+      "leakage_concern": {},
+      "recommendation": "Include in all models"
+    },
+    {
+      "name": "STATE_ABBR",
+      "type": "categorical",
+      "description": "State of agency operation — captures geographic and regulatory pricing environment",
+      "wp_classification": "safe",
+      "lr_classification": "safe",
+      "rr_classification": "safe",
+      "leakage_concern": {},
+      "recommendation": "Include in all models as categorical factor"
+    },
+    {
+      "name": "PROD_LINE",
+      "type": "categorical",
+      "description": "Product line (CL = Commercial Lines, PL = Personal Lines) — major business segment indicator",
+      "wp_classification": "safe",
+      "lr_classification": "safe",
+      "rr_classification": "safe",
+      "leakage_concern": {},
+      "recommendation": "Include in all models as categorical factor"
+    },
+    {
+      "name": "PROD_ABBR",
+      "type": "categorical",
+      "description": "Product abbreviation — specific product code within product line. Note: exclude COMMPOL rows before modeling.",
+      "wp_classification": "safe",
+      "lr_classification": "safe",
+      "rr_classification": "safe",
+      "leakage_concern": {},
+      "recommendation": "Include after COMMPOL exclusion"
+    },
+    {
+      "name": "VENDOR",
+      "type": "categorical",
+      "description": "Agency management system vendor — proxy for agency technology and workflow maturity",
+      "wp_classification": "safe",
+      "lr_classification": "safe",
+      "rr_classification": "safe",
+      "leakage_concern": {},
+      "recommendation": "Include in all models as categorical factor"
+    },
+    {
+      "name": "VENDOR_IND",
+      "type": "categorical",
+      "description": "Vendor indicator flag (Y/N) — binary version of vendor affiliation",
+      "wp_classification": "safe",
+      "lr_classification": "safe",
+      "rr_classification": "safe",
+      "leakage_concern": {},
+      "recommendation": "Potentially redundant with VENDOR; include one or check VIF"
+    },
+    {
+      "name": "ACTIVE_PRODUCERS",
+      "type": "numeric",
+      "description": "Number of active producers at the agency — direct measure of sales capacity",
+      "wp_classification": "safe",
+      "lr_classification": "safe",
+      "rr_classification": "safe",
+      "leakage_concern": {},
+      "recommendation": "Include in all models"
+    },
+    {
+      "name": "PREV_WRTN_PREM_AMT",
+      "type": "numeric",
+      "description": "Prior-year written premium — clean lag; strongest single predictor of current-year premium",
+      "wp_classification": "safe_lag",
+      "lr_classification": "safe",
+      "rr_classification": "safe",
+      "leakage_concern": {},
+      "recommendation": "Include in all models; apply log(x + 1) transform for WP modeling"
+    },
+    {
+      "name": "PREV_POLY_INFORCE_QTY",
+      "type": "numeric",
+      "description": "Prior-year policies in force — clean lag; preferred policy-count predictor for forward-looking WP model",
+      "wp_classification": "safe_lag",
+      "lr_classification": "safe",
+      "rr_classification": "safe",
+      "leakage_concern": {},
+      "recommendation": "Include in all models; replaces contemporaneous POLY_INFORCE_QTY in forward-looking WP specification"
+    },
+    {
+      "name": "MONTHS",
+      "type": "numeric",
+      "description": "Number of months in the reporting period — partial-year indicator (8 or 12); needed for period normalization",
+      "wp_classification": "safe",
+      "lr_classification": "safe",
+      "rr_classification": "safe",
+      "leakage_concern": {},
+      "recommendation": "Include; 2005 and 2015 exclusion removes most partial-year rows"
+    },
+    {
+      "name": "AGENCY_APPOINTMENT_YEAR",
+      "type": "numeric",
+      "description": "Year agency was appointed — proxy for tenure and experience. Check for sentinel values.",
+      "wp_classification": "safe",
+      "lr_classification": "safe",
+      "rr_classification": "safe",
+      "leakage_concern": {},
+      "recommendation": "Include directly or derive TENURE = STAT_PROFILE_DATE_YEAR - AGENCY_APPOINTMENT_YEAR in feature engineering phase"
+    },
+    {
+      "name": "MAX_AGE",
+      "type": "numeric",
+      "description": "Maximum producer age at agency — proxy for producer experience profile",
+      "wp_classification": "safe",
+      "lr_classification": "safe",
+      "rr_classification": "safe",
+      "leakage_concern": {},
+      "recommendation": "Include; check VIF against MIN_AGE"
+    },
+    {
+      "name": "MIN_AGE",
+      "type": "numeric",
+      "description": "Minimum producer age at agency — proxy for producer youth or new entrants",
+      "wp_classification": "safe",
+      "lr_classification": "safe",
+      "rr_classification": "safe",
+      "leakage_concern": {},
+      "recommendation": "Include; check VIF against MAX_AGE"
+    },
+    {
+      "name": "PL_START_YEAR",
+      "type": "numeric",
+      "description": "Personal lines appointment start year. Sentinel 99999 = no PL appointment (CL-only agency).",
+      "wp_classification": "safe",
+      "lr_classification": "safe",
+      "rr_classification": "safe",
+      "leakage_concern": {},
+      "recommendation": "Replace 99999 with NA before use"
+    },
+    {
+      "name": "PL_END_YEAR",
+      "type": "numeric",
+      "description": "Personal lines appointment end year. Sentinel 99999 = ongoing or not applicable.",
+      "wp_classification": "safe",
+      "lr_classification": "safe",
+      "rr_classification": "safe",
+      "leakage_concern": {},
+      "recommendation": "Replace sentinels with NA before use"
+    },
+    {
+      "name": "CL_START_YEAR",
+      "type": "numeric",
+      "description": "Commercial lines appointment start year. Sentinel 99999 = no CL appointment.",
+      "wp_classification": "safe",
+      "lr_classification": "safe",
+      "rr_classification": "safe",
+      "leakage_concern": {},
+      "recommendation": "Replace sentinels with NA before use"
+    },
+    {
+      "name": "CL_END_YEAR",
+      "type": "numeric",
+      "description": "Commercial lines appointment end year.",
+      "wp_classification": "safe",
+      "lr_classification": "safe",
+      "rr_classification": "safe",
+      "leakage_concern": {},
+      "recommendation": "Replace sentinels with NA before use"
+    },
+    {
+      "name": "COMMISIONS_START_YEAR",
+      "type": "numeric",
+      "description": "Commission arrangement start year.",
+      "wp_classification": "safe",
+      "lr_classification": "safe",
+      "rr_classification": "safe",
+      "leakage_concern": {},
+      "recommendation": "Replace sentinels with NA before use"
+    },
+    {
+      "name": "COMMISIONS_END_YEAR",
+      "type": "numeric",
+      "description": "Commission arrangement end year.",
+      "wp_classification": "safe",
+      "lr_classification": "safe",
+      "rr_classification": "safe",
+      "leakage_concern": {},
+      "recommendation": "Replace sentinels with NA before use"
+    },
+    {
+      "name": "ACTIVITY_NOTES_START_YEAR",
+      "type": "numeric",
+      "description": "Activity notes record start year.",
+      "wp_classification": "safe",
+      "lr_classification": "safe",
+      "rr_classification": "safe",
+      "leakage_concern": {},
+      "recommendation": "Replace sentinels with NA before use"
+    },
+    {
+      "name": "ACTIVITY_NOTES_END_YEAR",
+      "type": "numeric",
+      "description": "Activity notes record end year.",
+      "wp_classification": "safe",
+      "lr_classification": "safe",
+      "rr_classification": "safe",
+      "leakage_concern": {},
+      "recommendation": "Replace sentinels with NA before use"
+    },
+    {
+      "name": "CL_BOUND_CT_MDS",
+      "type": "numeric",
+      "description": "Commercial lines bound count (MDS system)",
+      "wp_classification": "safe",
+      "lr_classification": "safe",
+      "rr_classification": "safe",
+      "leakage_concern": {},
+      "recommendation": "Include"
+    },
+    {
+      "name": "CL_QUO_CT_MDS",
+      "type": "numeric",
+      "description": "Commercial lines quote count (MDS system)",
+      "wp_classification": "safe",
+      "lr_classification": "safe",
+      "rr_classification": "safe",
+      "leakage_concern": {},
+      "recommendation": "Include"
+    },
+    {
+      "name": "CL_BOUND_CT_SBZ",
+      "type": "numeric",
+      "description": "Commercial lines bound count (SBZ system)",
+      "wp_classification": "safe",
+      "lr_classification": "safe",
+      "rr_classification": "safe",
+      "leakage_concern": {},
+      "recommendation": "Include"
+    },
+    {
+      "name": "CL_QUO_CT_SBZ",
+      "type": "numeric",
+      "description": "Commercial lines quote count (SBZ system)",
+      "wp_classification": "safe",
+      "lr_classification": "safe",
+      "rr_classification": "safe",
+      "leakage_concern": {},
+      "recommendation": "Include"
+    },
+    {
+      "name": "CL_BOUND_CT_eQT",
+      "type": "numeric",
+      "description": "Commercial lines bound count (eQT system)",
+      "wp_classification": "safe",
+      "lr_classification": "safe",
+      "rr_classification": "safe",
+      "leakage_concern": {},
+      "recommendation": "Include"
+    },
+    {
+      "name": "CL_QUO_CT_eQT",
+      "type": "numeric",
+      "description": "Commercial lines quote count (eQT system)",
+      "wp_classification": "safe",
+      "lr_classification": "safe",
+      "rr_classification": "safe",
+      "leakage_concern": {},
+      "recommendation": "Include"
+    },
+    {
+      "name": "PL_BOUND_CT_ELINKS",
+      "type": "numeric",
+      "description": "Personal lines bound count (ELINKS system)",
+      "wp_classification": "safe",
+      "lr_classification": "safe",
+      "rr_classification": "safe",
+      "leakage_concern": {},
+      "recommendation": "Include"
+    },
+    {
+      "name": "PL_QUO_CT_ELINKS",
+      "type": "numeric",
+      "description": "Personal lines quote count (ELINKS system)",
+      "wp_classification": "safe",
+      "lr_classification": "safe",
+      "rr_classification": "safe",
+      "leakage_concern": {},
+      "recommendation": "Include"
+    },
+    {
+      "name": "PL_BOUND_CT_PLRANK",
+      "type": "numeric",
+      "description": "Personal lines bound count (PLRANK system)",
+      "wp_classification": "safe",
+      "lr_classification": "safe",
+      "rr_classification": "safe",
+      "leakage_concern": {},
+      "recommendation": "Include"
+    },
+    {
+      "name": "PL_QUO_CT_PLRANK",
+      "type": "numeric",
+      "description": "Personal lines quote count (PLRANK system)",
+      "wp_classification": "safe",
+      "lr_classification": "safe",
+      "rr_classification": "safe",
+      "leakage_concern": {},
+      "recommendation": "Include"
+    },
+    {
+      "name": "PL_BOUND_CT_eQTte",
+      "type": "numeric",
+      "description": "Personal lines bound count (eQTte system)",
+      "wp_classification": "safe",
+      "lr_classification": "safe",
+      "rr_classification": "safe",
+      "leakage_concern": {},
+      "recommendation": "Include"
+    },
+    {
+      "name": "PL_QUO_CT_eQTte",
+      "type": "numeric",
+      "description": "Personal lines quote count (eQTte system)",
+      "wp_classification": "safe",
+      "lr_classification": "safe",
+      "rr_classification": "safe",
+      "leakage_concern": {},
+      "recommendation": "Include"
+    },
+    {
+      "name": "PL_BOUND_CT_APPLIED",
+      "type": "numeric",
+      "description": "Personal lines bound count (APPLIED system)",
+      "wp_classification": "safe",
+      "lr_classification": "safe",
+      "rr_classification": "safe",
+      "leakage_concern": {},
+      "recommendation": "Include"
+    },
+    {
+      "name": "PL_QUO_CT_APPLIED",
+      "type": "numeric",
+      "description": "Personal lines quote count (APPLIED system)",
+      "wp_classification": "safe",
+      "lr_classification": "safe",
+      "rr_classification": "safe",
+      "leakage_concern": {},
+      "recommendation": "Include"
+    },
+    {
+      "name": "PL_BOUND_CT_TRANSACTNOW",
+      "type": "numeric",
+      "description": "Personal lines bound count (TRANSACTNOW system)",
+      "wp_classification": "safe",
+      "lr_classification": "safe",
+      "rr_classification": "safe",
+      "leakage_concern": {},
+      "recommendation": "Include"
+    },
+    {
+      "name": "PL_QUO_CT_TRANSACTNOW",
+      "type": "numeric",
+      "description": "Personal lines quote count (TRANSACTNOW system)",
+      "wp_classification": "safe",
+      "lr_classification": "safe",
+      "rr_classification": "safe",
+      "leakage_concern": {},
+      "recommendation": "Include"
+    },
+    {
+      "name": "POLY_INFORCE_QTY",
+      "type": "numeric",
+      "description": "Current-year policies in force — contemporaneous with WRTN_PREM_AMT; jointly determined in the same reporting period",
+      "wp_classification": "excluded_contemporaneous",
+      "lr_classification": "safe",
+      "rr_classification": "excluded_contemporaneous",
+      "leakage_concern": "POLY_INFORCE_QTY and WRTN_PREM_AMT are both outcomes of the same period's policy-writing activity. Including POLY_INFORCE_QTY in a forward-looking WP model conflates a contemporaneous outcome with a predictor. PREV_POLY_INFORCE_QTY (the lagged version) is used instead.",
+      "recommendation": "Exclude from WP forward-looking model. Use PREV_POLY_INFORCE_QTY."
+    },
+    {
+      "name": "RETENTION_RATIO",
+      "type": "numeric",
+      "description": "Retention ratio (raw column) — current-period policy retention outcome; sentinel-contaminated (99997/99998/99999)",
+      "wp_classification": "excluded_contemporaneous",
+      "lr_classification": "safe",
+      "rr_classification": "target_or_excluded",
+      "leakage_concern": "Current-period retention rate is a contemporaneous outcome in the same period as WP. Raw column also contains sentinel values requiring exclusion.",
+      "recommendation": "Exclude from WP forward-looking model. If used for RR modeling: exclude sentinels first."
+    },
+    {
+      "name": "RETENTION_POLY_QTY",
+      "type": "numeric",
+      "description": "Retained policy count — current-period retention outcome, contemporaneous with WP",
+      "wp_classification": "excluded_contemporaneous",
+      "lr_classification": "safe",
+      "rr_classification": "excluded_contemporaneous",
+      "leakage_concern": "Current-period policy retention count; jointly determined with WP in the same period.",
+      "recommendation": "Exclude from WP forward-looking model"
+    },
+    {
+      "name": "NB_WRTN_PREM_AMT",
+      "type": "numeric",
+      "description": "New business written premium — a direct sub-component of WRTN_PREM_AMT (WP = new business + renewals)",
+      "wp_classification": "excluded_leakage",
+      "lr_classification": "excluded_leakage",
+      "rr_classification": "safe",
+      "leakage_concern": "NB_WRTN_PREM_AMT is a component of WRTN_PREM_AMT. Including it as a predictor would inflate R^2 without adding predictive insight and constitutes near-perfect leakage.",
+      "recommendation": "Exclude from WP model entirely"
+    },
+    {
+      "name": "PRD_ERND_PREM_AMT",
+      "type": "numeric",
+      "description": "Earned premium — contemporaneous current-year earned premium derived from written premium over the policy period",
+      "wp_classification": "excluded_contemporaneous",
+      "lr_classification": "excluded_leakage",
+      "rr_classification": "safe",
+      "leakage_concern": "Contemporaneous with WRTN_PREM_AMT; derived from it over the policy period. For LR modeling: PRD_ERND_PREM_AMT is the denominator of the loss ratio target.",
+      "recommendation": "Exclude from WP and LR forward-looking models"
+    },
+    {
+      "name": "PRD_INCRD_LOSSES_AMT",
+      "type": "numeric",
+      "description": "Incurred losses — current-year loss outcome; used for portfolio-level loss ratio reporting and diagnostic investigation only",
+      "wp_classification": "excluded_contemporaneous",
+      "lr_classification": "excluded_leakage",
+      "rr_classification": "safe",
+      "leakage_concern": "Current-year loss outcome. Contemporaneous with any current-year target; excluded from forward-looking models.",
+      "recommendation": "Exclude from WP and LR forward-looking models"
+    },
+    {
+      "name": "LOSS_RATIO",
+      "type": "numeric",
+      "description": "Dataset-provided row-level loss ratio field; sentinel-contaminated (99997/99998/99999)",
+      "wp_classification": "excluded_leakage",
+      "lr_classification": "target_or_excluded",
+      "rr_classification": "safe",
+      "leakage_concern": "Derived from current-year incurred losses and earned premium — contemporaneous with any current-year target. Contains sentinel values (99997/99998/99999) requiring handling before use. For row-level LR modeling: this field is the preferred candidate target after sentinel cleaning, not a recomputed ratio.",
+      "recommendation": "Exclude from WP model. For LR modeling: preferred candidate target after sentinel handling."
+    },
+    {
+      "name": "LOSS_RATIO_3YR",
+      "type": "numeric",
+      "description": "3-year rolling average loss ratio — rolling window includes current-year losses; sentinel-contaminated",
+      "wp_classification": "excluded_leakage",
+      "lr_classification": "excluded_leakage",
+      "rr_classification": "safe",
+      "leakage_concern": "Rolling window includes current-year loss outcomes; leakage for any current-year target.",
+      "recommendation": "Exclude from WP and LR forward-looking models"
+    },
+    {
+      "name": "GROWTH_RATE_3YR",
+      "type": "numeric",
+      "description": "3-year rolling growth rate — rolling window includes current-year written premium",
+      "wp_classification": "excluded_leakage",
+      "lr_classification": "safe",
+      "rr_classification": "safe",
+      "leakage_concern": "Rolling window includes current-year WRTN_PREM_AMT; leakage for WP model.",
+      "recommendation": "Exclude from WP forward-looking model"
+    }
+  ]
+}

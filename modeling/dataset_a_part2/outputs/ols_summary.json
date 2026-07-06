@@ -1,0 +1,1198 @@
+{
+  "description": "OLS 0-3, OLS 3CC, OLS 4CC, OLS_3_RET_CC, OLS_5, OLS_ADDITIVE_FINAL, and interaction model progression for log(WRTN_PREM_AMT + 1). Exploratory phase: OLS_ADDITIVE_FINAL is the recommended additive baseline; all three interaction variants (FULL, SUPPORTED, NUMERIC_ONLY) failed to improve out-of-sample performance. OLS specification is locked as OLS_ADDITIVE_FINAL (test R² = 0.7552).",
+  "row_count_note": "Candidate population: 103,923 train / 31,144 test. These are all rows passing the written-premium modeling filters (PROD_ABBR != COMMPOL, WRTN_PREM_AMT > 0, STAT_PROFILE_DATE_YEAR 2006-2014). Effective evaluated rows: 103,377 train / 30,981 test. These are rows included in metric calculations after excluding observations where log_prev_wp or log_prev_poly is NA. log_prev_wp = log(PREV_WRTN_PREM_AMT + 1) and log_prev_poly = log(PREV_POLY_INFORCE_QTY + 1) are set to NA when the underlying PREV_ column is negative (rare accounting adjustments). lm() silently drops these rows during fitting; predict() returns NA for them. Rows dropped: 546 train, 163 test.",
+  "current_baseline": {
+    "model": "OLS_ADDITIVE_FINAL",
+    "rationale": "OLS 3 with PROD_LINE removed. Equivalent predictive performance. Stable coefficients. No redundant terms."
+  },
+  "model_descriptions": {
+    "OLS_0": "Baseline: log_prev_wp only",
+    "OLS_1": "OLS 0 + log_prev_poly",
+    "OLS_2": "OLS 1 + ACTIVE_PRODUCERS + AGENCY_APPOINTMENT_YEAR + MAX_AGE + MIN_AGE",
+    "OLS_3": "OLS 2 + STATE_ABBR + PROD_LINE + PROD_ABBR + VENDOR + STAT_PROFILE_DATE_YEAR. Categoricals as factors. Year as continuous numeric (enables test-set prediction). PROD_LINE nested in PROD_ABBR — R drops dependent column automatically. Candidate population: 103,923 train / 31,144 test. Effective evaluated rows: 103,377 train / 30,981 test (546 train / 163 test rows dropped — NA in log_prev_wp or log_prev_poly).",
+    "OLS_3CC": "OLS 3 formula fit on PREV_LOSS_RATIO complete-case population. Train: 94,462 rows. Test: 28,773 rows. Purpose: isolate LR population selection from predictor contribution.",
+    "OLS_4CC": "OLS 3CC + PREV_LOSS_RATIO. Same LR CC population as OLS 3CC. Train: 94,462 rows. Test: 28,773 rows.",
+    "OLS_3_RET_CC": "OLS 3 formula fit on PREV_RETENTION_RATIO complete-case population. Train: 39,231 rows. Test: 10,812 rows. Baseline for OLS_5: ensures identical rows in the OLS_3_RET_CC vs OLS_5 comparison.",
+    "OLS_5": "OLS_3_RET_CC + PREV_RETENTION_RATIO. Same RET CC population as OLS_3_RET_CC. Train: 39,231 rows. Test: 10,812 rows.",
+    "OLS_ADDITIVE_FINAL": "Clean additive baseline: OLS 3 with PROD_LINE removed. PROD_ABBR determines PROD_LINE exactly (nested design); the PROD_LINE term is structurally redundant and produces unstable coefficients across populations. PROD_ABBR alone captures all product-level variation. Candidate population: 103,923 train / 31,144 test. Effective evaluated rows: 103,377 train / 30,981 test (546 train / 163 test rows dropped — NA in log_prev_wp or log_prev_poly).",
+    "OLS_INTERACTION_FULL": "All pairwise interactions from OLS_ADDITIVE_FINAL: (additive terms)^2. Same population as OLS_ADDITIVE_FINAL. PROD_LINE excluded. Purpose: determine whether interaction effects materially improve over the additive baseline. Candidate population: 103,923 train / 31,144 test. Effective evaluated rows: 103,377 train / 30,981 test (546 train / 163 test rows dropped — NA in log_prev_wp or log_prev_poly).",
+    "OLS_INTERACTION_NUMERIC_ONLY": "Numeric × numeric interaction model. Includes all OLS_ADDITIVE_FINAL main effects plus all C(7,2)=21 numeric × numeric interaction pairs. Excludes all categorical interactions (numeric × PROD_ABBR, numeric × STATE_ABBR, numeric × VENDOR, and all cat × cat). Purpose: test whether continuous-variable interactions improve OLS without sparse categorical-level slope risk. Candidate population: 103,923 train / 31,144 test. Effective evaluated rows: 103,377 train / 30,981 test (546 train / 163 test rows dropped — NA in log_prev_wp or log_prev_poly).",
+    "OLS_INTERACTION_SUPPORTED": "Support-screened interaction model. Includes all OLS_ADDITIVE_FINAL main effects, all numeric × numeric pairs (C(7,2)=21), and all numeric × categorical interactions (numeric × PROD_ABBR + numeric × STATE_ABBR + numeric × VENDOR). Excludes PROD_ABBR × STATE_ABBR, PROD_ABBR × VENDOR, and STATE_ABBR × VENDOR (all QUESTIONABLE in feasibility review due to sparse cells). Candidate population: 103,923 train / 31,144 test. Effective evaluated rows: 103,377 train / 30,981 test (546 train / 163 test rows dropped — NA in log_prev_wp or log_prev_poly)."
+  },
+  "performance_table": [
+    {
+      "model": "OLS_0",
+      "population": "full",
+      "n_train": 103377,
+      "n_test": 30981,
+      "train_r2": 0.5848,
+      "test_r2": 0.6035,
+      "train_rmse": 1.4098,
+      "test_rmse": 1.3919,
+      "train_mae": 0.8933,
+      "test_mae": 0.9057
+    },
+    {
+      "model": "OLS_1",
+      "population": "full",
+      "n_train": 103377,
+      "n_test": 30981,
+      "train_r2": 0.6752,
+      "test_r2": 0.6976,
+      "train_rmse": 1.2469,
+      "test_rmse": 1.2156,
+      "train_mae": 0.8112,
+      "test_mae": 0.7936
+    },
+    {
+      "model": "OLS_2",
+      "population": "full",
+      "n_train": 103377,
+      "n_test": 30981,
+      "train_r2": 0.6779,
+      "test_r2": 0.7003,
+      "train_rmse": 1.2418,
+      "test_rmse": 1.2102,
+      "train_mae": 0.8117,
+      "test_mae": 0.7937
+    },
+    {
+      "model": "OLS_3",
+      "population": "full",
+      "n_train": 103377,
+      "n_test": 30981,
+      "train_r2": 0.781,
+      "test_r2": 0.7552,
+      "train_rmse": 1.0238,
+      "test_rmse": 1.0937,
+      "train_mae": 0.6468,
+      "test_mae": 0.699
+    },
+    {
+      "model": "OLS_3CC",
+      "population": "LR_CC",
+      "n_train": 94438,
+      "n_test": 26237,
+      "train_r2": 0.9166,
+      "test_r2": 0.9208,
+      "train_rmse": 0.626,
+      "test_rmse": 0.6132,
+      "train_mae": 0.345,
+      "test_mae": 0.3488
+    },
+    {
+      "model": "OLS_4CC",
+      "population": "LR_CC",
+      "n_train": 94438,
+      "n_test": 26237,
+      "train_r2": 0.9166,
+      "test_r2": 0.9208,
+      "train_rmse": 0.626,
+      "test_rmse": 0.6133,
+      "train_mae": 0.345,
+      "test_mae": 0.3488
+    },
+    {
+      "model": "OLS_3_RET_CC",
+      "population": "RET_CC",
+      "n_train": 39120,
+      "n_test": 10338,
+      "train_r2": 0.93,
+      "test_r2": 0.9378,
+      "train_rmse": 0.6112,
+      "test_rmse": 0.5778,
+      "train_mae": 0.3337,
+      "test_mae": 0.3218
+    },
+    {
+      "model": "OLS_5",
+      "population": "RET_CC",
+      "n_train": 39120,
+      "n_test": 10338,
+      "train_r2": 0.9306,
+      "test_r2": 0.9387,
+      "train_rmse": 0.6086,
+      "test_rmse": 0.5734,
+      "train_mae": 0.3343,
+      "test_mae": 0.3204
+    },
+    {
+      "model": "OLS_ADDITIVE_FINAL",
+      "population": "full",
+      "n_train": 103377,
+      "n_test": 30981,
+      "train_r2": 0.781,
+      "test_r2": 0.7552,
+      "train_rmse": 1.0238,
+      "test_rmse": 1.0937,
+      "train_mae": 0.6468,
+      "test_mae": 0.699
+    },
+    {
+      "model": "OLS_INTERACTION_FULL",
+      "population": "full",
+      "n_train": 103377,
+      "n_test": 30981,
+      "train_r2": 0.8297,
+      "test_r2": -42.161,
+      "train_rmse": 0.9028,
+      "test_rmse": 14.5224,
+      "train_mae": 0.559,
+      "test_mae": 0.8683
+    },
+    {
+      "model": "OLS_INTERACTION_NUMERIC_ONLY",
+      "population": "full",
+      "n_train": 103377,
+      "n_test": 30981,
+      "train_r2": 0.7966,
+      "test_r2": 0.7309,
+      "train_rmse": 0.9868,
+      "test_rmse": 1.1467,
+      "train_mae": 0.6198,
+      "test_mae": 0.7023
+    },
+    {
+      "model": "OLS_INTERACTION_SUPPORTED",
+      "population": "full",
+      "n_train": 103377,
+      "n_test": 30981,
+      "train_r2": 0.8263,
+      "test_r2": -5.7008,
+      "train_rmse": 0.9118,
+      "test_rmse": 5.7221,
+      "train_mae": 0.5625,
+      "test_mae": 0.7724
+    }
+  ],
+  "population_predictor_decomposition": {
+    "description": "Decomposes each CC model's performance gain into population selection vs predictor contribution. For PREV_LOSS_RATIO: OLS 3 → OLS 3CC (selection) vs OLS 3CC → OLS 4CC (predictor). For PREV_RETENTION_RATIO: OLS 3 → OLS_3_RET_CC (selection) vs OLS_3_RET_CC → OLS_5 (predictor).",
+    "prev_loss_ratio": {
+      "population_selection": {
+        "comparison": "OLS 3 (full) vs OLS 3CC (LR CC, same formula)",
+        "n_full_train": 103923,
+        "n_cc_train": 94462,
+        "pct_dropped_train": 9.1,
+        "delta_test_r2": 0.1656
+      },
+      "predictor_contribution": {
+        "comparison": "OLS 3CC vs OLS 4CC: same LR CC population",
+        "delta_train_r2": 0,
+        "delta_test_r2": 0,
+        "delta_test_rmse": 0.0001,
+        "coefficient": {
+          "estimate": 0.00071,
+          "std_error": 0.000166,
+          "t_stat": 4.2728,
+          "p_value": 0.000019,
+          "significant_p05": true
+        }
+      }
+    },
+    "prev_retention_ratio": {
+      "population_selection": {
+        "comparison": "OLS 3 (full) vs OLS_3_RET_CC (RET CC, same formula)",
+        "n_full_train": 103923,
+        "n_cc_train": 39231,
+        "pct_dropped_train": 62.25,
+        "delta_test_r2": 0.1826
+      },
+      "predictor_contribution": {
+        "comparison": "OLS_3_RET_CC vs OLS_5: same RET CC population",
+        "delta_train_r2": 0.0006,
+        "delta_test_r2": 0.0009,
+        "delta_test_rmse": -0.0044,
+        "coefficient": {
+          "estimate": -0.344731,
+          "std_error": 0.018792,
+          "t_stat": -18.3446,
+          "p_value": 0,
+          "significant_p05": true
+        }
+      }
+    }
+  },
+  "log_prev_wp_coefficient_progression": {
+    "OLS_0": 0.715315,
+    "OLS_1": 0.854749,
+    "OLS_2": 0.855299,
+    "OLS_3": 0.855796,
+    "OLS_3CC": 0.927968,
+    "OLS_4CC": 0.928036,
+    "OLS_3_RET_CC": 0.558393,
+    "OLS_5": 0.571435,
+    "OLS_ADDITIVE_FINAL": 0.855796,
+    "OLS_INTERACTION_FULL": -6.274996,
+    "OLS_INTERACTION_NUMERIC_ONLY": -3.345323,
+    "OLS_INTERACTION_SUPPORTED": -6.647958
+  },
+  "prev_loss_ratio_OLS_4CC": {
+    "estimate": 0.00071,
+    "std_error": 0.000166,
+    "t_stat": 4.2728,
+    "p_value": 0.000019,
+    "significant_p05": true
+  },
+  "prev_retention_ratio_OLS_5": {
+    "estimate": -0.344731,
+    "std_error": 0.018792,
+    "t_stat": -18.3446,
+    "p_value": 0,
+    "significant_p05": true
+  },
+  "largest_significant_effects_OLS_3": {
+    "most_positive": [
+      {
+        "term": "PROD_LINEPL",
+        "estimate": 1.849252,
+        "p_value": 0
+      },
+      {
+        "term": "log_prev_wp",
+        "estimate": 0.855796,
+        "p_value": 0
+      },
+      {
+        "term": "VENDORJ",
+        "estimate": 0.306637,
+        "p_value": 0
+      },
+      {
+        "term": "STATE_ABBRMI",
+        "estimate": 0.291276,
+        "p_value": 0
+      },
+      {
+        "term": "STATE_ABBROH",
+        "estimate": 0.244345,
+        "p_value": 0
+      },
+      {
+        "term": "STATE_ABBRPA",
+        "estimate": 0.109906,
+        "p_value": 0
+      },
+      {
+        "term": "STATE_ABBRWV",
+        "estimate": 0.083182,
+        "p_value": 0
+      },
+      {
+        "term": "STATE_ABBRKY",
+        "estimate": 0.066465,
+        "p_value": 0
+      },
+      {
+        "term": "VENDORC",
+        "estimate": 0.055136,
+        "p_value": 0.000018
+      },
+      {
+        "term": "VENDORE",
+        "estimate": 0.043457,
+        "p_value": 0.000015
+      }
+    ],
+    "most_negative": [
+      {
+        "term": "PROD_ABBRSNOWMOBI12",
+        "estimate": -4.54057,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRMOTORHOM12",
+        "estimate": -4.126915,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRDTALK   12",
+        "estimate": -3.666503,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRCYCLES  12",
+        "estimate": -3.494377,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRPERSINLMAR",
+        "estimate": -1.902934,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRSNOWMOBILE",
+        "estimate": -1.887515,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRPERSAIP",
+        "estimate": -1.65636,
+        "p_value": 5e-06
+      },
+      {
+        "term": "PROD_ABBRYACHT",
+        "estimate": -1.654811,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRDTALK",
+        "estimate": -1.577278,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRMOBILEHOME",
+        "estimate": -1.435695,
+        "p_value": 0
+      }
+    ]
+  },
+  "largest_significant_effects_OLS_3CC": {
+    "most_positive": [
+      {
+        "term": "log_prev_wp",
+        "estimate": 0.927968,
+        "p_value": 0
+      },
+      {
+        "term": "STATE_ABBRMI",
+        "estimate": 0.363507,
+        "p_value": 0
+      },
+      {
+        "term": "VENDORJ",
+        "estimate": 0.137401,
+        "p_value": 2e-06
+      },
+      {
+        "term": "STATE_ABBROH",
+        "estimate": 0.083079,
+        "p_value": 0
+      },
+      {
+        "term": "STATE_ABBRWV",
+        "estimate": 0.08163,
+        "p_value": 0
+      },
+      {
+        "term": "STATE_ABBRPA",
+        "estimate": 0.080794,
+        "p_value": 0
+      },
+      {
+        "term": "STATE_ABBRKY",
+        "estimate": 0.062961,
+        "p_value": 0
+      },
+      {
+        "term": "log_prev_poly",
+        "estimate": 0.039935,
+        "p_value": 0
+      },
+      {
+        "term": "VENDORE",
+        "estimate": 0.020249,
+        "p_value": 0.001713
+      },
+      {
+        "term": "AGENCY_APPOINTMENT_YEAR",
+        "estimate": 0.001537,
+        "p_value": 0
+      }
+    ],
+    "most_negative": [
+      {
+        "term": "PROD_ABBRPERSAIP",
+        "estimate": -1.306402,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRDTALK",
+        "estimate": -0.409825,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRPERSINLMAR",
+        "estimate": -0.313696,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRSNOWMOBILE",
+        "estimate": -0.30785,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRYACHT",
+        "estimate": -0.237317,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRCRIME",
+        "estimate": -0.228361,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRBOILERMACH",
+        "estimate": -0.216069,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_LINEPL",
+        "estimate": -0.208807,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRMOTORHOME",
+        "estimate": -0.199624,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRCYCLES",
+        "estimate": -0.199192,
+        "p_value": 0
+      }
+    ]
+  },
+  "largest_significant_effects_OLS_4CC": {
+    "most_positive": [
+      {
+        "term": "log_prev_wp",
+        "estimate": 0.928036,
+        "p_value": 0
+      },
+      {
+        "term": "STATE_ABBRMI",
+        "estimate": 0.363287,
+        "p_value": 0
+      },
+      {
+        "term": "VENDORJ",
+        "estimate": 0.137688,
+        "p_value": 2e-06
+      },
+      {
+        "term": "STATE_ABBROH",
+        "estimate": 0.083205,
+        "p_value": 0
+      },
+      {
+        "term": "STATE_ABBRWV",
+        "estimate": 0.081747,
+        "p_value": 0
+      },
+      {
+        "term": "STATE_ABBRPA",
+        "estimate": 0.080913,
+        "p_value": 0
+      },
+      {
+        "term": "STATE_ABBRKY",
+        "estimate": 0.06319,
+        "p_value": 0
+      },
+      {
+        "term": "log_prev_poly",
+        "estimate": 0.039852,
+        "p_value": 0
+      },
+      {
+        "term": "VENDORE",
+        "estimate": 0.02032,
+        "p_value": 0.001649
+      },
+      {
+        "term": "AGENCY_APPOINTMENT_YEAR",
+        "estimate": 0.001536,
+        "p_value": 0
+      }
+    ],
+    "most_negative": [
+      {
+        "term": "PROD_ABBRPERSAIP",
+        "estimate": -1.307179,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRDTALK",
+        "estimate": -0.409961,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRPERSINLMAR",
+        "estimate": -0.313532,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRSNOWMOBILE",
+        "estimate": -0.3075,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRYACHT",
+        "estimate": -0.237134,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRCRIME",
+        "estimate": -0.227276,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRBOILERMACH",
+        "estimate": -0.214857,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_LINEPL",
+        "estimate": -0.207641,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRMOTORHOME",
+        "estimate": -0.1997,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRCYCLES",
+        "estimate": -0.199263,
+        "p_value": 0
+      }
+    ]
+  },
+  "largest_significant_effects_OLS_3_RET_CC": {
+    "most_positive": [
+      {
+        "term": "log_prev_wp",
+        "estimate": 0.558393,
+        "p_value": 0
+      },
+      {
+        "term": "log_prev_poly",
+        "estimate": 0.40654,
+        "p_value": 0
+      },
+      {
+        "term": "VENDORJ",
+        "estimate": 0.156686,
+        "p_value": 0.000405
+      },
+      {
+        "term": "STATE_ABBRKY",
+        "estimate": 0.130498,
+        "p_value": 0
+      },
+      {
+        "term": "STATE_ABBRWV",
+        "estimate": 0.103289,
+        "p_value": 0
+      },
+      {
+        "term": "STATE_ABBRPA",
+        "estimate": 0.048442,
+        "p_value": 0.000099
+      },
+      {
+        "term": "STATE_ABBROH",
+        "estimate": 0.041613,
+        "p_value": 0.000023
+      },
+      {
+        "term": "VENDORC",
+        "estimate": 0.030183,
+        "p_value": 0.015277
+      },
+      {
+        "term": "VENDORE",
+        "estimate": 0.023846,
+        "p_value": 0.022968
+      },
+      {
+        "term": "MAX_AGE",
+        "estimate": 0.000804,
+        "p_value": 0.002393
+      }
+    ],
+    "most_negative": [
+      {
+        "term": "PROD_ABBRPERSAIP",
+        "estimate": -2.600728,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRPERSINLMAR",
+        "estimate": -1.049982,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRMOTORHOME",
+        "estimate": -0.909527,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRSNOWMOBILE",
+        "estimate": -0.883626,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRDTALK",
+        "estimate": -0.872183,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRYACHT",
+        "estimate": -0.688549,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRPERSUMBREL",
+        "estimate": -0.67624,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRCYCLES",
+        "estimate": -0.662778,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRMOBILEHOME",
+        "estimate": -0.644758,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRDWELLFIRE",
+        "estimate": -0.352413,
+        "p_value": 0
+      }
+    ]
+  },
+  "largest_significant_effects_OLS_5": {
+    "most_positive": [
+      {
+        "term": "log_prev_wp",
+        "estimate": 0.571435,
+        "p_value": 0
+      },
+      {
+        "term": "log_prev_poly",
+        "estimate": 0.397453,
+        "p_value": 0
+      },
+      {
+        "term": "VENDORJ",
+        "estimate": 0.150892,
+        "p_value": 0.000625
+      },
+      {
+        "term": "STATE_ABBRKY",
+        "estimate": 0.129842,
+        "p_value": 0
+      },
+      {
+        "term": "STATE_ABBRWV",
+        "estimate": 0.114557,
+        "p_value": 0
+      },
+      {
+        "term": "STATE_ABBRPA",
+        "estimate": 0.065735,
+        "p_value": 0
+      },
+      {
+        "term": "STATE_ABBROH",
+        "estimate": 0.046209,
+        "p_value": 2e-06
+      },
+      {
+        "term": "VENDORC",
+        "estimate": 0.030488,
+        "p_value": 0.013867
+      },
+      {
+        "term": "VENDORE",
+        "estimate": 0.023823,
+        "p_value": 0.022515
+      },
+      {
+        "term": "MAX_AGE",
+        "estimate": 0.000872,
+        "p_value": 0.000945
+      }
+    ],
+    "most_negative": [
+      {
+        "term": "PROD_ABBRPERSAIP",
+        "estimate": -2.768107,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRPERSINLMAR",
+        "estimate": -0.981655,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRMOTORHOME",
+        "estimate": -0.887743,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRDTALK",
+        "estimate": -0.869673,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRSNOWMOBILE",
+        "estimate": -0.864821,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRCYCLES",
+        "estimate": -0.656348,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRYACHT",
+        "estimate": -0.65124,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRPERSUMBREL",
+        "estimate": -0.629011,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRMOBILEHOME",
+        "estimate": -0.602714,
+        "p_value": 0
+      },
+      {
+        "term": "PREV_RETENTION_RATIO",
+        "estimate": -0.344731,
+        "p_value": 0
+      }
+    ]
+  },
+  "largest_significant_effects_OLS_ADDITIVE_FINAL": {
+    "most_positive": [
+      {
+        "term": "log_prev_wp",
+        "estimate": 0.855796,
+        "p_value": 0
+      },
+      {
+        "term": "VENDORJ",
+        "estimate": 0.306637,
+        "p_value": 0
+      },
+      {
+        "term": "STATE_ABBRMI",
+        "estimate": 0.291276,
+        "p_value": 0
+      },
+      {
+        "term": "STATE_ABBROH",
+        "estimate": 0.244345,
+        "p_value": 0
+      },
+      {
+        "term": "STATE_ABBRPA",
+        "estimate": 0.109906,
+        "p_value": 0
+      },
+      {
+        "term": "STATE_ABBRWV",
+        "estimate": 0.083182,
+        "p_value": 0
+      },
+      {
+        "term": "STATE_ABBRKY",
+        "estimate": 0.066465,
+        "p_value": 0
+      },
+      {
+        "term": "VENDORC",
+        "estimate": 0.055136,
+        "p_value": 0.000018
+      },
+      {
+        "term": "VENDORE",
+        "estimate": 0.043457,
+        "p_value": 0.000015
+      },
+      {
+        "term": "MAX_AGE",
+        "estimate": 0.0031,
+        "p_value": 0
+      }
+    ],
+    "most_negative": [
+      {
+        "term": "PROD_ABBRSNOWMOBI12",
+        "estimate": -4.54057,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRMOTORHOM12",
+        "estimate": -4.126915,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRDTALK   12",
+        "estimate": -3.666503,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRCYCLES  12",
+        "estimate": -3.494377,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRBOILERMACH",
+        "estimate": -2.621376,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRCRIME",
+        "estimate": -2.567072,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRCOMMINLMAR",
+        "estimate": -2.294381,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRBOP",
+        "estimate": -2.216646,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRCOMMUMBREL",
+        "estimate": -2.114664,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRGENERALIAB",
+        "estimate": -2.114118,
+        "p_value": 0
+      }
+    ]
+  },
+  "largest_significant_effects_OLS_INTERACTION_FULL": {
+    "most_positive": [
+      {
+        "term": "STATE_ABBRMI",
+        "estimate": 123.665692,
+        "p_value": 0.007696
+      },
+      {
+        "term": "VENDORG",
+        "estimate": 76.854123,
+        "p_value": 0.002856
+      },
+      {
+        "term": "PROD_ABBRWORKCOMP:VENDORF",
+        "estimate": 2.067523,
+        "p_value": 0.0439
+      },
+      {
+        "term": "STATE_ABBRKY:PROD_ABBRANNIV   12",
+        "estimate": 1.355102,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRANNIV   12:VENDORJ",
+        "estimate": 1.230192,
+        "p_value": 0.01456
+      },
+      {
+        "term": "STATE_ABBRWV:PROD_ABBRANNIV   12",
+        "estimate": 1.176375,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRDTALK   12:VENDORC",
+        "estimate": 1.010521,
+        "p_value": 0.00566
+      },
+      {
+        "term": "STATE_ABBRPA:PROD_ABBRANNIV   12",
+        "estimate": 0.966512,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRDTALK   12:VENDORE",
+        "estimate": 0.843471,
+        "p_value": 0.011542
+      },
+      {
+        "term": "PROD_ABBRDTALK   12:VENDORUnknown",
+        "estimate": 0.839078,
+        "p_value": 0.009332
+      }
+    ],
+    "most_negative": [
+      {
+        "term": "PROD_ABBRCRIME",
+        "estimate": -174.497167,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRGARAGE",
+        "estimate": -122.625296,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRDWELLFIRE",
+        "estimate": -117.498409,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRBOILERMACH",
+        "estimate": -114.984552,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRCOMMUMBREL",
+        "estimate": -113.735096,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRCOMMINLMAR",
+        "estimate": -107.479406,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRDTALK",
+        "estimate": -106.737401,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRFIREALLIED",
+        "estimate": -97.735461,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRBOP",
+        "estimate": -94.616601,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRGENERALIAB",
+        "estimate": -94.437638,
+        "p_value": 0
+      }
+    ]
+  },
+  "largest_significant_effects_OLS_INTERACTION_NUMERIC_ONLY": {
+    "most_positive": [
+      {
+        "term": "ACTIVE_PRODUCERS",
+        "estimate": 0.406431,
+        "p_value": 0.001719
+      },
+      {
+        "term": "STATE_ABBRMI",
+        "estimate": 0.305057,
+        "p_value": 0
+      },
+      {
+        "term": "VENDORJ",
+        "estimate": 0.293896,
+        "p_value": 0
+      },
+      {
+        "term": "STATE_ABBROH",
+        "estimate": 0.22083,
+        "p_value": 0
+      },
+      {
+        "term": "STATE_ABBRPA",
+        "estimate": 0.107456,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRHOMEOWNERS",
+        "estimate": 0.072999,
+        "p_value": 5e-06
+      },
+      {
+        "term": "STATE_ABBRWV",
+        "estimate": 0.071746,
+        "p_value": 4e-06
+      },
+      {
+        "term": "STATE_ABBRKY",
+        "estimate": 0.061075,
+        "p_value": 0
+      },
+      {
+        "term": "log_prev_wp:log_prev_poly",
+        "estimate": 0.037014,
+        "p_value": 0
+      },
+      {
+        "term": "VENDORE",
+        "estimate": 0.028949,
+        "p_value": 0.003206
+      }
+    ],
+    "most_negative": [
+      {
+        "term": "log_prev_poly",
+        "estimate": -6.828308,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRSNOWMOBI12",
+        "estimate": -5.137379,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRMOTORHOM12",
+        "estimate": -4.489249,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRDTALK   12",
+        "estimate": -4.075716,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRCYCLES  12",
+        "estimate": -3.975361,
+        "p_value": 0
+      },
+      {
+        "term": "log_prev_wp",
+        "estimate": -3.345323,
+        "p_value": 0.025242
+      },
+      {
+        "term": "PROD_ABBRBOILERMACH",
+        "estimate": -2.665139,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRCRIME",
+        "estimate": -2.608182,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRCOMMINLMAR",
+        "estimate": -2.299963,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRBOP",
+        "estimate": -2.199933,
+        "p_value": 0
+      }
+    ]
+  },
+  "largest_significant_effects_OLS_INTERACTION_SUPPORTED": {
+    "most_positive": [
+      {
+        "term": "STATE_ABBRMI",
+        "estimate": 112.532798,
+        "p_value": 0.013601
+      },
+      {
+        "term": "VENDORG",
+        "estimate": 73.966798,
+        "p_value": 0.003534
+      },
+      {
+        "term": "log_prev_wp:PROD_ABBRPERSAIP",
+        "estimate": 0.958682,
+        "p_value": 0.013205
+      },
+      {
+        "term": "AGENCY_APPOINTMENT_YEAR",
+        "estimate": 0.661512,
+        "p_value": 0.000067
+      },
+      {
+        "term": "STAT_PROFILE_DATE_YEAR",
+        "estimate": 0.481527,
+        "p_value": 0.003031
+      },
+      {
+        "term": "log_prev_poly:PROD_ABBRGARAGE",
+        "estimate": 0.316493,
+        "p_value": 0
+      },
+      {
+        "term": "log_prev_poly:PROD_ABBRWORKCOMP",
+        "estimate": 0.281699,
+        "p_value": 0
+      },
+      {
+        "term": "log_prev_poly:PROD_ABBRCOMMUMBREL",
+        "estimate": 0.266609,
+        "p_value": 0
+      },
+      {
+        "term": "log_prev_poly:PROD_ABBRBOP",
+        "estimate": 0.257024,
+        "p_value": 0
+      },
+      {
+        "term": "log_prev_poly:PROD_ABBRCOMMAUTO",
+        "estimate": 0.245556,
+        "p_value": 0
+      }
+    ],
+    "most_negative": [
+      {
+        "term": "PROD_ABBRCRIME",
+        "estimate": -173.390211,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRGARAGE",
+        "estimate": -120.553481,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRBOILERMACH",
+        "estimate": -116.857304,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRDWELLFIRE",
+        "estimate": -115.855912,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRDTALK",
+        "estimate": -114.421218,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRCOMMUMBREL",
+        "estimate": -108.842789,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRCOMMINLMAR",
+        "estimate": -106.549269,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRFIREALLIED",
+        "estimate": -97.070025,
+        "p_value": 0
+      },
+      {
+        "term": "PROD_ABBRMOBILEHOME",
+        "estimate": -96.789161,
+        "p_value": 3e-06
+      },
+      {
+        "term": "PROD_ABBRGENERALIAB",
+        "estimate": -92.880225,
+        "p_value": 0
+      }
+    ]
+  },
+  "notes": "STAT_PROFILE_DATE_YEAR is included as a continuous numeric variable (not a factor) in OLS 3+. Treating it as a factor would prevent prediction for test years 2013-2014 (unseen levels). OLS_ADDITIVE_FINAL removes PROD_LINE from OLS 3: PROD_ABBR determines PROD_LINE exactly, making the PROD_LINE term structurally redundant and unstable across populations. OLS 3CC and OLS 4CC use the PREV_LOSS_RATIO CC subset (~91.2% of full data). OLS_3_RET_CC and OLS_5 use the PREV_RETENTION_RATIO CC subset (~37% of full data). For each lagged predictor test, the CC baseline is the correct comparison. Direct comparison to OLS 3 (full pop) confounds population selection with predictor contribution. Row counts: see row_count_note field. The candidate population (103,923 train / 31,144 test) differs from the effective evaluated rows (103,377 train / 30,981 test) because 546 train and 163 test rows have NA in log_prev_wp or log_prev_poly and are excluded from model fitting and metric calculations."
+}

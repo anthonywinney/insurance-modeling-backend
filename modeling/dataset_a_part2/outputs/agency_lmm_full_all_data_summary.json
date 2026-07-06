@@ -1,0 +1,64 @@
+{
+  "model_name": "AGENCY_LMM_FULL_ALL_DATA",
+  "purpose": "All-data refit of AGENCY_LMM_FULL on 2006-2014 eligible rows. Supporting reference artifact for agency-credibility interpretability. RF_FINAL_ALL_DATA remains the primary deployment artifact.",
+  "formula": ["log_wp ~ log_prev_wp + log_prev_poly + ACTIVE_PRODUCERS + AGENCY_APPOINTMENT_YEAR + ", "    MAX_AGE + MIN_AGE + STATE_ABBR + PROD_ABBR + VENDOR + STAT_PROFILE_DATE_YEAR + ", "    (1 | AGENCY_ID)"],
+  "training_years": "2006-2014",
+  "excluded_years": [
+    2005,
+    2015
+  ],
+  "row_filters": [
+    "STAT_PROFILE_DATE_YEAR in 2006:2014",
+    "PROD_ABBR != 'COMMPOL'",
+    "WRTN_PREM_AMT > 0",
+    "!is.na(log_prev_wp)",
+    "!is.na(log_prev_poly)"
+  ],
+  "n_training_rows": 134358,
+  "n_agencies": 1334,
+  "optimizer": "bobyqa",
+  "reml": true,
+  "convergence_status": {
+    "singular": false,
+    "n_warnings": 1,
+    "warnings": "Some predictor variables are on very different scales: consider rescaling. \nYou may also use (g)lmerControl(autoscale = TRUE) to improve numerical stability.",
+    "converged": false
+  },
+  "variance_components": {
+    "agency_variance": 0.341073,
+    "residual_variance": 0.954844,
+    "total_variance": 1.295917,
+    "agency_icc": 0.2632
+  },
+  "within_sample_diagnostics": {
+    "note": "WITHIN-SAMPLE FIT. NOT holdout evaluation.",
+    "conditional": {
+      "r2": 0.8033,
+      "rmse": 0.9727,
+      "mae": 0.6332
+    },
+    "marginal": {
+      "r2": 0.7712,
+      "rmse": 1.0492,
+      "mae": 0.7051
+    }
+  },
+  "locked_evaluated_conditional": {
+    "test_r2": 0.7607,
+    "test_rmse": 1.0814,
+    "test_mae": 0.7071
+  },
+  "locked_evaluated_marginal": {
+    "test_r2": 0.7345,
+    "test_rmse": 1.1389,
+    "test_mae": 0.7768
+  },
+  "locked_rf_comparison": {
+    "model": "RF_1_SAFE_TUNED",
+    "test_r2": 0.8839,
+    "test_rmse": 0.7532,
+    "test_mae": 0.4428,
+    "note": "RF_1_SAFE_TUNED is the leading evaluated predictive model. RF_FINAL_ALL_DATA is the primary deployment artifact."
+  },
+  "all_data_refit_note": "This all-data refit has no untouched test set. OOB/within-sample diagnostics do not replace the locked holdout evidence. The evaluated specification remains AGENCY_LMM_FULL (fit on 2006-2012 only)."
+}

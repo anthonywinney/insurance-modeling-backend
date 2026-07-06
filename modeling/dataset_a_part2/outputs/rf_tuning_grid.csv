@@ -1,0 +1,5 @@
+"Parameter","Values"
+"num.trees","500"
+"mtry","3, 5, 7, 10"
+"min.node.size","5, 20, 50, 100"
+"sample.fraction","0.6, 0.8, 1.0"

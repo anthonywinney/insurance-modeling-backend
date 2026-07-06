@@ -1,0 +1,698 @@
+{
+  "description": "Lag-year integrity sensitivity test for Dataset A Part 2. Tests whether including 2006 training rows — whose lag predictors (log_prev_wp, log_prev_poly) reflect potentially incomplete 2005 data — materially changes the OLS and RF modeling conclusions. All four models are refit within this script for exact apples-to-apples comparison. Test set is held constant at 2013-2014 effective rows for all models.",
+  "issue_summary": "2005 was excluded from the modeling population as a partial reporting year. The 2006 training rows use PREV_WRTN_PREM_AMT and PREV_POLY_INFORCE_QTY, which reflect 2005 values. If 2005 is incomplete, 2006 lag predictors may be distorted. This script tests whether removing those rows changes holdout R², RMSE, MAE, OLS coefficients, RF importance rankings, or the RF-vs-OLS conclusion.",
+  "modeling_populations": {
+    "target_variable": "log_wp = log(WRTN_PREM_AMT + 1)",
+    "filters": {
+      "exclude_prod_abbr": "COMMPOL",
+      "wp_filter": "WRTN_PREM_AMT > 0",
+      "na_exclusion": "rows where log_prev_wp or log_prev_poly is NA excluded"
+    },
+    "predictors": {
+      "numeric": ["log_prev_wp", "log_prev_poly", "ACTIVE_PRODUCERS", "AGENCY_APPOINTMENT_YEAR", "MAX_AGE", "MIN_AGE", "STAT_PROFILE_DATE_YEAR"],
+      "categorical": ["STATE_ABBR", "PROD_ABBR", "VENDOR"]
+    }
+  },
+  "row_counts": {
+    "original": {
+      "train_years": "2006-2012",
+      "test_years": "2013-2014",
+      "n_candidate_train": 103923,
+      "n_effective_train": 103377,
+      "n_effective_test": 30981
+    },
+    "no_2006": {
+      "train_years": "2007-2012",
+      "test_years": "2013-2014",
+      "n_candidate_train": 89864,
+      "n_effective_train": 89375,
+      "n_effective_test": 30981
+    },
+    "rows_2006": {
+      "n_rows_removed": 14002,
+      "pct_of_original": 13.54,
+      "top_10_prod_abbr": [
+        {
+          "PROD_ABBR": "HOMEOWNERS",
+          "n": 1127,
+          "pct": 8.05
+        },
+        {
+          "PROD_ABBR": "ANNIV",
+          "n": 1089,
+          "pct": 7.78
+        },
+        {
+          "PROD_ABBR": "GENERALIAB",
+          "n": 993,
+          "pct": 7.09
+        },
+        {
+          "PROD_ABBR": "FIREALLIED",
+          "n": 981,
+          "pct": 7.01
+        },
+        {
+          "PROD_ABBR": "BOILERMACH",
+          "n": 979,
+          "pct": 6.99
+        },
+        {
+          "PROD_ABBR": "COMMAUTO",
+          "n": 896,
+          "pct": 6.4
+        },
+        {
+          "PROD_ABBR": "COMMINLMAR",
+          "n": 831,
+          "pct": 5.93
+        },
+        {
+          "PROD_ABBR": "DWELLFIRE",
+          "n": 747,
+          "pct": 5.33
+        },
+        {
+          "PROD_ABBR": "BOP",
+          "n": 733,
+          "pct": 5.23
+        },
+        {
+          "PROD_ABBR": "PERSUMBREL",
+          "n": 696,
+          "pct": 4.97
+        }
+      ],
+      "top_10_state_abbr": [
+        {
+          "STATE_ABBR": "OH",
+          "n": 7154,
+          "pct": 51.09
+        },
+        {
+          "STATE_ABBR": "IN",
+          "n": 2263,
+          "pct": 16.16
+        },
+        {
+          "STATE_ABBR": "PA",
+          "n": 2095,
+          "pct": 14.96
+        },
+        {
+          "STATE_ABBR": "KY",
+          "n": 1813,
+          "pct": 12.95
+        },
+        {
+          "STATE_ABBR": "WV",
+          "n": 677,
+          "pct": 4.84
+        }
+      ]
+    }
+  },
+  "part_e_lag_integrity_diagnostics": {
+    "year_2006": {
+      "label": "2006 training rows (pre-NA exclusion)",
+      "n_rows": 14059,
+      "prev_wrtn_prem_amt": {
+        "n": 14059,
+        "min": -119204.7,
+        "p25": 920.915,
+        "median": 4393.07,
+        "mean": 36737.288,
+        "p75": 28855.78,
+        "p90": 99999,
+        "p95": 154593.493,
+        "p99": 444250.1928,
+        "max": 1904569.99
+      },
+      "prev_poly_inforce_qty": {
+        "n": 14059,
+        "min": 0,
+        "p25": 0,
+        "median": 3,
+        "mean": 7846.8098,
+        "p75": 123,
+        "p90": 3472.8,
+        "p95": 99999,
+        "p99": 99999,
+        "max": 99999
+      },
+      "log_prev_wp": {
+        "n": 14002,
+        "min": 0,
+        "p25": 6.851,
+        "median": 8.398,
+        "mean": 8.472,
+        "p75": 10.2797,
+        "p90": 11.5129,
+        "p95": 11.9583,
+        "p99": 13.0055,
+        "max": 14.4598
+      },
+      "log_prev_poly": {
+        "n": 14059,
+        "min": 0,
+        "p25": 0,
+        "median": 1.3863,
+        "mean": 2.8751,
+        "p75": 4.8203,
+        "p90": 8.153,
+        "p95": 11.5129,
+        "p99": 11.5129,
+        "max": 11.5129
+      },
+      "pct_prev_wp_negative": 0.41,
+      "pct_prev_poly_negative": 0,
+      "pct_prev_wp_zero": 0.76,
+      "pct_prev_poly_zero": 49.43,
+      "pct_log_prev_wp_na": 0.41,
+      "pct_log_prev_poly_na": 0
+    },
+    "year_2007_12": {
+      "label": "2007-2012 training rows (pre-NA exclusion)",
+      "n_rows": 89864,
+      "prev_wrtn_prem_amt": {
+        "n": 89864,
+        "min": -91663.24,
+        "p25": 879.8,
+        "median": 4132.3,
+        "mean": 34211.5354,
+        "p75": 26917.1575,
+        "p90": 99999,
+        "p95": 143748.913,
+        "p99": 405361.7411,
+        "max": 1715741.77
+      },
+      "prev_poly_inforce_qty": {
+        "n": 89864,
+        "min": 0,
+        "p25": 0,
+        "median": 0,
+        "mean": 7261.4158,
+        "p75": 95,
+        "p90": 2492,
+        "p95": 99999,
+        "p99": 99999,
+        "max": 99999
+      },
+      "log_prev_wp": {
+        "n": 89375,
+        "min": 0,
+        "p25": 6.8091,
+        "median": 8.3427,
+        "mean": 8.4238,
+        "p75": 10.2165,
+        "p90": 11.5129,
+        "p95": 11.88,
+        "p99": 12.9142,
+        "max": 14.3554
+      },
+      "log_prev_poly": {
+        "n": 89864,
+        "min": 0,
+        "p25": 0,
+        "median": 0,
+        "mean": 2.6853,
+        "p75": 4.5643,
+        "p90": 7.8212,
+        "p95": 11.5129,
+        "p99": 11.5129,
+        "max": 11.5129
+      },
+      "pct_prev_wp_negative": 0.54,
+      "pct_prev_poly_negative": 0,
+      "pct_prev_wp_zero": 0.8,
+      "pct_prev_poly_zero": 52.13,
+      "pct_log_prev_wp_na": 0.54,
+      "pct_log_prev_poly_na": 0
+    },
+    "mean_log_prev_wp_2006": 8.472,
+    "mean_log_prev_wp_0712": 8.4238,
+    "mean_diff_log_prev_wp": 0.0482,
+    "pct_diff_log_prev_wp": 0.57,
+    "material_lag_distortion": false,
+    "interpretation": "2006 mean log_prev_wp is close to 2007-2012 mean (<10% difference). 2005 incompleteness does not appear to have materially distorted 2006 lag predictors."
+  },
+  "models": {
+    "ols_original": {
+      "model_id": "OLS_ADDITIVE_FINAL_ORIGINAL",
+      "train_years": "2006-2012",
+      "test_years": "2013-2014",
+      "n_train": 103377,
+      "n_test": 30981,
+      "train_r2": 0.781,
+      "train_rmse": 1.0238,
+      "train_mae": 0.6468,
+      "test_r2": 0.7552,
+      "test_rmse": 1.0937,
+      "test_mae": 0.699,
+      "key_coefficients": [
+        {
+          "variable": "log_prev_wp",
+          "estimate": 0.855796
+        },
+        {
+          "variable": "log_prev_poly",
+          "estimate": -0.341026
+        },
+        {
+          "variable": "ACTIVE_PRODUCERS",
+          "estimate": 0.00045
+        },
+        {
+          "variable": "AGENCY_APPOINTMENT_YEAR",
+          "estimate": -0.003084
+        },
+        {
+          "variable": "MAX_AGE",
+          "estimate": 0.0031
+        },
+        {
+          "variable": "MIN_AGE",
+          "estimate": -0.000527
+        },
+        {
+          "variable": "STAT_PROFILE_DATE_YEAR",
+          "estimate": -0.006411
+        }
+      ]
+    },
+    "ols_no_2006": {
+      "model_id": "OLS_ADDITIVE_FINAL_NO_2006",
+      "train_years": "2007-2012",
+      "test_years": "2013-2014",
+      "n_train": 89375,
+      "n_test": 30981,
+      "train_r2": 0.7837,
+      "train_rmse": 1.017,
+      "train_mae": 0.6388,
+      "test_r2": 0.7546,
+      "test_rmse": 1.095,
+      "test_mae": 0.6971,
+      "key_coefficients": [
+        {
+          "variable": "log_prev_wp",
+          "estimate": 0.859907
+        },
+        {
+          "variable": "log_prev_poly",
+          "estimate": -0.34017
+        },
+        {
+          "variable": "ACTIVE_PRODUCERS",
+          "estimate": 0.000456
+        },
+        {
+          "variable": "AGENCY_APPOINTMENT_YEAR",
+          "estimate": -0.003196
+        },
+        {
+          "variable": "MAX_AGE",
+          "estimate": 0.003005
+        },
+        {
+          "variable": "MIN_AGE",
+          "estimate": -0.000328
+        },
+        {
+          "variable": "STAT_PROFILE_DATE_YEAR",
+          "estimate": -0.005956
+        }
+      ]
+    },
+    "rf_original": {
+      "model_id": "RF_1_SAFE_TUNED_ORIGINAL",
+      "train_years": "2006-2012",
+      "test_years": "2013-2014",
+      "hyperparameters": {
+        "num_trees": 500,
+        "mtry": 3,
+        "min_node_size": 5,
+        "replace": false,
+        "sample_fraction": 0.6,
+        "importance": "permutation"
+      },
+      "n_train": 103377,
+      "n_test": 30981,
+      "oob_r2": 0.899,
+      "oob_rmse": 0.6953,
+      "train_r2": 0.9609,
+      "train_rmse": 0.4326,
+      "train_mae": 0.2385,
+      "test_r2": 0.884,
+      "test_rmse": 0.753,
+      "test_mae": 0.4426,
+      "runtime_s": 93,
+      "feature_importance": [
+        {
+          "variable": "log_prev_wp",
+          "rank": 1,
+          "permutation_importance": 5.91697,
+          "normalized_pct": 60.49
+        },
+        {
+          "variable": "log_prev_poly",
+          "rank": 2,
+          "permutation_importance": 1.666174,
+          "normalized_pct": 17.03
+        },
+        {
+          "variable": "PROD_ABBR",
+          "rank": 3,
+          "permutation_importance": 1.06129,
+          "normalized_pct": 10.85
+        },
+        {
+          "variable": "AGENCY_APPOINTMENT_YEAR",
+          "rank": 4,
+          "permutation_importance": 0.266322,
+          "normalized_pct": 2.72
+        },
+        {
+          "variable": "ACTIVE_PRODUCERS",
+          "rank": 5,
+          "permutation_importance": 0.220083,
+          "normalized_pct": 2.25
+        },
+        {
+          "variable": "MIN_AGE",
+          "rank": 6,
+          "permutation_importance": 0.181504,
+          "normalized_pct": 1.86
+        },
+        {
+          "variable": "MAX_AGE",
+          "rank": 7,
+          "permutation_importance": 0.146597,
+          "normalized_pct": 1.5
+        },
+        {
+          "variable": "STATE_ABBR",
+          "rank": 8,
+          "permutation_importance": 0.131262,
+          "normalized_pct": 1.34
+        },
+        {
+          "variable": "VENDOR",
+          "rank": 9,
+          "permutation_importance": 0.118539,
+          "normalized_pct": 1.21
+        },
+        {
+          "variable": "STAT_PROFILE_DATE_YEAR",
+          "rank": 10,
+          "permutation_importance": 0.073075,
+          "normalized_pct": 0.75
+        }
+      ]
+    },
+    "rf_no_2006": {
+      "model_id": "RF_1_SAFE_TUNED_NO_2006",
+      "train_years": "2007-2012",
+      "test_years": "2013-2014",
+      "hyperparameters": {
+        "num_trees": 500,
+        "mtry": 3,
+        "min_node_size": 5,
+        "replace": false,
+        "sample_fraction": 0.6,
+        "importance": "permutation"
+      },
+      "n_train": 89375,
+      "n_test": 30981,
+      "oob_r2": 0.9004,
+      "oob_rmse": 0.6902,
+      "train_r2": 0.9615,
+      "train_rmse": 0.4289,
+      "train_mae": 0.2352,
+      "test_r2": 0.884,
+      "test_rmse": 0.7529,
+      "test_mae": 0.442,
+      "runtime_s": 73.9,
+      "feature_importance": [
+        {
+          "variable": "log_prev_wp",
+          "rank": 1,
+          "permutation_importance": 5.942128,
+          "normalized_pct": 60.82
+        },
+        {
+          "variable": "log_prev_poly",
+          "rank": 2,
+          "permutation_importance": 1.635977,
+          "normalized_pct": 16.74
+        },
+        {
+          "variable": "PROD_ABBR",
+          "rank": 3,
+          "permutation_importance": 1.08749,
+          "normalized_pct": 11.13
+        },
+        {
+          "variable": "AGENCY_APPOINTMENT_YEAR",
+          "rank": 4,
+          "permutation_importance": 0.249401,
+          "normalized_pct": 2.55
+        },
+        {
+          "variable": "ACTIVE_PRODUCERS",
+          "rank": 5,
+          "permutation_importance": 0.22068,
+          "normalized_pct": 2.26
+        },
+        {
+          "variable": "MIN_AGE",
+          "rank": 6,
+          "permutation_importance": 0.176087,
+          "normalized_pct": 1.8
+        },
+        {
+          "variable": "MAX_AGE",
+          "rank": 7,
+          "permutation_importance": 0.141953,
+          "normalized_pct": 1.45
+        },
+        {
+          "variable": "STATE_ABBR",
+          "rank": 8,
+          "permutation_importance": 0.13242,
+          "normalized_pct": 1.36
+        },
+        {
+          "variable": "VENDOR",
+          "rank": 9,
+          "permutation_importance": 0.116944,
+          "normalized_pct": 1.2
+        },
+        {
+          "variable": "STAT_PROFILE_DATE_YEAR",
+          "rank": 10,
+          "permutation_importance": 0.066864,
+          "normalized_pct": 0.68
+        }
+      ]
+    }
+  },
+  "performance_comparison": {
+    "ols_original_vs_no_2006": {
+      "delta_train_r2": 0.0027,
+      "delta_test_r2": -0.0006,
+      "delta_train_rmse": -0.0068,
+      "delta_test_rmse": 0.0013,
+      "delta_train_mae": -0.008,
+      "delta_test_mae": -0.0019
+    },
+    "rf_original_vs_no_2006": {
+      "delta_oob_r2": 0.0014,
+      "delta_oob_rmse": -0.0051,
+      "delta_train_r2": 0.0006,
+      "delta_test_r2": 0,
+      "delta_train_rmse": -0.0037,
+      "delta_test_rmse": -0.0001,
+      "delta_train_mae": -0.0033,
+      "delta_test_mae": -0.0006
+    },
+    "rf_vs_ols_original": {
+      "rf_test_r2": 0.884,
+      "ols_test_r2": 0.7552,
+      "delta": 0.1288,
+      "rf_wins": true
+    },
+    "rf_vs_ols_no_2006": {
+      "rf_test_r2": 0.884,
+      "ols_test_r2": 0.7546,
+      "delta": 0.1294,
+      "rf_wins": true
+    },
+    "rf_conclusion_unchanged": true
+  },
+  "delta_analysis": {
+    "materiality_thresholds": {
+      "r2": 0.01,
+      "rmse": 0.02
+    },
+    "ols_r2_material": false,
+    "ols_rmse_material": false,
+    "rf_r2_material": false,
+    "rf_rmse_material": false,
+    "rf_conclusion_changed": false
+  },
+  "coefficient_comparison": [
+    {
+      "variable": "log_prev_wp",
+      "original_estimate": 0.855796,
+      "no2006_estimate": 0.859907,
+      "delta": 0.004111,
+      "pct_change": 0.48
+    },
+    {
+      "variable": "log_prev_poly",
+      "original_estimate": -0.341026,
+      "no2006_estimate": -0.34017,
+      "delta": 0.000856,
+      "pct_change": 0.25
+    },
+    {
+      "variable": "ACTIVE_PRODUCERS",
+      "original_estimate": 0.00045,
+      "no2006_estimate": 0.000456,
+      "delta": 6e-06,
+      "pct_change": 1.33
+    },
+    {
+      "variable": "AGENCY_APPOINTMENT_YEAR",
+      "original_estimate": -0.003084,
+      "no2006_estimate": -0.003196,
+      "delta": -0.000112,
+      "pct_change": -3.63
+    },
+    {
+      "variable": "MAX_AGE",
+      "original_estimate": 0.0031,
+      "no2006_estimate": 0.003005,
+      "delta": -0.000095,
+      "pct_change": -3.06
+    },
+    {
+      "variable": "MIN_AGE",
+      "original_estimate": -0.000527,
+      "no2006_estimate": -0.000328,
+      "delta": 0.000199,
+      "pct_change": 37.76
+    },
+    {
+      "variable": "STAT_PROFILE_DATE_YEAR",
+      "original_estimate": -0.006411,
+      "no2006_estimate": -0.005956,
+      "delta": 0.000455,
+      "pct_change": 7.1
+    }
+  ],
+  "feature_importance_comparison": [
+    {
+      "variable": "log_prev_wp",
+      "rank_original": 1,
+      "rank_no2006": 1,
+      "rank_delta": 0,
+      "norm_pct_original": 60.49,
+      "norm_pct_no2006": 60.82,
+      "norm_pct_delta": 0.33
+    },
+    {
+      "variable": "log_prev_poly",
+      "rank_original": 2,
+      "rank_no2006": 2,
+      "rank_delta": 0,
+      "norm_pct_original": 17.03,
+      "norm_pct_no2006": 16.74,
+      "norm_pct_delta": -0.29
+    },
+    {
+      "variable": "PROD_ABBR",
+      "rank_original": 3,
+      "rank_no2006": 3,
+      "rank_delta": 0,
+      "norm_pct_original": 10.85,
+      "norm_pct_no2006": 11.13,
+      "norm_pct_delta": 0.28
+    },
+    {
+      "variable": "AGENCY_APPOINTMENT_YEAR",
+      "rank_original": 4,
+      "rank_no2006": 4,
+      "rank_delta": 0,
+      "norm_pct_original": 2.72,
+      "norm_pct_no2006": 2.55,
+      "norm_pct_delta": -0.17
+    },
+    {
+      "variable": "ACTIVE_PRODUCERS",
+      "rank_original": 5,
+      "rank_no2006": 5,
+      "rank_delta": 0,
+      "norm_pct_original": 2.25,
+      "norm_pct_no2006": 2.26,
+      "norm_pct_delta": 0.01
+    },
+    {
+      "variable": "MIN_AGE",
+      "rank_original": 6,
+      "rank_no2006": 6,
+      "rank_delta": 0,
+      "norm_pct_original": 1.86,
+      "norm_pct_no2006": 1.8,
+      "norm_pct_delta": -0.06
+    },
+    {
+      "variable": "MAX_AGE",
+      "rank_original": 7,
+      "rank_no2006": 7,
+      "rank_delta": 0,
+      "norm_pct_original": 1.5,
+      "norm_pct_no2006": 1.45,
+      "norm_pct_delta": -0.05
+    },
+    {
+      "variable": "STATE_ABBR",
+      "rank_original": 8,
+      "rank_no2006": 8,
+      "rank_delta": 0,
+      "norm_pct_original": 1.34,
+      "norm_pct_no2006": 1.36,
+      "norm_pct_delta": 0.02
+    },
+    {
+      "variable": "VENDOR",
+      "rank_original": 9,
+      "rank_no2006": 9,
+      "rank_delta": 0,
+      "norm_pct_original": 1.21,
+      "norm_pct_no2006": 1.2,
+      "norm_pct_delta": -0.01
+    },
+    {
+      "variable": "STAT_PROFILE_DATE_YEAR",
+      "rank_original": 10,
+      "rank_no2006": 10,
+      "rank_delta": 0,
+      "norm_pct_original": 0.75,
+      "norm_pct_no2006": 0.68,
+      "norm_pct_delta": -0.07
+    }
+  ],
+  "recommendation": {
+    "decision": "KEEP_ORIGINAL_TRAINING_WINDOW",
+    "justification": "Excluding 2006 training rows has negligible effect on holdout performance and interpretation. OLS delta test R² = -0.0006 (threshold ±0.01). RF delta test R² = +0.0000 (threshold ±0.01). RF outperforms OLS under both training regimes. Top predictor rankings stable. 2006 lag predictors show minimal distortion vs 2007-2012. Original 2006-2012 training window is retained."
+  },
+  "key_findings": [
+    "Row counts: original train 103,377 eff rows; no-2006 train 89,375 eff rows (14002 rows removed, 13.5%).",
+    "2006 lag distortion: mean log_prev_wp 2006=8.4720 vs 2007-2012=8.4238 (diff=0.0482, 0.6%). Material=NO.",
+    "OLS: original test R²=0.7552; no-2006 test R²=0.7546; delta=-0.0006 (material=NO).",
+    "RF: original test R²=0.8840; no-2006 test R²=0.8840; delta=+0.0000 (material=NO).",
+    "RF vs OLS: RF wins under original (delta=+0.1288); RF wins under no-2006 (delta=+0.1294). Conclusion unchanged=TRUE.",
+    "Decision: KEEP_ORIGINAL_TRAINING_WINDOW."
+  ]
+}

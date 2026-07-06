@@ -1,0 +1,1130 @@
+{
+  "data_completeness": [
+    {
+      "year": 2005,
+      "row_count": 16419,
+      "unique_agencies": 1130,
+      "unique_parent_agencies": 470,
+      "total_wrtn_prem": 274320178.95,
+      "total_poly_inforce": 2824264,
+      "total_active_producers": 47825716,
+      "unique_prod_abbr": 23,
+      "unique_states": 6,
+      "avg_months": 7.8152,
+      "avg_retention_ratio": 0.7719,
+      "total_incurred_losses": 116694621.68,
+      "total_earned_premium": 274947833.6,
+      "portfolio_loss_ratio": 0.424425,
+      "n_lr_valid_rows": 13784,
+      "modeling_role": "excluded_partial_year",
+      "is_partial_year": true
+    },
+    {
+      "year": 2006,
+      "row_count": 17685,
+      "unique_agencies": 1214,
+      "unique_parent_agencies": 479,
+      "total_wrtn_prem": 412880799.37,
+      "total_poly_inforce": 4223340,
+      "total_active_producers": 55860111,
+      "unique_prod_abbr": 23,
+      "unique_states": 6,
+      "avg_months": 11.6322,
+      "avg_retention_ratio": 0.7655,
+      "total_incurred_losses": 211911928.67,
+      "total_earned_premium": 410961305.69,
+      "portfolio_loss_ratio": 0.515649,
+      "n_lr_valid_rows": 14408,
+      "modeling_role": "train",
+      "is_partial_year": false
+    },
+    {
+      "year": 2007,
+      "row_count": 18772,
+      "unique_agencies": 1282,
+      "unique_parent_agencies": 486,
+      "total_wrtn_prem": 408545579.01,
+      "total_poly_inforce": 4125077,
+      "total_active_producers": 60087584,
+      "unique_prod_abbr": 23,
+      "unique_states": 6,
+      "avg_months": 11.6608,
+      "avg_retention_ratio": 0.7803,
+      "total_incurred_losses": 224879735.66,
+      "total_earned_premium": 408793180.52,
+      "portfolio_loss_ratio": 0.550106,
+      "n_lr_valid_rows": 14708,
+      "modeling_role": "train",
+      "is_partial_year": false
+    },
+    {
+      "year": 2008,
+      "row_count": 20228,
+      "unique_agencies": 1365,
+      "unique_parent_agencies": 495,
+      "total_wrtn_prem": 415328641.12,
+      "total_poly_inforce": 4008332,
+      "total_active_producers": 64030691,
+      "unique_prod_abbr": 23,
+      "unique_states": 6,
+      "avg_months": 9.9478,
+      "avg_retention_ratio": 0.787,
+      "total_incurred_losses": 270819989.89,
+      "total_earned_premium": 410260998.86,
+      "portfolio_loss_ratio": 0.660116,
+      "n_lr_valid_rows": 15279,
+      "modeling_role": "train",
+      "is_partial_year": false
+    },
+    {
+      "year": 2009,
+      "row_count": 18343,
+      "unique_agencies": 1241,
+      "unique_parent_agencies": 505,
+      "total_wrtn_prem": 412956224.14,
+      "total_poly_inforce": 3946609,
+      "total_active_producers": 38599268,
+      "unique_prod_abbr": 23,
+      "unique_states": 6,
+      "avg_months": 11.5976,
+      "avg_retention_ratio": 0.8105,
+      "total_incurred_losses": 263198502.54,
+      "total_earned_premium": 410735523.47,
+      "portfolio_loss_ratio": 0.640798,
+      "n_lr_valid_rows": 15696,
+      "modeling_role": "train",
+      "is_partial_year": false
+    },
+    {
+      "year": 2010,
+      "row_count": 19240,
+      "unique_agencies": 1279,
+      "unique_parent_agencies": 516,
+      "total_wrtn_prem": 409893016.52,
+      "total_poly_inforce": 3826629,
+      "total_active_producers": 43825638,
+      "unique_prod_abbr": 23,
+      "unique_states": 6,
+      "avg_months": 11.7735,
+      "avg_retention_ratio": 0.7946,
+      "total_incurred_losses": 232614202.72,
+      "total_earned_premium": 413541330.58,
+      "portfolio_loss_ratio": 0.562493,
+      "n_lr_valid_rows": 15596,
+      "modeling_role": "train",
+      "is_partial_year": false
+    },
+    {
+      "year": 2011,
+      "row_count": 19812,
+      "unique_agencies": 1302,
+      "unique_parent_agencies": 524,
+      "total_wrtn_prem": 401476307.87,
+      "total_poly_inforce": 3594252,
+      "total_active_producers": 48740542,
+      "unique_prod_abbr": 23,
+      "unique_states": 6,
+      "avg_months": 11.8431,
+      "avg_retention_ratio": 0.7812,
+      "total_incurred_losses": 256666963.04,
+      "total_earned_premium": 405061832.53,
+      "portfolio_loss_ratio": 0.633649,
+      "n_lr_valid_rows": 15169,
+      "modeling_role": "train",
+      "is_partial_year": false
+    },
+    {
+      "year": 2012,
+      "row_count": 21922,
+      "unique_agencies": 1364,
+      "unique_parent_agencies": 542,
+      "total_wrtn_prem": 405323610.49,
+      "total_poly_inforce": 3366453,
+      "total_active_producers": 59589297,
+      "unique_prod_abbr": 28,
+      "unique_states": 6,
+      "avg_months": 9.7683,
+      "avg_retention_ratio": 0.7716,
+      "total_incurred_losses": 241102858.35,
+      "total_earned_premium": 400404609.88,
+      "portfolio_loss_ratio": 0.602148,
+      "n_lr_valid_rows": 16184,
+      "modeling_role": "train",
+      "is_partial_year": false
+    },
+    {
+      "year": 2013,
+      "row_count": 19412,
+      "unique_agencies": 1219,
+      "unique_parent_agencies": 554,
+      "total_wrtn_prem": 426535472.01,
+      "total_poly_inforce": 3251109,
+      "total_active_producers": 43421808,
+      "unique_prod_abbr": 28,
+      "unique_states": 6,
+      "avg_months": 11.6467,
+      "avg_retention_ratio": 0.7646,
+      "total_incurred_losses": 206021403.88,
+      "total_earned_premium": 411795292.81,
+      "portfolio_loss_ratio": 0.500301,
+      "n_lr_valid_rows": 16128,
+      "modeling_role": "test",
+      "is_partial_year": false
+    },
+    {
+      "year": 2014,
+      "row_count": 20514,
+      "unique_agencies": 1266,
+      "unique_parent_agencies": 570,
+      "total_wrtn_prem": 436479047.44,
+      "total_poly_inforce": 3096699,
+      "total_active_producers": 52947384,
+      "unique_prod_abbr": 28,
+      "unique_states": 6,
+      "avg_months": 11.706,
+      "avg_retention_ratio": 0.7747,
+      "total_incurred_losses": 211225498.67,
+      "total_earned_premium": 428808742.55,
+      "portfolio_loss_ratio": 0.492587,
+      "n_lr_valid_rows": 16125,
+      "modeling_role": "test",
+      "is_partial_year": false
+    },
+    {
+      "year": 2015,
+      "row_count": 20981,
+      "unique_agencies": 1290,
+      "unique_parent_agencies": 578,
+      "total_wrtn_prem": 184462286.6,
+      "total_poly_inforce": 1201242,
+      "total_active_producers": 54657090,
+      "unique_prod_abbr": 28,
+      "unique_states": 6,
+      "avg_months": 4.9517,
+      "avg_retention_ratio": 0.7733,
+      "total_incurred_losses": 93066337.73,
+      "total_earned_premium": 181299397.08,
+      "portfolio_loss_ratio": 0.51333,
+      "n_lr_valid_rows": 15474,
+      "modeling_role": "excluded_partial_year",
+      "is_partial_year": true
+    }
+  ],
+  "non_positive_premium_categories": [
+    {
+      "category": "COMMPOL",
+      "description": "PROD_ABBR = 'COMMPOL' — structural reporting artifact; zero premium by design. Excluded from all WP, LR, and RR modeling.",
+      "row_count": 13229,
+      "pct_of_total": 6.2,
+      "unique_agencies": 1201,
+      "year_distribution": {
+        "2005": 997,
+        "2006": 1065,
+        "2007": 1141,
+        "2008": 1239,
+        "2009": 1178,
+        "2010": 1228,
+        "2011": 1264,
+        "2012": 1336,
+        "2013": 1195,
+        "2014": 1272,
+        "2015": 1314
+      },
+      "wrtn_prem_stats": {
+        "min": 0,
+        "max": 0,
+        "mean": 0,
+        "median": 0
+      }
+    },
+    {
+      "category": "structural_zero",
+      "description": "WRTN_PREM_AMT = 0 and POLY_INFORCE_QTY = 0 (non-COMMPOL) — inactive observations with no policies and no premium.",
+      "row_count": 33219,
+      "pct_of_total": 15.57,
+      "unique_agencies": 1549,
+      "year_distribution": {
+        "2005": 2076,
+        "2006": 2124,
+        "2007": 2867,
+        "2008": 3733,
+        "2009": 1508,
+        "2010": 2397,
+        "2011": 3415,
+        "2012": 4316,
+        "2013": 2057,
+        "2014": 3074,
+        "2015": 5652
+      },
+      "wrtn_prem_stats": {
+        "min": 0,
+        "max": 0,
+        "mean": 0,
+        "median": 0
+      }
+    },
+    {
+      "category": "zero_premium_nonzero_policies",
+      "description": "WRTN_PREM_AMT = 0 and POLY_INFORCE_QTY > 0 (non-COMMPOL) — ambiguous runoff or reporting edge cases.",
+      "row_count": 1930,
+      "pct_of_total": 0.9,
+      "unique_agencies": 825,
+      "year_distribution": {
+        "2005": 274,
+        "2006": 52,
+        "2007": 79,
+        "2008": 46,
+        "2009": 61,
+        "2010": 68,
+        "2011": 47,
+        "2012": 108,
+        "2013": 68,
+        "2014": 88,
+        "2015": 1039
+      },
+      "wrtn_prem_stats": {
+        "min": 0,
+        "max": 0,
+        "mean": 0,
+        "median": 0
+      }
+    },
+    {
+      "category": "negative_premium",
+      "description": "WRTN_PREM_AMT < 0 (non-COMMPOL) — accounting adjustments: refunds, credits, audit returns.",
+      "row_count": 4796,
+      "pct_of_total": 2.25,
+      "unique_agencies": 1068,
+      "year_distribution": {
+        "2005": 379,
+        "2006": 385,
+        "2007": 356,
+        "2008": 302,
+        "2009": 323,
+        "2010": 455,
+        "2011": 463,
+        "2012": 523,
+        "2013": 516,
+        "2014": 512,
+        "2015": 582
+      },
+      "wrtn_prem_stats": {
+        "min": -202777.6,
+        "max": -0,
+        "mean": -1528.29,
+        "median": -231.88
+      }
+    },
+    {
+      "category": "positive_premium",
+      "description": "WRTN_PREM_AMT > 0 (non-COMMPOL) — active premium-producing observations. This is the Written Premium modeling dataset.",
+      "row_count": 160154,
+      "pct_of_total": 75.07,
+      "unique_agencies": 1375,
+      "year_distribution": {
+        "2005": 12693,
+        "2006": 14059,
+        "2007": 14329,
+        "2008": 14908,
+        "2009": 15273,
+        "2010": 15092,
+        "2011": 14623,
+        "2012": 15639,
+        "2013": 15576,
+        "2014": 15568,
+        "2015": 12394
+      },
+      "wrtn_prem_stats": {
+        "min": 0,
+        "max": 1715741.77,
+        "mean": 26196.85,
+        "median": 2971.8
+      }
+    }
+  ],
+  "commpol_analysis": {
+    "total_rows": 13229,
+    "pct_of_total": 6.2,
+    "unique_agencies": 1201,
+    "pct_rows_zero_premium": 100,
+    "wrtn_prem_stats": {
+      "min": 0,
+      "max": 0,
+      "mean": 0,
+      "median": 0
+    },
+    "states": ["IN", "KY", "MI", "OH", "PA", "WV"],
+    "prod_lines": "CL",
+    "by_year": [
+      {
+        "year": 2005,
+        "row_count": 997,
+        "unique_agencies": 794,
+        "total_wrtn_prem": 0,
+        "mean_wrtn_prem": 0,
+        "pct_zero_prem": 100
+      },
+      {
+        "year": 2006,
+        "row_count": 1065,
+        "unique_agencies": 842,
+        "total_wrtn_prem": 0,
+        "mean_wrtn_prem": 0,
+        "pct_zero_prem": 100
+      },
+      {
+        "year": 2007,
+        "row_count": 1141,
+        "unique_agencies": 892,
+        "total_wrtn_prem": 0,
+        "mean_wrtn_prem": 0,
+        "pct_zero_prem": 100
+      },
+      {
+        "year": 2008,
+        "row_count": 1239,
+        "unique_agencies": 959,
+        "total_wrtn_prem": 0,
+        "mean_wrtn_prem": 0,
+        "pct_zero_prem": 100
+      },
+      {
+        "year": 2009,
+        "row_count": 1178,
+        "unique_agencies": 921,
+        "total_wrtn_prem": 0,
+        "mean_wrtn_prem": 0,
+        "pct_zero_prem": 100
+      },
+      {
+        "year": 2010,
+        "row_count": 1228,
+        "unique_agencies": 952,
+        "total_wrtn_prem": 0,
+        "mean_wrtn_prem": 0,
+        "pct_zero_prem": 100
+      },
+      {
+        "year": 2011,
+        "row_count": 1264,
+        "unique_agencies": 972,
+        "total_wrtn_prem": 0,
+        "mean_wrtn_prem": 0,
+        "pct_zero_prem": 100
+      },
+      {
+        "year": 2012,
+        "row_count": 1336,
+        "unique_agencies": 1019,
+        "total_wrtn_prem": 0,
+        "mean_wrtn_prem": 0,
+        "pct_zero_prem": 100
+      },
+      {
+        "year": 2013,
+        "row_count": 1195,
+        "unique_agencies": 944,
+        "total_wrtn_prem": 0,
+        "mean_wrtn_prem": 0,
+        "pct_zero_prem": 100
+      },
+      {
+        "year": 2014,
+        "row_count": 1272,
+        "unique_agencies": 986,
+        "total_wrtn_prem": 0,
+        "mean_wrtn_prem": 0,
+        "pct_zero_prem": 100
+      },
+      {
+        "year": 2015,
+        "row_count": 1314,
+        "unique_agencies": 1010,
+        "total_wrtn_prem": 0,
+        "mean_wrtn_prem": 0,
+        "pct_zero_prem": 100
+      }
+    ],
+    "exclusion_rationale": "COMMPOL rows are excluded from all Written Premium, Loss Ratio, and Retention Ratio modeling. These rows represent a structural reporting artifact with zero premium and do not reflect genuine insurance production activity."
+  },
+  "agency_hierarchy": {
+    "total_unique_agencies": 1623,
+    "total_unique_parent_agencies": 588,
+    "one_to_one_agency_to_parent": true,
+    "agencies_with_multiple_parents": 0,
+    "agencies_per_primary": {
+      "min": 1,
+      "max": 615,
+      "mean": 2.76,
+      "median": 1,
+      "q25": 1,
+      "q75": 2
+    },
+    "single_agency_parents": 388,
+    "multi_agency_parents": 200,
+    "largest_parent_size": 615,
+    "primary_agency_id_99999": {
+      "description": "Special category — likely independent agencies without a true parent hierarchy",
+      "row_count": 37874,
+      "unique_agencies": 615,
+      "pct_of_total_rows": 17.75,
+      "pct_of_agencies": 37.89,
+      "total_wrtn_prem": 245869705.58,
+      "year_distribution": {
+        "2005": 3740,
+        "2006": 4095,
+        "2007": 4390,
+        "2008": 4794,
+        "2009": 3429,
+        "2010": 3562,
+        "2011": 3606,
+        "2012": 3763,
+        "2013": 2140,
+        "2014": 2176,
+        "2015": 2179
+      }
+    }
+  },
+  "sentinel_values": {
+    "focused_columns": {
+      "RETENTION_RATIO": {
+        "column": "RETENTION_RATIO",
+        "n_99997": 0,
+        "n_99998": 0,
+        "n_99999": 129978,
+        "n_sentinel_total": 129978,
+        "pct_sentinel": 60.93,
+        "n_null": 0,
+        "n_valid": 83350
+      },
+      "LOSS_RATIO": {
+        "column": "LOSS_RATIO",
+        "n_99997": 1125,
+        "n_99998": 817,
+        "n_99999": 51232,
+        "n_sentinel_total": 53174,
+        "pct_sentinel": 24.93,
+        "n_null": 0,
+        "n_valid": 160154
+      },
+      "LOSS_RATIO_3YR": {
+        "column": "LOSS_RATIO_3YR",
+        "n_99997": 0,
+        "n_99998": 0,
+        "n_99999": 49117,
+        "n_sentinel_total": 49117,
+        "pct_sentinel": 23.02,
+        "n_null": 0,
+        "n_valid": 164211
+      },
+      "GROWTH_RATE_3YR": {
+        "column": "GROWTH_RATE_3YR",
+        "n_99997": 0,
+        "n_99998": 0,
+        "n_99999": 91067,
+        "n_sentinel_total": 91067,
+        "pct_sentinel": 42.69,
+        "n_null": 0,
+        "n_valid": 122261
+      },
+      "PL_START_YEAR": {
+        "column": "PL_START_YEAR",
+        "n_99997": 0,
+        "n_99998": 0,
+        "n_99999": 82200,
+        "n_sentinel_total": 82200,
+        "pct_sentinel": 38.53,
+        "n_null": 0,
+        "n_valid": 131128
+      },
+      "PL_END_YEAR": {
+        "column": "PL_END_YEAR",
+        "n_99997": 0,
+        "n_99998": 0,
+        "n_99999": 209174,
+        "n_sentinel_total": 209174,
+        "pct_sentinel": 98.05,
+        "n_null": 0,
+        "n_valid": 4154
+      },
+      "CL_START_YEAR": {
+        "column": "CL_START_YEAR",
+        "n_99997": 0,
+        "n_99998": 0,
+        "n_99999": 129311,
+        "n_sentinel_total": 129311,
+        "pct_sentinel": 60.62,
+        "n_null": 0,
+        "n_valid": 84017
+      },
+      "CL_END_YEAR": {
+        "column": "CL_END_YEAR",
+        "n_99997": 0,
+        "n_99998": 0,
+        "n_99999": 204760,
+        "n_sentinel_total": 204760,
+        "pct_sentinel": 95.98,
+        "n_null": 0,
+        "n_valid": 8568
+      },
+      "COMMISIONS_START_YEAR": {
+        "column": "COMMISIONS_START_YEAR",
+        "n_99997": 0,
+        "n_99998": 0,
+        "n_99999": 141937,
+        "n_sentinel_total": 141937,
+        "pct_sentinel": 66.53,
+        "n_null": 0,
+        "n_valid": 71391
+      },
+      "COMMISIONS_END_YEAR": {
+        "column": "COMMISIONS_END_YEAR",
+        "n_99997": 0,
+        "n_99998": 0,
+        "n_99999": 205604,
+        "n_sentinel_total": 205604,
+        "pct_sentinel": 96.38,
+        "n_null": 0,
+        "n_valid": 7724
+      },
+      "ACTIVITY_NOTES_START_YEAR": {
+        "column": "ACTIVITY_NOTES_START_YEAR",
+        "n_99997": 0,
+        "n_99998": 0,
+        "n_99999": 171536,
+        "n_sentinel_total": 171536,
+        "pct_sentinel": 80.41,
+        "n_null": 0,
+        "n_valid": 41792
+      },
+      "ACTIVITY_NOTES_END_YEAR": {
+        "column": "ACTIVITY_NOTES_END_YEAR",
+        "n_99997": 0,
+        "n_99998": 0,
+        "n_99999": 209258,
+        "n_sentinel_total": 209258,
+        "pct_sentinel": 98.09,
+        "n_null": 0,
+        "n_valid": 4070
+      },
+      "AGENCY_APPOINTMENT_YEAR": {
+        "column": "AGENCY_APPOINTMENT_YEAR",
+        "n_99997": 0,
+        "n_99998": 0,
+        "n_99999": 5639,
+        "n_sentinel_total": 5639,
+        "pct_sentinel": 2.64,
+        "n_null": 0,
+        "n_valid": 207689
+      }
+    },
+    "broad_scan_hits": [
+      {
+        "column": "PRIMARY_AGENCY_ID",
+        "n_sentinel": 37874,
+        "pct": 17.75
+      },
+      {
+        "column": "PREV_POLY_INFORCE_QTY",
+        "n_sentinel": 13893,
+        "pct": 6.51
+      },
+      {
+        "column": "NB_WRTN_PREM_AMT",
+        "n_sentinel": 1,
+        "pct": 0
+      },
+      {
+        "column": "PREV_WRTN_PREM_AMT",
+        "n_sentinel": 13893,
+        "pct": 6.51
+      },
+      {
+        "column": "RETENTION_RATIO",
+        "n_sentinel": 129978,
+        "pct": 60.93
+      },
+      {
+        "column": "LOSS_RATIO",
+        "n_sentinel": 53174,
+        "pct": 24.93
+      },
+      {
+        "column": "LOSS_RATIO_3YR",
+        "n_sentinel": 49117,
+        "pct": 23.02
+      },
+      {
+        "column": "GROWTH_RATE_3YR",
+        "n_sentinel": 91067,
+        "pct": 42.69
+      },
+      {
+        "column": "AGENCY_APPOINTMENT_YEAR",
+        "n_sentinel": 5639,
+        "pct": 2.64
+      },
+      {
+        "column": "ACTIVE_PRODUCERS",
+        "n_sentinel": 5639,
+        "pct": 2.64
+      },
+      {
+        "column": "MAX_AGE",
+        "n_sentinel": 5639,
+        "pct": 2.64
+      },
+      {
+        "column": "MIN_AGE",
+        "n_sentinel": 5639,
+        "pct": 2.64
+      },
+      {
+        "column": "PL_START_YEAR",
+        "n_sentinel": 82200,
+        "pct": 38.53
+      },
+      {
+        "column": "PL_END_YEAR",
+        "n_sentinel": 209174,
+        "pct": 98.05
+      },
+      {
+        "column": "COMMISIONS_START_YEAR",
+        "n_sentinel": 141937,
+        "pct": 66.53
+      },
+      {
+        "column": "COMMISIONS_END_YEAR",
+        "n_sentinel": 205604,
+        "pct": 96.38
+      },
+      {
+        "column": "CL_START_YEAR",
+        "n_sentinel": 129311,
+        "pct": 60.62
+      },
+      {
+        "column": "CL_END_YEAR",
+        "n_sentinel": 204760,
+        "pct": 95.98
+      },
+      {
+        "column": "ACTIVITY_NOTES_START_YEAR",
+        "n_sentinel": 171536,
+        "pct": 80.41
+      },
+      {
+        "column": "ACTIVITY_NOTES_END_YEAR",
+        "n_sentinel": 209258,
+        "pct": 98.09
+      },
+      {
+        "column": "CL_BOUND_CT_MDS",
+        "n_sentinel": 98689,
+        "pct": 46.26
+      },
+      {
+        "column": "CL_QUO_CT_MDS",
+        "n_sentinel": 98689,
+        "pct": 46.26
+      },
+      {
+        "column": "CL_BOUND_CT_SBZ",
+        "n_sentinel": 98689,
+        "pct": 46.26
+      },
+      {
+        "column": "CL_QUO_CT_SBZ",
+        "n_sentinel": 98689,
+        "pct": 46.26
+      },
+      {
+        "column": "CL_BOUND_CT_eQT",
+        "n_sentinel": 98689,
+        "pct": 46.26
+      },
+      {
+        "column": "CL_QUO_CT_eQT",
+        "n_sentinel": 98689,
+        "pct": 46.26
+      },
+      {
+        "column": "PL_BOUND_CT_ELINKS",
+        "n_sentinel": 57444,
+        "pct": 26.93
+      },
+      {
+        "column": "PL_QUO_CT_ELINKS",
+        "n_sentinel": 57444,
+        "pct": 26.93
+      },
+      {
+        "column": "PL_BOUND_CT_PLRANK",
+        "n_sentinel": 57444,
+        "pct": 26.93
+      },
+      {
+        "column": "PL_QUO_CT_PLRANK",
+        "n_sentinel": 57444,
+        "pct": 26.93
+      },
+      {
+        "column": "PL_BOUND_CT_eQTte",
+        "n_sentinel": 57444,
+        "pct": 26.93
+      },
+      {
+        "column": "PL_QUO_CT_eQTte",
+        "n_sentinel": 57444,
+        "pct": 26.93
+      },
+      {
+        "column": "PL_BOUND_CT_APPLIED",
+        "n_sentinel": 57444,
+        "pct": 26.93
+      },
+      {
+        "column": "PL_QUO_CT_APPLIED",
+        "n_sentinel": 57444,
+        "pct": 26.93
+      },
+      {
+        "column": "PL_BOUND_CT_TRANSACTNOW",
+        "n_sentinel": 57444,
+        "pct": 26.93
+      },
+      {
+        "column": "PL_QUO_CT_TRANSACTNOW",
+        "n_sentinel": 57444,
+        "pct": 26.93
+      }
+    ]
+  },
+  "distributions": {
+    "WRTN_PREM_AMT_all": {
+      "label": "WRTN_PREM_AMT (all rows)",
+      "n_valid": 213328,
+      "min": -202777.6,
+      "q1": 2.0275,
+      "median": 1143.62,
+      "mean": 19632.6838,
+      "q3": 8358.695,
+      "max": 1715741.77,
+      "sd": 66443.9545,
+      "pct_zero": 22.68
+    },
+    "WRTN_PREM_AMT_modeling": {
+      "label": "WRTN_PREM_AMT (modeling dataset)",
+      "n_valid": 160154,
+      "min": 0,
+      "q1": 682,
+      "median": 2971.8,
+      "mean": 26196.8533,
+      "q3": 15023.51,
+      "max": 1715741.77,
+      "sd": 75542.0279,
+      "pct_zero": 0
+    },
+    "log_wp": {
+      "label": "log(WRTN_PREM_AMT + 1)",
+      "n_valid": 160154,
+      "min": 0,
+      "q1": 6.5265,
+      "median": 7.9973,
+      "mean": 8.0868,
+      "q3": 9.6174,
+      "max": 14.3554,
+      "sd": 2.1864,
+      "pct_zero": 0
+    },
+    "PRD_ERND_PREM_AMT": {
+      "label": "PRD_ERND_PREM_AMT",
+      "n_valid": 160154,
+      "min": -26023.05,
+      "q1": 661.4125,
+      "median": 2905.9,
+      "mean": 25891.8377,
+      "q3": 14581.055,
+      "max": 1780498.16,
+      "sd": 75472.2113,
+      "pct_zero": 0.04
+    },
+    "PRD_INCRD_LOSSES_AMT": {
+      "label": "PRD_INCRD_LOSSES_AMT",
+      "n_valid": 160154,
+      "min": -5000000,
+      "q1": 0,
+      "median": 0,
+      "mean": 14494.5296,
+      "q3": 1649.985,
+      "max": 5134032.04,
+      "sd": 75342.6987,
+      "pct_zero": 66.83
+    },
+    "RETENTION_RATIO_clean": {
+      "label": "RETENTION_RATIO (sentinels excluded)",
+      "n_valid": 64142,
+      "min": 0,
+      "q1": 0.7778,
+      "median": 0.8855,
+      "mean": 0.8407,
+      "q3": 1,
+      "max": 1,
+      "sd": 0.1847,
+      "pct_zero": 0.99
+    },
+    "POLY_INFORCE_QTY": {
+      "label": "POLY_INFORCE_QTY",
+      "n_valid": 160154,
+      "min": 0,
+      "q1": 0,
+      "median": 0,
+      "mean": 214.9548,
+      "q3": 40,
+      "max": 22968,
+      "sd": 881.4661,
+      "pct_zero": 55.23
+    },
+    "PREV_POLY_INFORCE_QTY": {
+      "label": "PREV_POLY_INFORCE_QTY",
+      "n_valid": 160154,
+      "min": 0,
+      "q1": 0,
+      "median": 0,
+      "mean": 7169.6923,
+      "q3": 90,
+      "max": 99999,
+      "sd": 25383.1456,
+      "pct_zero": 51.16
+    },
+    "PREV_WRTN_PREM_AMT": {
+      "label": "PREV_WRTN_PREM_AMT",
+      "n_valid": 160154,
+      "min": -186181.04,
+      "q1": 836,
+      "median": 4039.085,
+      "mean": 32707.1736,
+      "q3": 25985.22,
+      "max": 1904569.99,
+      "sd": 78637.3733,
+      "pct_zero": 0.99
+    },
+    "NB_WRTN_PREM_AMT": {
+      "label": "NB_WRTN_PREM_AMT",
+      "n_valid": 160154,
+      "min": 0,
+      "q1": 0,
+      "median": 0,
+      "mean": 2983.219,
+      "q3": 1128,
+      "max": 556930.22,
+      "sd": 11414.4817,
+      "pct_zero": 53.26
+    },
+    "ACTIVE_PRODUCERS": {
+      "label": "ACTIVE_PRODUCERS",
+      "n_valid": 160154,
+      "min": 1,
+      "q1": 11,
+      "median": 19,
+      "mean": 1279.6228,
+      "q3": 34,
+      "max": 99999,
+      "sd": 11118.3084,
+      "pct_zero": 0
+    }
+  },
+  "time_trends": [
+    {
+      "year": 2005,
+      "total_wrtn_prem": 274320178.95,
+      "avg_retention_ratio": 0.7719,
+      "total_poly_inforce": 2824264,
+      "total_active_producers": 47825716,
+      "row_count": 16419,
+      "total_incurred_losses": 116694621.68,
+      "total_earned_premium": 274947833.6,
+      "portfolio_loss_ratio": 0.424425,
+      "n_lr_valid_rows": 13784
+    },
+    {
+      "year": 2006,
+      "total_wrtn_prem": 412880799.37,
+      "avg_retention_ratio": 0.7655,
+      "total_poly_inforce": 4223340,
+      "total_active_producers": 55860111,
+      "row_count": 17685,
+      "total_incurred_losses": 211911928.67,
+      "total_earned_premium": 410961305.69,
+      "portfolio_loss_ratio": 0.515649,
+      "n_lr_valid_rows": 14408
+    },
+    {
+      "year": 2007,
+      "total_wrtn_prem": 408545579.01,
+      "avg_retention_ratio": 0.7803,
+      "total_poly_inforce": 4125077,
+      "total_active_producers": 60087584,
+      "row_count": 18772,
+      "total_incurred_losses": 224879735.66,
+      "total_earned_premium": 408793180.52,
+      "portfolio_loss_ratio": 0.550106,
+      "n_lr_valid_rows": 14708
+    },
+    {
+      "year": 2008,
+      "total_wrtn_prem": 415328641.12,
+      "avg_retention_ratio": 0.787,
+      "total_poly_inforce": 4008332,
+      "total_active_producers": 64030691,
+      "row_count": 20228,
+      "total_incurred_losses": 270819989.89,
+      "total_earned_premium": 410260998.86,
+      "portfolio_loss_ratio": 0.660116,
+      "n_lr_valid_rows": 15279
+    },
+    {
+      "year": 2009,
+      "total_wrtn_prem": 412956224.14,
+      "avg_retention_ratio": 0.8105,
+      "total_poly_inforce": 3946609,
+      "total_active_producers": 38599268,
+      "row_count": 18343,
+      "total_incurred_losses": 263198502.54,
+      "total_earned_premium": 410735523.47,
+      "portfolio_loss_ratio": 0.640798,
+      "n_lr_valid_rows": 15696
+    },
+    {
+      "year": 2010,
+      "total_wrtn_prem": 409893016.52,
+      "avg_retention_ratio": 0.7946,
+      "total_poly_inforce": 3826629,
+      "total_active_producers": 43825638,
+      "row_count": 19240,
+      "total_incurred_losses": 232614202.72,
+      "total_earned_premium": 413541330.58,
+      "portfolio_loss_ratio": 0.562493,
+      "n_lr_valid_rows": 15596
+    },
+    {
+      "year": 2011,
+      "total_wrtn_prem": 401476307.87,
+      "avg_retention_ratio": 0.7812,
+      "total_poly_inforce": 3594252,
+      "total_active_producers": 48740542,
+      "row_count": 19812,
+      "total_incurred_losses": 256666963.04,
+      "total_earned_premium": 405061832.53,
+      "portfolio_loss_ratio": 0.633649,
+      "n_lr_valid_rows": 15169
+    },
+    {
+      "year": 2012,
+      "total_wrtn_prem": 405323610.49,
+      "avg_retention_ratio": 0.7716,
+      "total_poly_inforce": 3366453,
+      "total_active_producers": 59589297,
+      "row_count": 21922,
+      "total_incurred_losses": 241102858.35,
+      "total_earned_premium": 400404609.88,
+      "portfolio_loss_ratio": 0.602148,
+      "n_lr_valid_rows": 16184
+    },
+    {
+      "year": 2013,
+      "total_wrtn_prem": 426535472.01,
+      "avg_retention_ratio": 0.7646,
+      "total_poly_inforce": 3251109,
+      "total_active_producers": 43421808,
+      "row_count": 19412,
+      "total_incurred_losses": 206021403.88,
+      "total_earned_premium": 411795292.81,
+      "portfolio_loss_ratio": 0.500301,
+      "n_lr_valid_rows": 16128
+    },
+    {
+      "year": 2014,
+      "total_wrtn_prem": 436479047.44,
+      "avg_retention_ratio": 0.7747,
+      "total_poly_inforce": 3096699,
+      "total_active_producers": 52947384,
+      "row_count": 20514,
+      "total_incurred_losses": 211225498.67,
+      "total_earned_premium": 428808742.55,
+      "portfolio_loss_ratio": 0.492587,
+      "n_lr_valid_rows": 16125
+    },
+    {
+      "year": 2015,
+      "total_wrtn_prem": 184462286.6,
+      "avg_retention_ratio": 0.7733,
+      "total_poly_inforce": 1201242,
+      "total_active_producers": 54657090,
+      "row_count": 20981,
+      "total_incurred_losses": 93066337.73,
+      "total_earned_premium": 181299397.08,
+      "portfolio_loss_ratio": 0.51333,
+      "n_lr_valid_rows": 15474
+    }
+  ],
+  "modeling_decisions": {
+    "train_years": [2006, 2007, 2008, 2009, 2010, 2011, 2012],
+    "test_years": [2013, 2014],
+    "excluded_years": [2005, 2015],
+    "excluded_years_reason": "2005 and 2015 are partial reporting years. Both show reduced MONTHS averages and/or material declines in row count and agency coverage. Excluding them ensures train (2006-2012) and test (2013-2014) sets contain only complete annual periods.",
+    "excluded_products": "COMMPOL",
+    "excluded_products_reason": "COMMPOL is a structural reporting artifact with zero premium. It does not represent genuine insurance production activity and would introduce spurious observations.",
+    "wp_filter": "WRTN_PREM_AMT > 0",
+    "wp_filter_reason": "The Written Premium model is conditioned on active premium-producing observations. Rows with WRTN_PREM_AMT <= 0 represent inactive agencies, runoff, or accounting adjustments.",
+    "forward_looking_wp_exclusions": [
+      {
+        "variable": "POLY_INFORCE_QTY",
+        "reason": "Contemporaneous with WP — jointly determined in the same reporting period; use PREV_POLY_INFORCE_QTY instead"
+      },
+      {
+        "variable": "RETENTION_RATIO",
+        "reason": "Contemporaneous current-period retention outcome; also sentinel-contaminated"
+      },
+      {
+        "variable": "RETENTION_POLY_QTY",
+        "reason": "Contemporaneous current-period retention count"
+      },
+      {
+        "variable": "NB_WRTN_PREM_AMT",
+        "reason": "Direct sub-component of WRTN_PREM_AMT — near-perfect leakage"
+      },
+      {
+        "variable": "PRD_ERND_PREM_AMT",
+        "reason": "Contemporaneous earned premium derived from written premium"
+      },
+      {
+        "variable": "PRD_INCRD_LOSSES_AMT",
+        "reason": "Current-year loss outcome"
+      },
+      {
+        "variable": "LOSS_RATIO",
+        "reason": "Derived from excluded variables; sentinel-contaminated"
+      },
+      {
+        "variable": "LOSS_RATIO_3YR",
+        "reason": "Rolling window includes current-year losses"
+      },
+      {
+        "variable": "GROWTH_RATE_3YR",
+        "reason": "Rolling window includes current-year written premium"
+      }
+    ],
+    "safe_lagged_predictors": [
+      {
+        "variable": "PREV_WRTN_PREM_AMT",
+        "reason": "Prior-year premium — clean lag, not contemporaneous"
+      },
+      {
+        "variable": "PREV_POLY_INFORCE_QTY",
+        "reason": "Prior-year policy count — clean lag; preferred over POLY_INFORCE_QTY"
+      }
+    ]
+  }
+}

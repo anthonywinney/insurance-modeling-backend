@@ -1,0 +1,31 @@
+{
+  "dataset": "Kaggle Agency Performance Dataset (Dataset A)",
+  "table": "agency_performance",
+  "source_file": "data/dataset_a.csv",
+  "total_rows": 213328,
+  "total_columns": 50,
+  "column_names": ["AGENCY_ID", "PRIMARY_AGENCY_ID", "PROD_ABBR", "PROD_LINE", "STATE_ABBR", "STAT_PROFILE_DATE_YEAR", "RETENTION_POLY_QTY", "POLY_INFORCE_QTY", "PREV_POLY_INFORCE_QTY", "NB_WRTN_PREM_AMT", "WRTN_PREM_AMT", "PREV_WRTN_PREM_AMT", "PRD_ERND_PREM_AMT", "PRD_INCRD_LOSSES_AMT", "MONTHS", "RETENTION_RATIO", "LOSS_RATIO", "LOSS_RATIO_3YR", "GROWTH_RATE_3YR", "AGENCY_APPOINTMENT_YEAR", "ACTIVE_PRODUCERS", "MAX_AGE", "MIN_AGE", "VENDOR_IND", "VENDOR", "PL_START_YEAR", "PL_END_YEAR", "COMMISIONS_START_YEAR", "COMMISIONS_END_YEAR", "CL_START_YEAR", "CL_END_YEAR", "ACTIVITY_NOTES_START_YEAR", "ACTIVITY_NOTES_END_YEAR", "CL_BOUND_CT_MDS", "CL_QUO_CT_MDS", "CL_BOUND_CT_SBZ", "CL_QUO_CT_SBZ", "CL_BOUND_CT_eQT", "CL_QUO_CT_eQT", "PL_BOUND_CT_ELINKS", "PL_QUO_CT_ELINKS", "PL_BOUND_CT_PLRANK", "PL_QUO_CT_PLRANK", "PL_BOUND_CT_eQTte", "PL_QUO_CT_eQTte", "PL_BOUND_CT_APPLIED", "PL_QUO_CT_APPLIED", "PL_BOUND_CT_TRANSACTNOW", "PL_QUO_CT_TRANSACTNOW", "retention_ratio_clean"],
+  "year_range": {
+    "min": 2005,
+    "max": 2015
+  },
+  "years_covered": [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015],
+  "unique_agencies": 1623,
+  "unique_parent_agencies": 588,
+  "unique_states": 6,
+  "unique_product_lines": 2,
+  "unique_product_abbrs": 28,
+  "unique_vendors": 10,
+  "modeling_scope": {
+    "primary_target": "log(WRTN_PREM_AMT + 1)",
+    "secondary_targets": ["LOSS_RATIO (after sentinel handling — dataset-provided row-level loss ratio)", "RETENTION_RATIO (after sentinel handling)"],
+    "train_years": [2006, 2007, 2008, 2009, 2010, 2011, 2012],
+    "test_years": [2013, 2014],
+    "excluded_years": [2005, 2015],
+    "excluded_years_reason": "2005 and 2015 are partial reporting years confirmed by data completeness review. Both show MONTHS avg < 12 and/or material declines in row count and agency coverage. Excluding them ensures train and test sets contain only complete annual periods.",
+    "excluded_products": "COMMPOL",
+    "excluded_products_reason": "COMMPOL is a structural reporting artifact with zero premium. It does not represent genuine insurance production activity.",
+    "wp_filter": "WRTN_PREM_AMT > 0",
+    "model_condition": "Forward-looking Written Premium models are conditioned on active premium-producing observations (PROD_ABBR != 'COMMPOL', WRTN_PREM_AMT > 0)."
+  }
+}

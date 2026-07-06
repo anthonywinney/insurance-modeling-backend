@@ -1,0 +1,615 @@
+{
+  "description": "Interaction feasibility review. Purpose: determine which interaction families are sufficiently supported by the data before fitting another interaction model. OLS_INTERACTION_FULL failed (test R² = -42.16) because unrestricted pairwise categorical interaction expansion created a rank-deficient, unstable training design matrix. The root issue was sparse categorical interaction structure — especially PROD_ABBR × VENDOR and PROD_ABBR × STATE_ABBR cells with very low training support. Test-only cells existed but were too few (8 cells, ~40 rows) to explain the collapse by themselves. This review classifies each interaction family as SAFE, QUESTIONABLE, or UNSUPPORTED based on data support and business rationale.",
+  "ols_interaction_full_context": {
+    "additive_test_r2": 0.7552,
+    "interaction_full_test_r2": -42.161,
+    "additive_test_rmse": 1.0937,
+    "interaction_full_test_rmse": 14.5224,
+    "n_interaction_terms": 628,
+    "n_aliased_terms": 82,
+    "rank_deficient": true,
+    "failure_summary": "Test R² collapsed from 0.7552 to -42.16. Primary cause: rank-deficient training fit with 82 aliased terms, producing doubtful predictions via predict.lm(). Root mechanism: sparse PROD_ABBR × VENDOR cells (27/249 with < 10 training obs, 93/249 with < 50) and sparse PROD_ABBR × STATE_ABBR cells (11/136 with < 10 obs) created exact near-collinearities in the 758-term design matrix. Test-only interaction cells existed (8 cells total, ~40 test rows) but were too small to explain the catastrophic failure on their own."
+  },
+  "part_a_interaction_families": {
+    "numeric_x_product": {
+      "description": "Product-specific slopes for all 7 numeric predictors",
+      "families": [
+        "log_prev_wp × PROD_ABBR",
+        "log_prev_poly × PROD_ABBR",
+        "ACTIVE_PRODUCERS × PROD_ABBR",
+        "AGENCY_APPOINTMENT_YEAR × PROD_ABBR",
+        "MAX_AGE × PROD_ABBR",
+        "MIN_AGE × PROD_ABBR",
+        "STAT_PROFILE_DATE_YEAR × PROD_ABBR"
+      ],
+      "n_families": 7,
+      "mechanism": "Separate slope per PROD_ABBR level for each numeric predictor"
+    },
+    "numeric_x_state": {
+      "description": "State-specific slopes for all 7 numeric predictors",
+      "families": [
+        "log_prev_wp × STATE_ABBR",
+        "log_prev_poly × STATE_ABBR",
+        "ACTIVE_PRODUCERS × STATE_ABBR",
+        "AGENCY_APPOINTMENT_YEAR × STATE_ABBR",
+        "MAX_AGE × STATE_ABBR",
+        "MIN_AGE × STATE_ABBR",
+        "STAT_PROFILE_DATE_YEAR × STATE_ABBR"
+      ],
+      "n_families": 7,
+      "mechanism": "Separate slope per STATE_ABBR level for each numeric predictor"
+    },
+    "numeric_x_vendor": {
+      "description": "Vendor-specific slopes for all 7 numeric predictors",
+      "families": [
+        "log_prev_wp × VENDOR",
+        "log_prev_poly × VENDOR",
+        "ACTIVE_PRODUCERS × VENDOR",
+        "AGENCY_APPOINTMENT_YEAR × VENDOR",
+        "MAX_AGE × VENDOR",
+        "MIN_AGE × VENDOR",
+        "STAT_PROFILE_DATE_YEAR × VENDOR"
+      ],
+      "n_families": 7,
+      "mechanism": "Separate slope per VENDOR level for each numeric predictor"
+    },
+    "categorical_x_categorical": {
+      "description": "Pairwise categorical interactions",
+      "families": [
+        "PROD_ABBR × STATE_ABBR",
+        "PROD_ABBR × VENDOR",
+        "STATE_ABBR × VENDOR"
+      ],
+      "n_families": 3,
+      "mechanism": "Separate intercept per combination cell; absent cells create rank deficiency"
+    }
+  },
+  "part_b_cell_support": {
+    "prod_abbr_x_state_abbr": {
+      "n_possible_cells": 162,
+      "n_train_cells": 136,
+      "n_test_cells": 134,
+      "n_both_cells": 133,
+      "n_train_only_cells": 3,
+      "n_test_only_cells": 1,
+      "pct_train_cells_covered_in_test": 97.8,
+      "n_test_rows_in_test_only_cells": 2,
+      "pct_test_rows_affected": 0,
+      "min_train_count": 1,
+      "p5_train_count": 5,
+      "median_train_count": 480,
+      "mean_train_count": 764.1,
+      "n_cells_lt_10": 11,
+      "n_cells_lt_25": 15,
+      "n_cells_lt_50": 19,
+      "n_cells_lt_100": 30,
+      "worst_10_cells": [
+        {
+          "PROD_ABBR": "PERSAIP",
+          "STATE_ABBR": "PA",
+          "n_train": 1
+        },
+        {
+          "PROD_ABBR": "DTALK   12",
+          "STATE_ABBR": "WV",
+          "n_train": 2
+        },
+        {
+          "PROD_ABBR": "PERSAIP",
+          "STATE_ABBR": "OH",
+          "n_train": 2
+        },
+        {
+          "PROD_ABBR": "PERSAIP",
+          "STATE_ABBR": "WV",
+          "n_train": 2
+        },
+        {
+          "PROD_ABBR": "SNOWMOBI12",
+          "STATE_ABBR": "PA",
+          "n_train": 2
+        },
+        {
+          "PROD_ABBR": "PERSAIP",
+          "STATE_ABBR": "KY",
+          "n_train": 3
+        },
+        {
+          "PROD_ABBR": "SNOWMOBI12",
+          "STATE_ABBR": "OH",
+          "n_train": 3
+        },
+        {
+          "PROD_ABBR": "DTALK   12",
+          "STATE_ABBR": "PA",
+          "n_train": 6
+        },
+        {
+          "PROD_ABBR": "CYCLES  12",
+          "STATE_ABBR": "WV",
+          "n_train": 7
+        },
+        {
+          "PROD_ABBR": "DTALK   12",
+          "STATE_ABBR": "IN",
+          "n_train": 8
+        }
+      ]
+    },
+    "prod_abbr_x_vendor": {
+      "n_possible_cells": 270,
+      "n_train_cells": 249,
+      "n_test_cells": 252,
+      "n_both_cells": 245,
+      "n_train_only_cells": 4,
+      "n_test_only_cells": 7,
+      "pct_train_cells_covered_in_test": 98.4,
+      "n_test_rows_in_test_only_cells": 10,
+      "pct_test_rows_affected": 0,
+      "min_train_count": 1,
+      "p5_train_count": 3,
+      "median_train_count": 102,
+      "mean_train_count": 417.4,
+      "n_cells_lt_10": 27,
+      "n_cells_lt_25": 62,
+      "n_cells_lt_50": 93,
+      "n_cells_lt_100": 124,
+      "worst_10_cells": [
+        {
+          "PROD_ABBR": "CYCLES  12",
+          "VENDOR": "J",
+          "n_train": 1
+        },
+        {
+          "PROD_ABBR": "DTALK   12",
+          "VENDOR": "G",
+          "n_train": 1
+        },
+        {
+          "PROD_ABBR": "DTALK   12",
+          "VENDOR": "J",
+          "n_train": 1
+        },
+        {
+          "PROD_ABBR": "MOTORHOM12",
+          "VENDOR": "H",
+          "n_train": 1
+        },
+        {
+          "PROD_ABBR": "SNOWMOBI12",
+          "VENDOR": "C",
+          "n_train": 1
+        },
+        {
+          "PROD_ABBR": "SNOWMOBI12",
+          "VENDOR": "D",
+          "n_train": 1
+        },
+        {
+          "PROD_ABBR": "SNOWMOBILE",
+          "VENDOR": "F",
+          "n_train": 1
+        },
+        {
+          "PROD_ABBR": "ANNIV   12",
+          "VENDOR": "F",
+          "n_train": 2
+        },
+        {
+          "PROD_ABBR": "CYCLES  12",
+          "VENDOR": "G",
+          "n_train": 2
+        },
+        {
+          "PROD_ABBR": "DTALK   12",
+          "VENDOR": "D",
+          "n_train": 3
+        }
+      ]
+    },
+    "state_abbr_x_vendor": {
+      "n_possible_cells": 60,
+      "n_train_cells": 51,
+      "n_test_cells": 53,
+      "n_both_cells": 50,
+      "n_train_only_cells": 1,
+      "n_test_only_cells": 3,
+      "pct_train_cells_covered_in_test": 98,
+      "n_test_rows_in_test_only_cells": 26,
+      "pct_test_rows_affected": 0.1,
+      "min_train_count": 5,
+      "p5_train_count": 21,
+      "median_train_count": 403,
+      "mean_train_count": 2037.7,
+      "n_cells_lt_10": 1,
+      "n_cells_lt_25": 3,
+      "n_cells_lt_50": 6,
+      "n_cells_lt_100": 9,
+      "worst_10_cells": [
+        {
+          "STATE_ABBR": "MI",
+          "VENDOR": "B",
+          "n_train": 5
+        },
+        {
+          "STATE_ABBR": "MI",
+          "VENDOR": "H",
+          "n_train": 10
+        },
+        {
+          "STATE_ABBR": "KY",
+          "VENDOR": "J",
+          "n_train": 12
+        },
+        {
+          "STATE_ABBR": "MI",
+          "VENDOR": "D",
+          "n_train": 30
+        },
+        {
+          "STATE_ABBR": "OH",
+          "VENDOR": "J",
+          "n_train": 40
+        },
+        {
+          "STATE_ABBR": "MI",
+          "VENDOR": "J",
+          "n_train": 47
+        },
+        {
+          "STATE_ABBR": "PA",
+          "VENDOR": "J",
+          "n_train": 51
+        },
+        {
+          "STATE_ABBR": "MI",
+          "VENDOR": "C",
+          "n_train": 71
+        },
+        {
+          "STATE_ABBR": "OH",
+          "VENDOR": "G",
+          "n_train": 92
+        },
+        {
+          "STATE_ABBR": "IN",
+          "VENDOR": "G",
+          "n_train": 100
+        }
+      ]
+    }
+  },
+  "part_c_level_support": {
+    "numeric_x_prod_abbr": {
+      "n_factor_levels": 27,
+      "n_train_levels": 27,
+      "n_test_levels": 27,
+      "n_both_levels": 27,
+      "train_only_levels": "none",
+      "test_only_levels": "none",
+      "min_train_count": 5,
+      "p5_train_count": 34,
+      "median_train_count": 3623,
+      "mean_train_count": 3849,
+      "n_levels_lt_10": 2,
+      "n_levels_lt_25": 2,
+      "n_levels_lt_50": 2,
+      "n_levels_lt_100": 3,
+      "worst_5_levels": [
+        {
+          "PROD_ABBR": "SNOWMOBI12",
+          "n_train": 5
+        },
+        {
+          "PROD_ABBR": "PERSAIP",
+          "n_train": 8
+        },
+        {
+          "PROD_ABBR": "DTALK   12",
+          "n_train": 95
+        },
+        {
+          "PROD_ABBR": "CYCLES  12",
+          "n_train": 167
+        },
+        {
+          "PROD_ABBR": "MOTORHOM12",
+          "n_train": 279
+        }
+      ]
+    },
+    "numeric_x_state_abbr": {
+      "n_factor_levels": 6,
+      "n_train_levels": 6,
+      "n_test_levels": 6,
+      "n_both_levels": 6,
+      "train_only_levels": "none",
+      "test_only_levels": "none",
+      "min_train_count": 1171,
+      "p5_train_count": 2263,
+      "median_train_count": 14559,
+      "mean_train_count": 17320.5,
+      "n_levels_lt_10": 0,
+      "n_levels_lt_25": 0,
+      "n_levels_lt_50": 0,
+      "n_levels_lt_100": 0,
+      "worst_5_levels": [
+        {
+          "STATE_ABBR": "MI",
+          "n_train": 1171
+        },
+        {
+          "STATE_ABBR": "WV",
+          "n_train": 5542
+        },
+        {
+          "STATE_ABBR": "KY",
+          "n_train": 13811
+        },
+        {
+          "STATE_ABBR": "PA",
+          "n_train": 15307
+        },
+        {
+          "STATE_ABBR": "IN",
+          "n_train": 16498
+        }
+      ]
+    },
+    "numeric_x_vendor": {
+      "n_factor_levels": 10,
+      "n_train_levels": 10,
+      "n_test_levels": 10,
+      "n_both_levels": 10,
+      "train_only_levels": "none",
+      "test_only_levels": "none",
+      "min_train_count": 234,
+      "p5_train_count": 389,
+      "median_train_count": 3996,
+      "mean_train_count": 10392.3,
+      "n_levels_lt_10": 0,
+      "n_levels_lt_25": 0,
+      "n_levels_lt_50": 0,
+      "n_levels_lt_100": 0,
+      "worst_5_levels": [
+        {
+          "VENDOR": "F",
+          "n_train": 234
+        },
+        {
+          "VENDOR": "J",
+          "n_train": 579
+        },
+        {
+          "VENDOR": "H",
+          "n_train": 1041
+        },
+        {
+          "VENDOR": "G",
+          "n_train": 1651
+        },
+        {
+          "VENDOR": "D",
+          "n_train": 3099
+        }
+      ]
+    }
+  },
+  "part_d_classification": {
+    "summary_table": [
+      {
+        "family": "numeric × PROD_ABBR",
+        "classification": "SAFE",
+        "n_terms": 182
+      },
+      {
+        "family": "numeric × STATE_ABBR",
+        "classification": "SAFE",
+        "n_terms": 35
+      },
+      {
+        "family": "numeric × VENDOR",
+        "classification": "SAFE",
+        "n_terms": 63
+      },
+      {
+        "family": "PROD_ABBR × STATE_ABBR",
+        "classification": "QUESTIONABLE",
+        "n_terms": 135
+      },
+      {
+        "family": "PROD_ABBR × VENDOR",
+        "classification": "QUESTIONABLE",
+        "n_terms": 248
+      },
+      {
+        "family": "STATE_ABBR × VENDOR",
+        "classification": "QUESTIONABLE",
+        "n_terms": 50
+      }
+    ],
+    "detail": {
+      "numeric_x_prod_abbr": {
+        "classification": "SAFE",
+        "justification": "No test-only levels: all 27 PROD_ABBR levels present in training also appear in test. Numeric × categorical interactions are always identifiable as long as the level exists in training — no rank-deficiency risk from sparse levels. 2 level(s) have fewer than 10 training rows (2 fewer than 50); these produce imprecise but not undefined slopes. Adding all 7 numeric × PROD_ABBR interactions introduces 182 new terms (26 per predictor).",
+        "n_train_levels": 27,
+        "n_test_only_levels": 0,
+        "n_train_levels_lt_10": 2,
+        "n_train_levels_lt_50": 2,
+        "n_new_terms_per_numeric_predictor": 26,
+        "n_total_new_terms": 182
+      },
+      "numeric_x_state_abbr": {
+        "classification": "SAFE",
+        "justification": "No test-only levels: all 6 STATE_ABBR levels present in training also appear in test. Numeric × categorical interactions are always identifiable as long as the level exists in training — no rank-deficiency risk from sparse levels. 0 level(s) have fewer than 10 training rows (0 fewer than 50); these produce imprecise but not undefined slopes. Adding all 7 numeric × STATE_ABBR interactions introduces 35 new terms (5 per predictor).",
+        "n_train_levels": 6,
+        "n_test_only_levels": 0,
+        "n_train_levels_lt_10": 0,
+        "n_train_levels_lt_50": 0,
+        "n_new_terms_per_numeric_predictor": 5,
+        "n_total_new_terms": 35
+      },
+      "numeric_x_vendor": {
+        "classification": "SAFE",
+        "justification": "No test-only levels: all 10 VENDOR levels present in training also appear in test. Numeric × categorical interactions are always identifiable as long as the level exists in training — no rank-deficiency risk from sparse levels. 0 level(s) have fewer than 10 training rows (0 fewer than 50); these produce imprecise but not undefined slopes. Adding all 7 numeric × VENDOR interactions introduces 63 new terms (9 per predictor).",
+        "n_train_levels": 10,
+        "n_test_only_levels": 0,
+        "n_train_levels_lt_10": 0,
+        "n_train_levels_lt_50": 0,
+        "n_new_terms_per_numeric_predictor": 9,
+        "n_total_new_terms": 63
+      },
+      "prod_abbr_x_state_abbr": {
+        "classification": "QUESTIONABLE",
+        "justification": "1 test-only PROD_ABBR × STATE_ABBR cell(s) will produce NA or doubtful predictions, affecting 0.0% of test rows. 11/136 train cells (8.1%) have fewer than 10 observations. Marginally supported — test-only rows will be excluded from evaluation metrics.",
+        "n_train_cells": 136,
+        "n_test_only_cells": 1,
+        "pct_test_rows_affected": 0,
+        "n_train_cells_lt_10": 11,
+        "n_train_cells_lt_50": 19,
+        "pct_train_cells_lt_10": 8.1
+      },
+      "prod_abbr_x_vendor": {
+        "classification": "QUESTIONABLE",
+        "justification": "7 test-only PROD_ABBR × VENDOR cell(s) will produce NA or doubtful predictions, affecting 0.0% of test rows. 27/249 train cells (10.8%) have fewer than 10 observations. Marginally supported — test-only rows will be excluded from evaluation metrics.",
+        "n_train_cells": 249,
+        "n_test_only_cells": 7,
+        "pct_test_rows_affected": 0,
+        "n_train_cells_lt_10": 27,
+        "n_train_cells_lt_50": 93,
+        "pct_train_cells_lt_10": 10.8
+      },
+      "state_abbr_x_vendor": {
+        "classification": "QUESTIONABLE",
+        "justification": "3 test-only STATE_ABBR × VENDOR cell(s) will produce NA or doubtful predictions, affecting 0.1% of test rows. 1/51 train cells (2%) have fewer than 10 observations. Marginally supported — test-only rows will be excluded from evaluation metrics.",
+        "n_train_cells": 51,
+        "n_test_only_cells": 3,
+        "pct_test_rows_affected": 0.1,
+        "n_train_cells_lt_10": 1,
+        "n_train_cells_lt_50": 6,
+        "pct_train_cells_lt_10": 2
+      }
+    }
+  },
+  "part_e_business_rationale": {
+    "numeric_x_prod_abbr": {
+      "sub_families": ["log_prev_wp", "log_prev_poly", "ACTIVE_PRODUCERS", "AGENCY_APPOINTMENT_YEAR", "MAX_AGE", "MIN_AGE", "STAT_PROFILE_DATE_YEAR"],
+      "summary": "Prior metrics carry forward at different rates by product. Renewal dynamics, policy size, and premium volatility differ substantially by line — personal auto and homeowners show strong volume persistence; commercial specialty products (BOP, GL, Workers' Comp) may have more volatile trajectories. Confirmed signal: OLS_INTERACTION_FULL showed log_prev_wp:PROD_ABBR |t| > 40 for GARAGE and WORKCOMP, |t| > 20 for multiple other lines. Strongest interaction family in data.",
+      "per_predictor": {
+        "log_prev_wp": {
+          "family": "log_prev_wp × PROD_ABBR",
+          "rationale": "Volume carry-forward coefficient differs by product. Premium persistence is higher for standard personal lines (auto, home) than specialty commercial lines where policy counts are lower and premium per policy is more volatile.",
+          "signal_strength": "very strong — confirmed by OLS_INTERACTION_FULL (|t| > 40 for GARAGE, WORKCOMP; multiple |t| > 20)"
+        },
+        "log_prev_poly": {
+          "family": "log_prev_poly × PROD_ABBR",
+          "rationale": "Policy count carry-forward differs by product. High-count products (auto, home) show strong policy persistence; low-count specialties (large commercial) show weak policy-count signals relative to premium.",
+          "signal_strength": "moderate-strong — product-specific policy-to-premium ratios imply distinct slopes"
+        },
+        "ACTIVE_PRODUCERS": {
+          "family": "ACTIVE_PRODUCERS × PROD_ABBR",
+          "rationale": "Marginal producer value differs by product. Specialty commercial lines concentrate in a few expert producers; standard personal lines distribute volume more uniformly across all producers.",
+          "signal_strength": "moderate — producer specialization by product line is well-established"
+        },
+        "AGENCY_APPOINTMENT_YEAR": {
+          "family": "AGENCY_APPOINTMENT_YEAR × PROD_ABBR",
+          "rationale": "Agency tenure ramp-up differs by product. New agencies build personal lines books quickly; commercial specialty lines require longer relationship development and expertise acquisition.",
+          "signal_strength": "moderate — product-specific onboarding curves are plausible"
+        },
+        "MAX_AGE": {
+          "family": "MAX_AGE × PROD_ABBR",
+          "rationale": "Senior producer expertise effect may be stronger for complex products (commercial specialty) than transactional personal lines where experience matters less relative to lead volume.",
+          "signal_strength": "weak to moderate — MAX_AGE additive coefficient is small (0.003)"
+        },
+        "MIN_AGE": {
+          "family": "MIN_AGE × PROD_ABBR",
+          "rationale": "Same rationale as MAX_AGE × PROD_ABBR. New producers may be channeled into standard personal lines first, producing a product-specific age effect.",
+          "signal_strength": "weak — MIN_AGE additive effect is small"
+        },
+        "STAT_PROFILE_DATE_YEAR": {
+          "family": "STAT_PROFILE_DATE_YEAR × PROD_ABBR",
+          "rationale": "Year trends differ by product over 2006-2012. Commercial specialty lines (E&O, D&O, Workers Comp) had different market cycles than personal auto and home. A product-specific year slope captures diverging growth trajectories.",
+          "signal_strength": "moderate — product-specific market cycles over 2006-2012 are plausible"
+        }
+      }
+    },
+    "numeric_x_state_abbr": {
+      "sub_families": ["log_prev_wp", "log_prev_poly", "ACTIVE_PRODUCERS", "AGENCY_APPOINTMENT_YEAR", "MAX_AGE", "MIN_AGE", "STAT_PROFILE_DATE_YEAR"],
+      "summary": "State market characteristics may modify how numeric predictors relate to premium. Well-supported (all state levels in train and test) but lower priority than numeric × PROD_ABBR as product differences are larger and more directly interpretable than state differences. State effects are partially absorbed by the STATE_ABBR main effects already in OLS_ADDITIVE_FINAL.",
+      "highlight": {
+        "log_prev_wp_x_state": "Volume carry-forward may differ by state market maturity and competitive intensity.",
+        "active_producers_x_state": "Marginal producer productivity may vary by state market saturation.",
+        "year_x_state": "State-specific growth trends are real (regulatory changes, economic shocks) but risk overfitting on 7 training years."
+      }
+    },
+    "numeric_x_vendor": {
+      "sub_families": ["log_prev_wp", "log_prev_poly", "ACTIVE_PRODUCERS", "AGENCY_APPOINTMENT_YEAR", "MAX_AGE", "MIN_AGE", "STAT_PROFILE_DATE_YEAR"],
+      "summary": "Vendor strategy and distribution model may modify numeric predictor effects. Some vendors concentrate on high-volume personal lines; others on commercial specialty. Well-supported (few vendor levels, each with many observations) but weaker business rationale than numeric × PROD_ABBR since vendor differences in slope are less directly interpretable.",
+      "highlight": {
+        "log_prev_wp_x_vendor": "Vendors with different product mix show different volume persistence characteristics.",
+        "active_producers_x_vendor": "Vendor distribution model (few large producers vs many small) may affect the producers-premium slope."
+      }
+    },
+    "prod_abbr_x_state_abbr": {
+      "family": "PROD_ABBR × STATE_ABBR",
+      "rationale": "Premium levels for a given product differ by state: regulation, exposure, competitive market, and geographic risk factors all produce state-level variation by product. This is the most theoretically motivated categorical interaction. Test coverage is actually good: 97.8% of train cells appear in test, only 1 test-only cell. The concern is not absent cells per se, but sparse cells: 11/136 train cells (8.1%) have < 10 obs, primarily specialty products in smaller states (e.g., PERSAIP/PA n=1, DTALK12/WV n=2). In OLS_INTERACTION_FULL these contributed to 82 aliased terms via joint near-collinearity with the 249 PROD_ABBR × VENDOR terms. This family is worth testing in isolation after numeric × PROD_ABBR is established.",
+      "signal_strength": "theoretically strong — 97.8% test coverage, sparse cells manageable in isolation, defer after numeric × PROD_ABBR"
+    },
+    "prod_abbr_x_vendor": {
+      "family": "PROD_ABBR × VENDOR",
+      "rationale": "Vendors may specialize in certain products: personal-lines-focused vs commercial-specialty vendors. Test coverage is reasonable: 98.4% of train cells covered in test, 7 test-only cells. However, this family has extensive sparsity in training: 27/249 cells (10.8%) with < 10 obs, 93/249 (37.3%) with < 50 obs — specialty product × vendor combinations are very thin. In OLS_INTERACTION_FULL: 211 product × vendor terms with only 65 significant, indicating ~146 terms were noise. These sparse terms were the primary source of the 82 aliased terms (within-training near-collinearity) that caused catastrophic test failure. This family's sparsity, not absent cells, was the main failure driver.",
+      "signal_strength": "weak — extensive train sparsity (37% cells < 50 obs); primary near-collinearity driver in OLS_INTERACTION_FULL"
+    },
+    "state_abbr_x_vendor": {
+      "family": "STATE_ABBR × VENDOR",
+      "rationale": "Vendor relationships may differ by state due to state-level distribution agreements, regulatory approval history, or geographic market concentration. Better supported than PROD_ABBR × anything because vendors likely operate in most states, reducing absent-cell risk. However, the STATE_ABBR and VENDOR main effects already capture most of this variation, and the incremental value of the interaction is uncertain.",
+      "signal_strength": "moderate — state × vendor distribution variation plausible but partially absorbed by main effects"
+    }
+  },
+  "part_f_recommendation": {
+    "recommended_model_name": "OLS_INTERACTION_NUMERIC_PRODUCT",
+    "recommended_formula": "log_wp ~ log_prev_wp + log_prev_poly + ACTIVE_PRODUCERS + AGENCY_APPOINTMENT_YEAR + MAX_AGE + MIN_AGE + STATE_ABBR + PROD_ABBR + VENDOR + STAT_PROFILE_DATE_YEAR + log_prev_wp:PROD_ABBR + log_prev_poly:PROD_ABBR + ACTIVE_PRODUCERS:PROD_ABBR + AGENCY_APPOINTMENT_YEAR:PROD_ABBR + MAX_AGE:PROD_ABBR + MIN_AGE:PROD_ABBR + STAT_PROFILE_DATE_YEAR:PROD_ABBR",
+    "n_additive_terms": 48,
+    "n_new_interaction_terms": 182,
+    "n_total_terms_expected": 230,
+    "included_families": [
+      "log_prev_wp × PROD_ABBR",
+      "log_prev_poly × PROD_ABBR",
+      "ACTIVE_PRODUCERS × PROD_ABBR",
+      "AGENCY_APPOINTMENT_YEAR × PROD_ABBR",
+      "MAX_AGE × PROD_ABBR",
+      "MIN_AGE × PROD_ABBR",
+      "STAT_PROFILE_DATE_YEAR × PROD_ABBR"
+    ],
+    "included_rationale": "All 7 numeric × PROD_ABBR interactions are SAFE (no test-only levels). This family is directly supported by OLS_INTERACTION_FULL evidence: log_prev_wp:PROD_ABBR had |t| > 40 for GARAGE and WORKCOMP, and log_prev_poly:PROD_ABBR, ACTIVE_PRODUCERS:PROD_ABBR also showed strong signals. All PROD_ABBR levels present in test are also in training, so no doubtful predictions. Numeric interactions never create rank deficiency from absent cells. Adding ~182 terms to a 103K-row dataset is well within available degrees of freedom.",
+    "excluded_families": [
+      {
+        "family": "PROD_ABBR × STATE_ABBR",
+        "classification": "QUESTIONABLE",
+        "reason": "DEFERRED (QUESTIONABLE). Test coverage is good (1 test-only cell, 0.0% of test rows). However 11/136 train cells (8.1%) have fewer than 10 observations. In OLS_INTERACTION_FULL, sparse product × state cells contributed to the 82 aliased terms via joint near-collinearity when fit alongside PROD_ABBR × VENDOR and all numeric interactions. Evaluate this family in isolation, after numeric × PROD_ABBR establishes a cleaner baseline."
+      },
+      {
+        "family": "PROD_ABBR × VENDOR",
+        "classification": "QUESTIONABLE",
+        "reason": "DEFERRED (QUESTIONABLE). 7 test-only cells (0.0% of test rows). More critically: 27/249 train cells (10.8%) have fewer than 10 obs and 93/249 (37.3%) have fewer than 50 — extensive sparsity in specialty product × vendor cells. In OLS_INTERACTION_FULL this family contributed 211 terms with only 65 significant. The sparse cells were the primary within-training near-collinearity driver among the 82 aliased terms. Defer until numeric × PROD_ABBR results are evaluated."
+      },
+      {
+        "family": "STATE_ABBR × VENDOR",
+        "classification": "QUESTIONABLE",
+        "reason": "DEFERRED (QUESTIONABLE). May be testable but deferring until numeric × PROD_ABBR model is evaluated. Low term count but weaker business rationale than numeric × PROD_ABBR."
+      },
+      {
+        "family": "numeric × STATE_ABBR",
+        "classification": "SAFE",
+        "reason": "DEFERRED (SAFE). Well-supported but lower business priority. Evaluate as OLS_INTERACTION_NUMERIC_ALL after numeric × PROD_ABBR is confirmed."
+      },
+      {
+        "family": "numeric × VENDOR",
+        "classification": "SAFE",
+        "reason": "DEFERRED (SAFE). Well-supported but lower business priority. Evaluate as OLS_INTERACTION_NUMERIC_ALL after numeric × PROD_ABBR is confirmed."
+      }
+    ],
+    "why_this_avoids_full_failure": "OLS_INTERACTION_NUMERIC_PRODUCT avoids OLS_INTERACTION_FULL's failure by: (1) Excluding all categorical × categorical interactions — the primary rank-deficiency drivers. (2) Targeting only numeric × PROD_ABBR — numeric interactions never create doubtful predictions from absent cells. Each PROD_ABBR level just gets its own slope for each numeric predictor. (3) Adding ~182 terms vs 628 — a ~3.5x reduction in interaction complexity. (4) Directly testing the strongest confirmed signal: log_prev_wp:PROD_ABBR (|t| > 40 in OLS_INTERACTION_FULL for GARAGE and WORKCOMP, |t| > 20 for multiple other lines).",
+    "ols_interaction_full_failure_explanation": "OLS_INTERACTION_FULL failed primarily from within-training rank deficiency, not from test-only cells. Test-only cells were trivially small: 1 PROD_ABBR × STATE_ABBR (0.0% of test rows) and 7 PROD_ABBR × VENDOR (0.0% of test rows). The actual cause was 82 aliased (collinear) terms detected in the training fit itself. These aliased terms arose because sparse cells in the combined design matrix created exact collinearities: 27 PROD_ABBR × VENDOR cells had fewer than 10 training observations (10.8% of train cells), and 11 PROD_ABBR × STATE_ABBR cells had fewer than 10 obs (8.1% of train cells). When all 758 terms were included simultaneously, near-singleton specialty product × vendor combinations (e.g., SNOWMOBI12 × C, DTALK12 × J with n_train = 1) became exactly collinear with other terms. R marked those 82 terms as non-estimable. predict.lm() then assigned 'doubtful' predictions to ALL test rows whose covariate combinations mapped into the rank-deficient subspace — not just the 40 test-only rows, but every row touching a near-singular interaction dimension. The result was test RMSE = 14.52 vs 1.09."
+  }
+}

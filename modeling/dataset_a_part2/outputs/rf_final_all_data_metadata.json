@@ -1,0 +1,88 @@
+{
+  "model_name": "RF_FINAL_ALL_DATA",
+  "model_purpose": "Deployment/prediction version of RF_1_SAFE_TUNED. Trained on all 2006-2014 eligible data.",
+  "target_definition": "log_wp = log(WRTN_PREM_AMT + 1)",
+  "inverse_transform": "pred_wp = exp(pred_log_wp) - 1",
+  "training_years_used": [
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014
+  ],
+  "excluded_years": [
+    2005,
+    2015
+  ],
+  "row_filters": [
+    "STAT_PROFILE_DATE_YEAR in 2006:2014",
+    "PROD_ABBR != 'COMMPOL'",
+    "WRTN_PREM_AMT > 0",
+    "!is.na(log_wp)",
+    "!is.na(log_prev_wp)",
+    "!is.na(log_prev_poly)"
+  ],
+  "n_training_rows": 134358,
+  "predictors": {
+    "all": ["log_prev_wp", "log_prev_poly", "ACTIVE_PRODUCERS", "AGENCY_APPOINTMENT_YEAR", "MAX_AGE", "MIN_AGE", "STAT_PROFILE_DATE_YEAR", "STATE_ABBR", "PROD_ABBR", "VENDOR"],
+    "numeric": ["log_prev_wp", "log_prev_poly", "ACTIVE_PRODUCERS", "AGENCY_APPOINTMENT_YEAR", "MAX_AGE", "MIN_AGE", "STAT_PROFILE_DATE_YEAR"],
+    "categorical": ["STATE_ABBR", "PROD_ABBR", "VENDOR"],
+    "p": 10
+  },
+  "categorical_factor_levels": {
+    "STATE_ABBR": ["IN", "KY", "MI", "OH", "PA", "WV"],
+    "PROD_ABBR": ["ANNIV", "ANNIV   12", "BOILERMACH", "BOP", "COMMAUTO", "COMMINLMAR", "COMMUMBREL", "CRIME", "CYCLES", "CYCLES  12", "DTALK", "DTALK   12", "DWELLFIRE", "FIREALLIED", "GARAGE", "GENERALIAB", "HOMEOWNERS", "MOBILEHOME", "MOTORHOM12", "MOTORHOME", "PERSAIP", "PERSINLMAR", "PERSUMBREL", "SNOWMOBI12", "SNOWMOBILE", "WORKCOMP", "YACHT"],
+    "VENDOR": ["A", "B", "C", "D", "E", "F", "G", "H", "J", "Unknown"]
+  },
+  "lag_variable_definitions": [
+    {
+      "field": "log_prev_wp",
+      "formula": "log(PREV_WRTN_PREM_AMT + 1)",
+      "source": "PREV_WRTN_PREM_AMT from agency_performance table"
+    },
+    {
+      "field": "log_prev_poly",
+      "formula": "log(PREV_POLY_INFORCE_QTY + 1)",
+      "source": "PREV_POLY_INFORCE_QTY from agency_performance table"
+    }
+  ],
+  "numeric_input_validation": {
+    "PREV_WRTN_PREM_AMT": "numeric >= 0",
+    "PREV_POLY_INFORCE_QTY": "numeric >= 0",
+    "ACTIVE_PRODUCERS": "integer >= 0",
+    "AGENCY_APPOINTMENT_YEAR": "integer year",
+    "MAX_AGE": "positive numeric",
+    "MIN_AGE": "positive numeric; MIN_AGE <= MAX_AGE",
+    "STAT_PROFILE_DATE_YEAR": "integer year; training range 2006-2014; 2015 supported for one-year-ahead prediction"
+  },
+  "frontend_input_guidance": {
+    "categorical_note": "STATE_ABBR, PROD_ABBR, VENDOR use dropdowns populated from categorical_factor_levels.",
+    "year_note": "STAT_PROFILE_DATE_YEAR is numeric, not categorical. 2015 predictions are allowed.",
+    "unseen_levels_note": "Do not allow STATE_ABBR/PROD_ABBR/VENDOR values outside categorical_factor_levels unless backend fallback is implemented.",
+    "unknown_vendor": "VENDOR='Unknown' is a valid training-population level."
+  },
+  "year_numeric_note": "STAT_PROFILE_DATE_YEAR is numeric. RF routes year=2015 via split structure on highest observed training years.",
+  "prediction_year_note": "2015 predictions are one-year-ahead artifacts using prior-year lag predictors. Not a multi-year forecast.",
+  "locked_holdout_metrics": {
+    "model": "RF_1_SAFE_TUNED",
+    "train_years": "2006-2012",
+    "test_years": "2013-2014",
+    "n_train_rows": 103377,
+    "n_test_rows": 30981,
+    "test_r2": 0.8839,
+    "test_rmse": 0.7532,
+    "test_mae": 0.4428,
+    "source": "modeling/dataset_a_part2/outputs/rf_summary.json",
+    "note": "Official holdout metrics. RF_FINAL_ALL_DATA is a refit of this specification. OOB metrics from the all-data refit are diagnostics only and do not replace these."
+  },
+  "model_notes": [
+    "RF_FINAL_ALL_DATA is the deployment/refit version of RF_1_SAFE_TUNED.",
+    "RF_1_SAFE_TUNED remains the evaluated final specification.",
+    "Holdout metrics from 2013-2014 are the official evidence.",
+    "Use RF_FINAL_ALL_DATA for prediction; use RF_1_SAFE_TUNED holdout metrics for model-selection reporting."
+  ]
+}

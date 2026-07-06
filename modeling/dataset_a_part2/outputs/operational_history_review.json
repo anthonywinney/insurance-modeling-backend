@@ -1,0 +1,1162 @@
+{
+  "description": "Investigation of operational-history variables: PL/CL/COMMISIONS/ACTIVITY_NOTES START_YEAR and END_YEAR. Parts: (A) per-variable summary with sentinel breakdown, (B) temporal patterns and within-agency consistency, (C) END_YEAR sentinel interpretation and transition analysis, (D) tenure feature construction and predictive screening, (E) comparison with AGENCY_APPOINTMENT_YEAR, (F) per-family recommendations and overall advance decision. No models are fitted.",
+  "variables_present": [
+    "PL_START_YEAR",
+    "PL_END_YEAR",
+    "CL_START_YEAR",
+    "CL_END_YEAR",
+    "COMMISIONS_START_YEAR",
+    "COMMISIONS_END_YEAR",
+    "ACTIVITY_NOTES_START_YEAR",
+    "ACTIVITY_NOTES_END_YEAR"
+  ],
+  "variables_absent": [],
+  "part_a_variable_summaries": {
+    "PL_START_YEAR": {
+      "n_total": 213328,
+      "n_null": 0,
+      "n_sentinel": 82200,
+      "n_usable": 131128,
+      "pct_null": 0,
+      "pct_sentinel": 38.53,
+      "pct_usable": 61.47,
+      "sentinel_breakdown": {
+        "n_99997": 0,
+        "n_99998": 0,
+        "n_99999": 82200
+      },
+      "usable_range": {
+        "min": 1994,
+        "max": 2015,
+        "n_distinct": 22,
+        "distinct_values": [
+          1994,
+          1995,
+          1996,
+          1997,
+          1998,
+          1999,
+          2000,
+          2001,
+          2002,
+          2003,
+          2004,
+          2005,
+          2006,
+          2007,
+          2008,
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015
+        ]
+      }
+    },
+    "PL_END_YEAR": {
+      "n_total": 213328,
+      "n_null": 0,
+      "n_sentinel": 209174,
+      "n_usable": 4154,
+      "pct_null": 0,
+      "pct_sentinel": 98.05,
+      "pct_usable": 1.95,
+      "sentinel_breakdown": {
+        "n_99997": 0,
+        "n_99998": 0,
+        "n_99999": 209174
+      },
+      "usable_range": {
+        "min": 2004,
+        "max": 2015,
+        "n_distinct": 9,
+        "distinct_values": [
+          2004,
+          2005,
+          2006,
+          2007,
+          2009,
+          2011,
+          2012,
+          2014,
+          2015
+        ]
+      }
+    },
+    "CL_START_YEAR": {
+      "n_total": 213328,
+      "n_null": 0,
+      "n_sentinel": 129311,
+      "n_usable": 84017,
+      "pct_null": 0,
+      "pct_sentinel": 60.62,
+      "pct_usable": 39.38,
+      "sentinel_breakdown": {
+        "n_99997": 0,
+        "n_99998": 0,
+        "n_99999": 129311
+      },
+      "usable_range": {
+        "min": 2011,
+        "max": 2015,
+        "n_distinct": 5,
+        "distinct_values": [
+          2011,
+          2012,
+          2013,
+          2014,
+          2015
+        ]
+      }
+    },
+    "CL_END_YEAR": {
+      "n_total": 213328,
+      "n_null": 0,
+      "n_sentinel": 204760,
+      "n_usable": 8568,
+      "pct_null": 0,
+      "pct_sentinel": 95.98,
+      "pct_usable": 4.02,
+      "sentinel_breakdown": {
+        "n_99997": 0,
+        "n_99998": 0,
+        "n_99999": 204760
+      },
+      "usable_range": {
+        "min": 2011,
+        "max": 2015,
+        "n_distinct": 5,
+        "distinct_values": [
+          2011,
+          2012,
+          2013,
+          2014,
+          2015
+        ]
+      }
+    },
+    "COMMISIONS_START_YEAR": {
+      "n_total": 213328,
+      "n_null": 0,
+      "n_sentinel": 141937,
+      "n_usable": 71391,
+      "pct_null": 0,
+      "pct_sentinel": 66.53,
+      "pct_usable": 33.47,
+      "sentinel_breakdown": {
+        "n_99997": 0,
+        "n_99998": 0,
+        "n_99999": 141937
+      },
+      "usable_range": {
+        "min": 2003,
+        "max": 2015,
+        "n_distinct": 13,
+        "distinct_values": [
+          2003,
+          2004,
+          2005,
+          2006,
+          2007,
+          2008,
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015
+        ]
+      }
+    },
+    "COMMISIONS_END_YEAR": {
+      "n_total": 213328,
+      "n_null": 0,
+      "n_sentinel": 205604,
+      "n_usable": 7724,
+      "pct_null": 0,
+      "pct_sentinel": 96.38,
+      "pct_usable": 3.62,
+      "sentinel_breakdown": {
+        "n_99997": 0,
+        "n_99998": 0,
+        "n_99999": 205604
+      },
+      "usable_range": {
+        "min": 2003,
+        "max": 2015,
+        "n_distinct": 10,
+        "distinct_values": [
+          2003,
+          2005,
+          2006,
+          2008,
+          2009,
+          2010,
+          2012,
+          2013,
+          2014,
+          2015
+        ]
+      }
+    },
+    "ACTIVITY_NOTES_START_YEAR": {
+      "n_total": 213328,
+      "n_null": 0,
+      "n_sentinel": 171536,
+      "n_usable": 41792,
+      "pct_null": 0,
+      "pct_sentinel": 80.41,
+      "pct_usable": 19.59,
+      "sentinel_breakdown": {
+        "n_99997": 0,
+        "n_99998": 0,
+        "n_99999": 171536
+      },
+      "usable_range": {
+        "min": 2013,
+        "max": 2015,
+        "n_distinct": 3,
+        "distinct_values": [
+          2013,
+          2014,
+          2015
+        ]
+      }
+    },
+    "ACTIVITY_NOTES_END_YEAR": {
+      "n_total": 213328,
+      "n_null": 0,
+      "n_sentinel": 209258,
+      "n_usable": 4070,
+      "pct_null": 0,
+      "pct_sentinel": 98.09,
+      "pct_usable": 1.91,
+      "sentinel_breakdown": {
+        "n_99997": 0,
+        "n_99998": 0,
+        "n_99999": 209258
+      },
+      "usable_range": {
+        "min": 2014,
+        "max": 2015,
+        "n_distinct": 2,
+        "distinct_values": [
+          2014,
+          2015
+        ]
+      }
+    }
+  },
+  "part_b_temporal": {
+    "within_agency_year_consistency": {
+      "PL_START_YEAR": {
+        "n_agency_years": 13952,
+        "n_inconsistent": 0,
+        "pct_consistent": 100
+      },
+      "PL_END_YEAR": {
+        "n_agency_years": 13952,
+        "n_inconsistent": 0,
+        "pct_consistent": 100
+      },
+      "CL_START_YEAR": {
+        "n_agency_years": 13952,
+        "n_inconsistent": 0,
+        "pct_consistent": 100
+      },
+      "CL_END_YEAR": {
+        "n_agency_years": 13952,
+        "n_inconsistent": 0,
+        "pct_consistent": 100
+      },
+      "COMMISIONS_START_YEAR": {
+        "n_agency_years": 13952,
+        "n_inconsistent": 0,
+        "pct_consistent": 100
+      },
+      "COMMISIONS_END_YEAR": {
+        "n_agency_years": 13952,
+        "n_inconsistent": 0,
+        "pct_consistent": 100
+      },
+      "ACTIVITY_NOTES_START_YEAR": {
+        "n_agency_years": 13952,
+        "n_inconsistent": 0,
+        "pct_consistent": 100
+      },
+      "ACTIVITY_NOTES_END_YEAR": {
+        "n_agency_years": 13952,
+        "n_inconsistent": 0,
+        "pct_consistent": 100
+      }
+    },
+    "across_year_patterns": {
+      "PL_START_YEAR": {
+        "n_multi_year_series": 1502,
+        "pct_constant": 100,
+        "pct_always_sentinel": 56.5,
+        "pct_always_real": 43.5,
+        "pct_mixed_sentinel_real": 0,
+        "n_agencies_sentinel_to_real": 0,
+        "n_agencies_real_to_sentinel": 0,
+        "temporal_classification": "CONSTANT"
+      },
+      "PL_END_YEAR": {
+        "n_multi_year_series": 1502,
+        "pct_constant": 100,
+        "pct_always_sentinel": 98.5,
+        "pct_always_real": 1.5,
+        "pct_mixed_sentinel_real": 0,
+        "n_agencies_sentinel_to_real": 0,
+        "n_agencies_real_to_sentinel": 0,
+        "temporal_classification": "CONSTANT"
+      },
+      "CL_START_YEAR": {
+        "n_multi_year_series": 1502,
+        "pct_constant": 100,
+        "pct_always_sentinel": 71.8,
+        "pct_always_real": 28.2,
+        "pct_mixed_sentinel_real": 0,
+        "n_agencies_sentinel_to_real": 0,
+        "n_agencies_real_to_sentinel": 0,
+        "temporal_classification": "CONSTANT"
+      },
+      "CL_END_YEAR": {
+        "n_multi_year_series": 1502,
+        "pct_constant": 100,
+        "pct_always_sentinel": 96.5,
+        "pct_always_real": 3.5,
+        "pct_mixed_sentinel_real": 0,
+        "n_agencies_sentinel_to_real": 0,
+        "n_agencies_real_to_sentinel": 0,
+        "temporal_classification": "CONSTANT"
+      },
+      "COMMISIONS_START_YEAR": {
+        "n_multi_year_series": 1502,
+        "pct_constant": 100,
+        "pct_always_sentinel": 76.9,
+        "pct_always_real": 23.1,
+        "pct_mixed_sentinel_real": 0,
+        "n_agencies_sentinel_to_real": 0,
+        "n_agencies_real_to_sentinel": 0,
+        "temporal_classification": "CONSTANT"
+      },
+      "COMMISIONS_END_YEAR": {
+        "n_multi_year_series": 1502,
+        "pct_constant": 100,
+        "pct_always_sentinel": 97.9,
+        "pct_always_real": 2.1,
+        "pct_mixed_sentinel_real": 0,
+        "n_agencies_sentinel_to_real": 0,
+        "n_agencies_real_to_sentinel": 0,
+        "temporal_classification": "CONSTANT"
+      },
+      "ACTIVITY_NOTES_START_YEAR": {
+        "n_multi_year_series": 1502,
+        "pct_constant": 100,
+        "pct_always_sentinel": 86.9,
+        "pct_always_real": 13.1,
+        "pct_mixed_sentinel_real": 0,
+        "n_agencies_sentinel_to_real": 0,
+        "n_agencies_real_to_sentinel": 0,
+        "temporal_classification": "CONSTANT"
+      },
+      "ACTIVITY_NOTES_END_YEAR": {
+        "n_multi_year_series": 1502,
+        "pct_constant": 100,
+        "pct_always_sentinel": 98.7,
+        "pct_always_real": 1.3,
+        "pct_mixed_sentinel_real": 0,
+        "n_agencies_sentinel_to_real": 0,
+        "n_agencies_real_to_sentinel": 0,
+        "temporal_classification": "CONSTANT"
+      }
+    },
+    "example_series": {
+      "PL_START_YEAR": [
+        {
+          "AGENCY_ID": 3,
+          "n_years": 11,
+          "by_year": {
+            "2005": 99999,
+            "2006": 99999,
+            "2007": 99999,
+            "2008": 99999,
+            "2009": 99999,
+            "2010": 99999,
+            "2011": 99999,
+            "2012": 99999,
+            "2013": 99999,
+            "2014": 99999,
+            "2015": 99999
+          }
+        },
+        {
+          "AGENCY_ID": 11,
+          "n_years": 11,
+          "by_year": {
+            "2005": 99999,
+            "2006": 99999,
+            "2007": 99999,
+            "2008": 99999,
+            "2009": 99999,
+            "2010": 99999,
+            "2011": 99999,
+            "2012": 99999,
+            "2013": 99999,
+            "2014": 99999,
+            "2015": 99999
+          }
+        },
+        {
+          "AGENCY_ID": 16,
+          "n_years": 11,
+          "by_year": {
+            "2005": 2003,
+            "2006": 2003,
+            "2007": 2003,
+            "2008": 2003,
+            "2009": 2003,
+            "2010": 2003,
+            "2011": 2003,
+            "2012": 2003,
+            "2013": 2003,
+            "2014": 2003,
+            "2015": 2003
+          }
+        }
+      ],
+      "PL_END_YEAR": [
+        {
+          "AGENCY_ID": 3,
+          "n_years": 11,
+          "by_year": {
+            "2005": 99999,
+            "2006": 99999,
+            "2007": 99999,
+            "2008": 99999,
+            "2009": 99999,
+            "2010": 99999,
+            "2011": 99999,
+            "2012": 99999,
+            "2013": 99999,
+            "2014": 99999,
+            "2015": 99999
+          }
+        },
+        {
+          "AGENCY_ID": 11,
+          "n_years": 11,
+          "by_year": {
+            "2005": 99999,
+            "2006": 99999,
+            "2007": 99999,
+            "2008": 99999,
+            "2009": 99999,
+            "2010": 99999,
+            "2011": 99999,
+            "2012": 99999,
+            "2013": 99999,
+            "2014": 99999,
+            "2015": 99999
+          }
+        },
+        {
+          "AGENCY_ID": 16,
+          "n_years": 11,
+          "by_year": {
+            "2005": 99999,
+            "2006": 99999,
+            "2007": 99999,
+            "2008": 99999,
+            "2009": 99999,
+            "2010": 99999,
+            "2011": 99999,
+            "2012": 99999,
+            "2013": 99999,
+            "2014": 99999,
+            "2015": 99999
+          }
+        }
+      ],
+      "CL_START_YEAR": [
+        {
+          "AGENCY_ID": 3,
+          "n_years": 11,
+          "by_year": {
+            "2005": 99999,
+            "2006": 99999,
+            "2007": 99999,
+            "2008": 99999,
+            "2009": 99999,
+            "2010": 99999,
+            "2011": 99999,
+            "2012": 99999,
+            "2013": 99999,
+            "2014": 99999,
+            "2015": 99999
+          }
+        },
+        {
+          "AGENCY_ID": 11,
+          "n_years": 11,
+          "by_year": {
+            "2005": 99999,
+            "2006": 99999,
+            "2007": 99999,
+            "2008": 99999,
+            "2009": 99999,
+            "2010": 99999,
+            "2011": 99999,
+            "2012": 99999,
+            "2013": 99999,
+            "2014": 99999,
+            "2015": 99999
+          }
+        },
+        {
+          "AGENCY_ID": 16,
+          "n_years": 11,
+          "by_year": {
+            "2005": 2011,
+            "2006": 2011,
+            "2007": 2011,
+            "2008": 2011,
+            "2009": 2011,
+            "2010": 2011,
+            "2011": 2011,
+            "2012": 2011,
+            "2013": 2011,
+            "2014": 2011,
+            "2015": 2011
+          }
+        }
+      ],
+      "CL_END_YEAR": [
+        {
+          "AGENCY_ID": 3,
+          "n_years": 11,
+          "by_year": {
+            "2005": 99999,
+            "2006": 99999,
+            "2007": 99999,
+            "2008": 99999,
+            "2009": 99999,
+            "2010": 99999,
+            "2011": 99999,
+            "2012": 99999,
+            "2013": 99999,
+            "2014": 99999,
+            "2015": 99999
+          }
+        },
+        {
+          "AGENCY_ID": 11,
+          "n_years": 11,
+          "by_year": {
+            "2005": 99999,
+            "2006": 99999,
+            "2007": 99999,
+            "2008": 99999,
+            "2009": 99999,
+            "2010": 99999,
+            "2011": 99999,
+            "2012": 99999,
+            "2013": 99999,
+            "2014": 99999,
+            "2015": 99999
+          }
+        },
+        {
+          "AGENCY_ID": 16,
+          "n_years": 11,
+          "by_year": {
+            "2005": 99999,
+            "2006": 99999,
+            "2007": 99999,
+            "2008": 99999,
+            "2009": 99999,
+            "2010": 99999,
+            "2011": 99999,
+            "2012": 99999,
+            "2013": 99999,
+            "2014": 99999,
+            "2015": 99999
+          }
+        }
+      ],
+      "COMMISIONS_START_YEAR": [
+        {
+          "AGENCY_ID": 3,
+          "n_years": 11,
+          "by_year": {
+            "2005": 99999,
+            "2006": 99999,
+            "2007": 99999,
+            "2008": 99999,
+            "2009": 99999,
+            "2010": 99999,
+            "2011": 99999,
+            "2012": 99999,
+            "2013": 99999,
+            "2014": 99999,
+            "2015": 99999
+          }
+        },
+        {
+          "AGENCY_ID": 11,
+          "n_years": 11,
+          "by_year": {
+            "2005": 99999,
+            "2006": 99999,
+            "2007": 99999,
+            "2008": 99999,
+            "2009": 99999,
+            "2010": 99999,
+            "2011": 99999,
+            "2012": 99999,
+            "2013": 99999,
+            "2014": 99999,
+            "2015": 99999
+          }
+        },
+        {
+          "AGENCY_ID": 16,
+          "n_years": 11,
+          "by_year": {
+            "2005": 2011,
+            "2006": 2011,
+            "2007": 2011,
+            "2008": 2011,
+            "2009": 2011,
+            "2010": 2011,
+            "2011": 2011,
+            "2012": 2011,
+            "2013": 2011,
+            "2014": 2011,
+            "2015": 2011
+          }
+        }
+      ],
+      "COMMISIONS_END_YEAR": [
+        {
+          "AGENCY_ID": 3,
+          "n_years": 11,
+          "by_year": {
+            "2005": 99999,
+            "2006": 99999,
+            "2007": 99999,
+            "2008": 99999,
+            "2009": 99999,
+            "2010": 99999,
+            "2011": 99999,
+            "2012": 99999,
+            "2013": 99999,
+            "2014": 99999,
+            "2015": 99999
+          }
+        },
+        {
+          "AGENCY_ID": 11,
+          "n_years": 11,
+          "by_year": {
+            "2005": 99999,
+            "2006": 99999,
+            "2007": 99999,
+            "2008": 99999,
+            "2009": 99999,
+            "2010": 99999,
+            "2011": 99999,
+            "2012": 99999,
+            "2013": 99999,
+            "2014": 99999,
+            "2015": 99999
+          }
+        },
+        {
+          "AGENCY_ID": 16,
+          "n_years": 11,
+          "by_year": {
+            "2005": 99999,
+            "2006": 99999,
+            "2007": 99999,
+            "2008": 99999,
+            "2009": 99999,
+            "2010": 99999,
+            "2011": 99999,
+            "2012": 99999,
+            "2013": 99999,
+            "2014": 99999,
+            "2015": 99999
+          }
+        }
+      ],
+      "ACTIVITY_NOTES_START_YEAR": [
+        {
+          "AGENCY_ID": 3,
+          "n_years": 11,
+          "by_year": {
+            "2005": 99999,
+            "2006": 99999,
+            "2007": 99999,
+            "2008": 99999,
+            "2009": 99999,
+            "2010": 99999,
+            "2011": 99999,
+            "2012": 99999,
+            "2013": 99999,
+            "2014": 99999,
+            "2015": 99999
+          }
+        },
+        {
+          "AGENCY_ID": 11,
+          "n_years": 11,
+          "by_year": {
+            "2005": 99999,
+            "2006": 99999,
+            "2007": 99999,
+            "2008": 99999,
+            "2009": 99999,
+            "2010": 99999,
+            "2011": 99999,
+            "2012": 99999,
+            "2013": 99999,
+            "2014": 99999,
+            "2015": 99999
+          }
+        },
+        {
+          "AGENCY_ID": 16,
+          "n_years": 11,
+          "by_year": {
+            "2005": 99999,
+            "2006": 99999,
+            "2007": 99999,
+            "2008": 99999,
+            "2009": 99999,
+            "2010": 99999,
+            "2011": 99999,
+            "2012": 99999,
+            "2013": 99999,
+            "2014": 99999,
+            "2015": 99999
+          }
+        }
+      ],
+      "ACTIVITY_NOTES_END_YEAR": [
+        {
+          "AGENCY_ID": 3,
+          "n_years": 11,
+          "by_year": {
+            "2005": 99999,
+            "2006": 99999,
+            "2007": 99999,
+            "2008": 99999,
+            "2009": 99999,
+            "2010": 99999,
+            "2011": 99999,
+            "2012": 99999,
+            "2013": 99999,
+            "2014": 99999,
+            "2015": 99999
+          }
+        },
+        {
+          "AGENCY_ID": 11,
+          "n_years": 11,
+          "by_year": {
+            "2005": 99999,
+            "2006": 99999,
+            "2007": 99999,
+            "2008": 99999,
+            "2009": 99999,
+            "2010": 99999,
+            "2011": 99999,
+            "2012": 99999,
+            "2013": 99999,
+            "2014": 99999,
+            "2015": 99999
+          }
+        },
+        {
+          "AGENCY_ID": 16,
+          "n_years": 11,
+          "by_year": {
+            "2005": 99999,
+            "2006": 99999,
+            "2007": 99999,
+            "2008": 99999,
+            "2009": 99999,
+            "2010": 99999,
+            "2011": 99999,
+            "2012": 99999,
+            "2013": 99999,
+            "2014": 99999,
+            "2015": 99999
+          }
+        }
+      ]
+    }
+  },
+  "part_c_end_year_interpretation": {
+    "PL_END_YEAR": {
+      "n_sentinel": 209174,
+      "n_real_end_year": 4154,
+      "pct_sentinel": 98.05,
+      "pct_real": 1.95,
+      "usable_end_years": {
+        "min": 2004,
+        "max": 2015,
+        "n_distinct": 9,
+        "distinct_values": [
+          2004,
+          2005,
+          2006,
+          2007,
+          2009,
+          2011,
+          2012,
+          2014,
+          2015
+        ]
+      },
+      "transition_analysis": {
+        "n_agencies_sentinel_to_real": 0,
+        "n_agencies_real_to_sentinel": 0,
+        "n_agencies_always_sentinel": 1578,
+        "n_agencies_always_real": 22,
+        "n_agencies_mixed": 0
+      },
+      "sentinel_interpretation": "No agency transitions from sentinel to real end year within this dataset. Sentinel rate is 98.1%. Sentinel most likely encodes 'relationship still active'. The 4154 rows with real end years represent agencies that terminated before or during the dataset window."
+    },
+    "CL_END_YEAR": {
+      "n_sentinel": 204760,
+      "n_real_end_year": 8568,
+      "pct_sentinel": 95.98,
+      "pct_real": 4.02,
+      "usable_end_years": {
+        "min": 2011,
+        "max": 2015,
+        "n_distinct": 5,
+        "distinct_values": [
+          2011,
+          2012,
+          2013,
+          2014,
+          2015
+        ]
+      },
+      "transition_analysis": {
+        "n_agencies_sentinel_to_real": 0,
+        "n_agencies_real_to_sentinel": 0,
+        "n_agencies_always_sentinel": 1542,
+        "n_agencies_always_real": 58,
+        "n_agencies_mixed": 0
+      },
+      "sentinel_interpretation": "No agency transitions from sentinel to real end year within this dataset. Sentinel rate is 96.0%. Sentinel most likely encodes 'relationship still active'. The 8568 rows with real end years represent agencies that terminated before or during the dataset window."
+    },
+    "COMMISIONS_END_YEAR": {
+      "n_sentinel": 205604,
+      "n_real_end_year": 7724,
+      "pct_sentinel": 96.38,
+      "pct_real": 3.62,
+      "usable_end_years": {
+        "min": 2003,
+        "max": 2015,
+        "n_distinct": 10,
+        "distinct_values": [
+          2003,
+          2005,
+          2006,
+          2008,
+          2009,
+          2010,
+          2012,
+          2013,
+          2014,
+          2015
+        ]
+      },
+      "transition_analysis": {
+        "n_agencies_sentinel_to_real": 0,
+        "n_agencies_real_to_sentinel": 0,
+        "n_agencies_always_sentinel": 1568,
+        "n_agencies_always_real": 32,
+        "n_agencies_mixed": 0
+      },
+      "sentinel_interpretation": "No agency transitions from sentinel to real end year within this dataset. Sentinel rate is 96.4%. Sentinel most likely encodes 'relationship still active'. The 7724 rows with real end years represent agencies that terminated before or during the dataset window."
+    },
+    "ACTIVITY_NOTES_END_YEAR": {
+      "n_sentinel": 209258,
+      "n_real_end_year": 4070,
+      "pct_sentinel": 98.09,
+      "pct_real": 1.91,
+      "usable_end_years": {
+        "min": 2014,
+        "max": 2015,
+        "n_distinct": 2,
+        "distinct_values": [
+          2014,
+          2015
+        ]
+      },
+      "transition_analysis": {
+        "n_agencies_sentinel_to_real": 0,
+        "n_agencies_real_to_sentinel": 0,
+        "n_agencies_always_sentinel": 1581,
+        "n_agencies_always_real": 19,
+        "n_agencies_mixed": 0
+      },
+      "sentinel_interpretation": "No agency transitions from sentinel to real end year within this dataset. Sentinel rate is 98.1%. Sentinel most likely encodes 'relationship still active'. The 4070 rows with real end years represent agencies that terminated before or during the dataset window."
+    }
+  },
+  "part_d_tenure_features": {
+    "PL_TENURE": {
+      "tenure_definition": "PL_TENURE = STAT_PROFILE_DATE_YEAR - PL_START_YEAR",
+      "start_variable": "PL_START_YEAR",
+      "n_negative_tenure": 19544,
+      "coverage": {
+        "n_total": 135067,
+        "n_available": 89207,
+        "n_missing": 45860,
+        "pct_available": 66.05,
+        "pct_missing": 33.95,
+        "train": {
+          "n": 103923,
+          "n_available": 66889,
+          "pct": 64.36
+        },
+        "test": {
+          "n": 31144,
+          "n_available": 22318,
+          "pct": 71.66
+        }
+      },
+      "distribution": {
+        "n": 89207,
+        "min": -9,
+        "p01": -8,
+        "p25": 0,
+        "median": 5,
+        "mean": 4.93,
+        "p75": 10,
+        "p99": 18,
+        "max": 20,
+        "n_zero": 5224,
+        "pct_zero": 5.86
+      },
+      "correlations": {
+        "cor_with_log_wp": 0.0426,
+        "cor_with_log_prev_wp": 0.0031,
+        "cor_with_log_prev_poly": -0.0539,
+        "cor_with_agency_appointment_year": -0.1703
+      }
+    },
+    "CL_TENURE": {
+      "tenure_definition": "CL_TENURE = STAT_PROFILE_DATE_YEAR - CL_START_YEAR",
+      "start_variable": "CL_START_YEAR",
+      "n_negative_tenure": 36512,
+      "coverage": {
+        "n_total": 135067,
+        "n_available": 57610,
+        "n_missing": 77457,
+        "pct_available": 42.65,
+        "pct_missing": 57.35,
+        "train": {
+          "n": 103923,
+          "n_available": 43083,
+          "pct": 41.46
+        },
+        "test": {
+          "n": 31144,
+          "n_available": 14527,
+          "pct": 46.64
+        }
+      },
+      "distribution": {
+        "n": 57610,
+        "min": -9,
+        "p01": -8,
+        "p25": -4,
+        "median": -2,
+        "mean": -1.77,
+        "p75": 1,
+        "p99": 3,
+        "max": 3,
+        "n_zero": 6268,
+        "pct_zero": 10.88
+      },
+      "correlations": {
+        "cor_with_log_wp": -0.0076,
+        "cor_with_log_prev_wp": -0.01,
+        "cor_with_log_prev_poly": -0.0162,
+        "cor_with_agency_appointment_year": 0.0703
+      }
+    },
+    "COMMISSIONS_TENURE": {
+      "tenure_definition": "COMMISSIONS_TENURE = STAT_PROFILE_DATE_YEAR - COMMISIONS_START_YEAR",
+      "start_variable": "COMMISIONS_START_YEAR",
+      "n_negative_tenure": 17175,
+      "coverage": {
+        "n_total": 135067,
+        "n_available": 48263,
+        "n_missing": 86804,
+        "pct_available": 35.73,
+        "pct_missing": 64.27,
+        "train": {
+          "n": 103923,
+          "n_available": 35731,
+          "pct": 34.38
+        },
+        "test": {
+          "n": 31144,
+          "n_available": 12532,
+          "pct": 40.24
+        }
+      },
+      "distribution": {
+        "n": 48263,
+        "min": -9,
+        "p01": -8,
+        "p25": -2,
+        "median": 1,
+        "mean": 1.22,
+        "p75": 4,
+        "p99": 11,
+        "max": 11,
+        "n_zero": 4232,
+        "pct_zero": 8.77
+      },
+      "correlations": {
+        "cor_with_log_wp": 0.0284,
+        "cor_with_log_prev_wp": 0.0031,
+        "cor_with_log_prev_poly": -0.0576,
+        "cor_with_agency_appointment_year": 0.0119
+      }
+    },
+    "ACTIVITY_NOTES_TENURE": {
+      "tenure_definition": "ACTIVITY_NOTES_TENURE = STAT_PROFILE_DATE_YEAR - ACTIVITY_NOTES_START_YEAR",
+      "start_variable": "ACTIVITY_NOTES_START_YEAR",
+      "n_negative_tenure": 22584,
+      "coverage": {
+        "n_total": 135067,
+        "n_available": 28269,
+        "n_missing": 106798,
+        "pct_available": 20.93,
+        "pct_missing": 79.07,
+        "train": {
+          "n": 103923,
+          "n_available": 21015,
+          "pct": 20.22
+        },
+        "test": {
+          "n": 31144,
+          "n_available": 7254,
+          "pct": 23.29
+        }
+      },
+      "distribution": {
+        "n": 28269,
+        "min": -9,
+        "p01": -8,
+        "p25": -5,
+        "median": -3,
+        "mean": -3.17,
+        "p75": -1,
+        "p99": 1,
+        "max": 1,
+        "n_zero": 3478,
+        "pct_zero": 12.3
+      },
+      "correlations": {
+        "cor_with_log_wp": -0.0206,
+        "cor_with_log_prev_wp": -0.0209,
+        "cor_with_log_prev_poly": -0.0114,
+        "cor_with_agency_appointment_year": 0.0871
+      }
+    }
+  },
+  "part_e_comparison_with_aay": {
+    "agency_appointment_year_baseline": {
+      "variable": "AGENCY_APPOINTMENT_YEAR",
+      "note": "Already included in OLS 2+. Fixed year; does not change across reporting years.",
+      "cor_with_log_wp": -0.0603,
+      "cor_with_log_prev_wp": -0.0362,
+      "cor_with_log_prev_poly": 0.071
+    },
+    "start_year_correlations": {
+      "PL_START_YEAR": {
+        "n_usable_pairs_with_aay": 89207,
+        "cor_with_agency_appointment_year": 0.2188,
+        "cor_with_log_wp": -0.0507,
+        "cor_with_log_prev_wp": -0.0073,
+        "cor_with_log_prev_poly": 0.0514
+      },
+      "CL_START_YEAR": {
+        "n_usable_pairs_with_aay": 57610,
+        "cor_with_agency_appointment_year": 0.0306,
+        "cor_with_log_wp": -0.0092,
+        "cor_with_log_prev_wp": 0.0022,
+        "cor_with_log_prev_poly": 0.0135
+      },
+      "COMMISIONS_START_YEAR": {
+        "n_usable_pairs_with_aay": 48263,
+        "cor_with_agency_appointment_year": 0.0634,
+        "cor_with_log_wp": -0.0415,
+        "cor_with_log_prev_wp": -0.0075,
+        "cor_with_log_prev_poly": 0.0621
+      },
+      "ACTIVITY_NOTES_START_YEAR": {
+        "n_usable_pairs_with_aay": 28269,
+        "cor_with_agency_appointment_year": 0.0552,
+        "cor_with_log_wp": 0.0514,
+        "cor_with_log_prev_wp": 0.0471,
+        "cor_with_log_prev_poly": -0.0269
+      }
+    },
+    "business_interpretation": "AGENCY_APPOINTMENT_YEAR (AAY) is the year the agency was formally appointed — already in OLS 2+. START_YEAR variables record when the agency began a specific activity (writing PL/CL, receiving commissions, appearing in activity notes). A START_YEAR may lag AAY if an agency was appointed before activating a specific line. Tenure = STAT_PROFILE_DATE_YEAR - START_YEAR is a time-varying measure that grows each year, unlike the fixed AAY value. High r(TENURE, AAY) indicates redundancy. Moderate r(TENURE, AAY) with independent r(TENURE, log_wp) suggests non-redundant incremental signal worth testing."
+  },
+  "part_f_recommendations": {
+    "per_family": {
+      "PL": {
+        "start_variable": "PL_START_YEAR",
+        "end_variable": "PL_END_YEAR",
+        "tenure_variable": "PL_TENURE",
+        "recommendation": "EXCLUDE",
+        "justification": "Tenure coverage is 66.0% and correlates with log_wp at r=0.043 — below threshold for inclusion."
+      },
+      "CL": {
+        "start_variable": "CL_START_YEAR",
+        "end_variable": "CL_END_YEAR",
+        "tenure_variable": "CL_TENURE",
+        "recommendation": "EXCLUDE",
+        "justification": "Tenure coverage is 42.6% and correlates with log_wp at r=-0.008 — below threshold for inclusion."
+      },
+      "COMMISSIONS": {
+        "start_variable": "COMMISIONS_START_YEAR",
+        "end_variable": "COMMISIONS_END_YEAR",
+        "tenure_variable": "COMMISSIONS_TENURE",
+        "recommendation": "EXCLUDE",
+        "justification": "Tenure coverage is 35.7% and correlates with log_wp at r=0.028 — below threshold for inclusion."
+      },
+      "ACTIVITY_NOTES": {
+        "start_variable": "ACTIVITY_NOTES_START_YEAR",
+        "end_variable": "ACTIVITY_NOTES_END_YEAR",
+        "tenure_variable": "ACTIVITY_NOTES_TENURE",
+        "recommendation": "EXCLUDE",
+        "justification": "START_YEAR usable coverage is 19.6% — too low for modeling."
+      }
+    },
+    "summary": {
+      "n_families_create_tenure": 0,
+      "n_families_exclude": 4,
+      "families_to_create_tenure": [],
+      "advance_to_ols_testing": false,
+      "overall_recommendation": "No operational-history families clear the threshold for tenure feature construction. This variable family does not advance to model-testing stage. Primary reasons: sentinel-driven coverage gaps, or tenure is largely redundant with AGENCY_APPOINTMENT_YEAR (already in the OLS specification), or correlation with log_wp is below the 0.10 threshold."
+    }
+  }
+}

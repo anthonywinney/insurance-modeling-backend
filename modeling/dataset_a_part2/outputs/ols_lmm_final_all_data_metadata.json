@@ -1,0 +1,158 @@
+{
+  "description": "Combined metadata for OLS_ADDITIVE_FINAL_ALL_DATA and AGENCY_LMM_FULL_ALL_DATA. Supporting all-data refit artifacts. Model selection is complete. RF_FINAL_ALL_DATA is the primary deployment artifact.",
+  "model_selection_complete": true,
+  "primary_deployment_model": "RF_FINAL_ALL_DATA",
+  "supporting_reference_models": [
+    "OLS_ADDITIVE_FINAL_ALL_DATA",
+    "AGENCY_LMM_FULL_ALL_DATA"
+  ],
+  "training_years": [
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014
+  ],
+  "excluded_years": [
+    2005,
+    2015
+  ],
+  "n_training_rows": 134358,
+  "target": "log_wp = log(WRTN_PREM_AMT + 1)",
+  "inverse_transform": "pred_wp = exp(pred_log_wp) - 1",
+  "bias_correction": "none applied — direct inverse transform only",
+  "row_filters": [
+    "STAT_PROFILE_DATE_YEAR in 2006:2014",
+    "PROD_ABBR != 'COMMPOL'",
+    "WRTN_PREM_AMT > 0",
+    "!is.na(log_prev_wp)",
+    "!is.na(log_prev_poly)"
+  ],
+  "shared_predictors": {
+    "numeric": ["log_prev_wp", "log_prev_poly", "ACTIVE_PRODUCERS", "AGENCY_APPOINTMENT_YEAR", "MAX_AGE", "MIN_AGE", "STAT_PROFILE_DATE_YEAR"],
+    "categorical": ["STATE_ABBR", "PROD_ABBR", "VENDOR"]
+  },
+  "lmm_additional": {
+    "random_effect": "(1 | AGENCY_ID)",
+    "reml": true,
+    "optimizer": "bobyqa"
+  },
+  "categorical_factor_levels": {
+    "STATE_ABBR": ["IN", "KY", "MI", "OH", "PA", "WV"],
+    "PROD_ABBR": ["ANNIV", "ANNIV   12", "BOILERMACH", "BOP", "COMMAUTO", "COMMINLMAR", "COMMUMBREL", "CRIME", "CYCLES", "CYCLES  12", "DTALK", "DTALK   12", "DWELLFIRE", "FIREALLIED", "GARAGE", "GENERALIAB", "HOMEOWNERS", "MOBILEHOME", "MOTORHOM12", "MOTORHOME", "PERSAIP", "PERSINLMAR", "PERSUMBREL", "SNOWMOBI12", "SNOWMOBILE", "WORKCOMP", "YACHT"],
+    "VENDOR": ["A", "B", "C", "D", "E", "F", "G", "H", "J", "Unknown"]
+  },
+  "locked_holdout_metrics": {
+    "OLS_ADDITIVE_FINAL": {
+      "model": "OLS_ADDITIVE_FINAL",
+      "train_years": "2006-2012",
+      "test_years": "2013-2014",
+      "n_train": 103377,
+      "n_test": 30981,
+      "train_r2": 0.781,
+      "train_rmse": 1.0238,
+      "train_mae": 0.6468,
+      "test_r2": 0.7552,
+      "test_rmse": 1.0937,
+      "test_mae": 0.699,
+      "source": "locked from modeling/dataset_a_part2/outputs/ols_model_comparison.json"
+    },
+    "AGENCY_LMM_FULL": {
+      "model": "AGENCY_LMM_FULL",
+      "train_years": "2006-2012",
+      "test_years": "2013-2014",
+      "n_train": 103377,
+      "n_test": 30981,
+      "conditional": {
+        "test_r2": 0.7607,
+        "test_rmse": 1.0814,
+        "test_mae": 0.7071
+      },
+      "marginal": {
+        "test_r2": 0.7345,
+        "test_rmse": 1.1389,
+        "test_mae": 0.7768
+      },
+      "variance_components": {
+        "agency_variance": 0.303105,
+        "residual_variance": 0.948602,
+        "total_variance": 1.251707,
+        "agency_icc": 0.2422
+      },
+      "source": "locked from modeling/dataset_a_part2/outputs/lmm_variance_components.json"
+    },
+    "RF_1_SAFE_TUNED": {
+      "model": "RF_1_SAFE_TUNED",
+      "test_years": "2013-2014",
+      "test_r2": 0.8839,
+      "test_rmse": 0.7532,
+      "test_mae": 0.4428,
+      "source": "locked from modeling/dataset_a_part2/outputs/rf_summary.json"
+    }
+  },
+  "validation": {
+    "row_count": {
+      "expected": 134358,
+      "actual": 134358,
+      "pass": true,
+      "note": "PASS"
+    },
+    "year_check": {
+      "training_years": [
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014
+      ],
+      "excluded_2005": true,
+      "excluded_2015": true,
+      "pass": true,
+      "method": "setequal(sort(unique(as.integer(...))), 2006:2014)"
+    },
+    "predictor_check": {
+      "ols_predictors": ["log_prev_wp", "log_prev_poly", "ACTIVE_PRODUCERS", "AGENCY_APPOINTMENT_YEAR", "MAX_AGE", "MIN_AGE", "STATE_ABBR", "PROD_ABBR", "VENDOR", "STAT_PROFILE_DATE_YEAR"],
+      "lmm_fixed_effects": ["log_prev_wp", "log_prev_poly", "ACTIVE_PRODUCERS", "AGENCY_APPOINTMENT_YEAR", "MAX_AGE", "MIN_AGE", "STATE_ABBR", "PROD_ABBR", "VENDOR", "STAT_PROFILE_DATE_YEAR"],
+      "lmm_random_effect": "(1 | AGENCY_ID)",
+      "agency_cluster_excluded": true,
+      "agency_id_as_fixed_excluded": true,
+      "primary_agency_id_excluded": true,
+      "leakage_vars_excluded": true
+    },
+    "prediction_checks": {
+      "ols_sample_n": 2000,
+      "ols_finite_pred_log_wp": 2000,
+      "ols_pred_wp_nonneg": true,
+      "lmm_sample_n": 2000,
+      "lmm_cond_finite": 2000,
+      "lmm_marg_finite": 2000,
+      "lmm_cond_pred_wp_nonneg": true,
+      "lmm_marg_pred_wp_nonneg": true
+    },
+    "model_objects": {
+      "ols_rds_saved": true,
+      "lmm_rds_saved": true
+    }
+  },
+  "output_files": [
+    "ols_lmm_final_all_data_summary.json",
+    "ols_additive_final_all_data_coefficients.json",
+    "ols_additive_final_all_data_predictions_sample.json",
+    "ols_additive_final_all_data.rds",
+    "agency_lmm_full_all_data_summary.json",
+    "agency_lmm_full_all_data_fixed_effects.json",
+    "agency_lmm_full_all_data_random_effects_summary.json",
+    "agency_lmm_full_all_data_variance_components.json",
+    "agency_lmm_full_all_data_predictions_sample.json",
+    "agency_lmm_full_all_data.rds",
+    "ols_lmm_final_all_data_metadata.json"
+  ]
+}

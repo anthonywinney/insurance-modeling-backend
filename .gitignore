@@ -14,3 +14,9 @@ Thumbs.db
 
 # Logs
 npm-debug.log*
+
+# Dataset A Pt 2 Judgment entries
+judgment.txt
+
+# Large fitted model artifacts
+modeling/dataset_a_part2/outputs/*.rds

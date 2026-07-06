@@ -1,0 +1,389 @@
+{
+  "description": "Investigation of LOSS_RATIO = 0 in the raw dataset. Working population: non-null, non-sentinel LOSS_RATIO rows across all years (2005-2015). Motivated by observing ~65% zero rate in usable PREV_LOSS_RATIO values in lag_feature_diagnostics.json.",
+  "population_context": {
+    "n_raw_total": 213328,
+    "n_lr_null": 0,
+    "pct_lr_null": 0,
+    "n_lr_sentinel": 53174,
+    "pct_lr_sentinel": 24.93,
+    "n_usable": 160154,
+    "pct_usable": 75.07,
+    "n_usable_zero": 107025,
+    "n_usable_positive": 47120,
+    "n_usable_negative": 6009,
+    "pct_usable_zero": 66.83,
+    "pct_usable_positive": 29.42,
+    "pct_usable_negative": 3.75
+  },
+  "zero_classification": {
+    "n_zero_total": 107025,
+    "n_incrd_losses_null": 0,
+    "n_incrd_losses_zero": 107025,
+    "n_incrd_losses_positive": 0,
+    "n_incrd_losses_negative": 0,
+    "pct_incrd_losses_null": 0,
+    "pct_incrd_losses_zero": 100,
+    "pct_incrd_losses_positive": 0,
+    "pct_incrd_losses_negative": 0,
+    "n_clean_zero_lr_incrd0_ernd_pos": 106627,
+    "pct_clean_zero": 99.63,
+    "note": "A 'clean zero' is a row where LOSS_RATIO = 0, PRD_INCRD_LOSSES_AMT = 0, and PRD_ERND_PREM_AMT > 0. A 'positive anomaly' is LOSS_RATIO = 0 but PRD_INCRD_LOSSES_AMT > 0 — a data consistency issue. A 'negative incrd_losses' row has negative incurred losses (recoveries/adjustments), which can produce LOSS_RATIO = 0 only if PRD_INCRD_LOSSES_AMT = 0 or the field is rounded."
+  },
+  "ernd_prem_among_zero_lr": {
+    "n_ernd_null": 0,
+    "n_ernd_zero": 60,
+    "n_ernd_positive": 106627,
+    "n_ernd_negative": 338,
+    "pct_ernd_null": 0,
+    "pct_ernd_zero": 0.06,
+    "pct_ernd_positive": 99.63
+  },
+  "poly_inforce_comparison": {
+    "zero_lr_rows": {
+      "label": "LOSS_RATIO = 0",
+      "n": 107025,
+      "n_null": 0,
+      "n_zero": 61327,
+      "n_positive": 45698,
+      "pct_null": 0,
+      "pct_zero": 57.3,
+      "median_pos": 24,
+      "mean_pos": 63.5,
+      "p25_pos": 12,
+      "p75_pos": 64
+    },
+    "nonzero_lr_rows": {
+      "label": "LOSS_RATIO != 0",
+      "n": 53129,
+      "n_null": 0,
+      "n_zero": 27126,
+      "n_positive": 26003,
+      "pct_null": 0,
+      "pct_zero": 51.06,
+      "median_pos": 421,
+      "mean_pos": 1212.3,
+      "p25_pos": 120,
+      "p75_pos": 1515
+    }
+  },
+  "commpol_split": [
+    {
+      "group": "non_COMMPOL",
+      "n_total": 160154,
+      "n_zero": 107025,
+      "pct_zero": 66.83
+    }
+  ],
+  "non_commpol_zero_rate": {
+    "n_total": 160154,
+    "n_zero": 107025,
+    "pct_zero": 66.83,
+    "note": "Zero rate after excluding COMMPOL rows from usable population."
+  },
+  "by_year": [
+    {
+      "year": 2005,
+      "n_total": 12693,
+      "n_zero": 8511,
+      "n_pos": 3548,
+      "n_neg": 634,
+      "pct_zero": 67.05
+    },
+    {
+      "year": 2006,
+      "n_total": 14059,
+      "n_zero": 9250,
+      "n_pos": 4333,
+      "n_neg": 476,
+      "pct_zero": 65.79
+    },
+    {
+      "year": 2007,
+      "n_total": 14329,
+      "n_zero": 9428,
+      "n_pos": 4361,
+      "n_neg": 540,
+      "pct_zero": 65.8
+    },
+    {
+      "year": 2008,
+      "n_total": 14908,
+      "n_zero": 9638,
+      "n_pos": 4763,
+      "n_neg": 507,
+      "pct_zero": 64.65
+    },
+    {
+      "year": 2009,
+      "n_total": 15273,
+      "n_zero": 9981,
+      "n_pos": 4744,
+      "n_neg": 548,
+      "pct_zero": 65.35
+    },
+    {
+      "year": 2010,
+      "n_total": 15092,
+      "n_zero": 10036,
+      "n_pos": 4514,
+      "n_neg": 542,
+      "pct_zero": 66.5
+    },
+    {
+      "year": 2011,
+      "n_total": 14623,
+      "n_zero": 9523,
+      "n_pos": 4566,
+      "n_neg": 534,
+      "pct_zero": 65.12
+    },
+    {
+      "year": 2012,
+      "n_total": 15639,
+      "n_zero": 10372,
+      "n_pos": 4692,
+      "n_neg": 575,
+      "pct_zero": 66.32
+    },
+    {
+      "year": 2013,
+      "n_total": 15576,
+      "n_zero": 10708,
+      "n_pos": 4315,
+      "n_neg": 553,
+      "pct_zero": 68.75
+    },
+    {
+      "year": 2014,
+      "n_total": 15568,
+      "n_zero": 10707,
+      "n_pos": 4338,
+      "n_neg": 523,
+      "pct_zero": 68.78
+    },
+    {
+      "year": 2015,
+      "n_total": 12394,
+      "n_zero": 8871,
+      "n_pos": 2946,
+      "n_neg": 577,
+      "pct_zero": 71.57
+    }
+  ],
+  "by_prod_line": [
+    {
+      "PROD_LINE": "CL",
+      "n_total": 88303,
+      "n_zero": 61191,
+      "pct_zero": 69.3
+    },
+    {
+      "PROD_LINE": "PL",
+      "n_total": 71851,
+      "n_zero": 45834,
+      "pct_zero": 63.79
+    }
+  ],
+  "by_prod_abbr": [
+    {
+      "PROD_ABBR": "PERSUMBREL",
+      "n_total": 7528,
+      "n_zero": 7459,
+      "pct_zero": 99.08
+    },
+    {
+      "PROD_ABBR": "COMMUMBREL",
+      "n_total": 7768,
+      "n_zero": 7667,
+      "pct_zero": 98.7
+    },
+    {
+      "PROD_ABBR": "SNOWMOBI12",
+      "n_total": 46,
+      "n_zero": 45,
+      "pct_zero": 97.83
+    },
+    {
+      "PROD_ABBR": "DTALK   12",
+      "n_total": 505,
+      "n_zero": 491,
+      "pct_zero": 97.23
+    },
+    {
+      "PROD_ABBR": "PERSINLMAR",
+      "n_total": 1580,
+      "n_zero": 1531,
+      "pct_zero": 96.9
+    },
+    {
+      "PROD_ABBR": "SNOWMOBILE",
+      "n_total": 891,
+      "n_zero": 863,
+      "pct_zero": 96.86
+    },
+    {
+      "PROD_ABBR": "CYCLES  12",
+      "n_total": 678,
+      "n_zero": 649,
+      "pct_zero": 95.72
+    },
+    {
+      "PROD_ABBR": "BOILERMACH",
+      "n_total": 11573,
+      "n_zero": 10801,
+      "pct_zero": 93.33
+    },
+    {
+      "PROD_ABBR": "CRIME",
+      "n_total": 5412,
+      "n_zero": 5049,
+      "pct_zero": 93.29
+    },
+    {
+      "PROD_ABBR": "MOTORHOM12",
+      "n_total": 1323,
+      "n_zero": 1232,
+      "pct_zero": 93.12
+    },
+    {
+      "PROD_ABBR": "YACHT",
+      "n_total": 3216,
+      "n_zero": 2970,
+      "pct_zero": 92.35
+    },
+    {
+      "PROD_ABBR": "CYCLES",
+      "n_total": 4859,
+      "n_zero": 4281,
+      "pct_zero": 88.1
+    },
+    {
+      "PROD_ABBR": "DTALK",
+      "n_total": 4891,
+      "n_zero": 4046,
+      "pct_zero": 82.72
+    },
+    {
+      "PROD_ABBR": "MOBILEHOME",
+      "n_total": 4592,
+      "n_zero": 3797,
+      "pct_zero": 82.69
+    },
+    {
+      "PROD_ABBR": "COMMINLMAR",
+      "n_total": 9618,
+      "n_zero": 7704,
+      "pct_zero": 80.1
+    },
+    {
+      "PROD_ABBR": "MOTORHOME",
+      "n_total": 7030,
+      "n_zero": 5333,
+      "pct_zero": 75.86
+    },
+    {
+      "PROD_ABBR": "DWELLFIRE",
+      "n_total": 7993,
+      "n_zero": 5835,
+      "pct_zero": 73
+    },
+    {
+      "PROD_ABBR": "BOP",
+      "n_total": 7830,
+      "n_zero": 4995,
+      "pct_zero": 63.79
+    },
+    {
+      "PROD_ABBR": "GENERALIAB",
+      "n_total": 12188,
+      "n_zero": 7495,
+      "pct_zero": 61.49
+    },
+    {
+      "PROD_ABBR": "FIREALLIED",
+      "n_total": 11581,
+      "n_zero": 6981,
+      "pct_zero": 60.28
+    },
+    {
+      "PROD_ABBR": "GARAGE",
+      "n_total": 6678,
+      "n_zero": 3745,
+      "pct_zero": 56.08
+    },
+    {
+      "PROD_ABBR": "WORKCOMP",
+      "n_total": 4931,
+      "n_zero": 2457,
+      "pct_zero": 49.83
+    },
+    {
+      "PROD_ABBR": "COMMAUTO",
+      "n_total": 10724,
+      "n_zero": 4297,
+      "pct_zero": 40.07
+    },
+    {
+      "PROD_ABBR": "ANNIV   12",
+      "n_total": 2981,
+      "n_zero": 1083,
+      "pct_zero": 36.33
+    },
+    {
+      "PROD_ABBR": "HOMEOWNERS",
+      "n_total": 12293,
+      "n_zero": 4001,
+      "pct_zero": 32.55
+    },
+    {
+      "PROD_ABBR": "PERSAIP",
+      "n_total": 13,
+      "n_zero": 4,
+      "pct_zero": 30.77
+    },
+    {
+      "PROD_ABBR": "ANNIV",
+      "n_total": 11432,
+      "n_zero": 2214,
+      "pct_zero": 19.37
+    }
+  ],
+  "by_state": [
+    {
+      "STATE_ABBR": "MI",
+      "n_total": 2360,
+      "n_zero": 1735,
+      "pct_zero": 73.52
+    },
+    {
+      "STATE_ABBR": "WV",
+      "n_total": 8515,
+      "n_zero": 6113,
+      "pct_zero": 71.79
+    },
+    {
+      "STATE_ABBR": "IN",
+      "n_total": 24377,
+      "n_zero": 16665,
+      "pct_zero": 68.36
+    },
+    {
+      "STATE_ABBR": "KY",
+      "n_total": 21242,
+      "n_zero": 14232,
+      "pct_zero": 67
+    },
+    {
+      "STATE_ABBR": "OH",
+      "n_total": 80274,
+      "n_zero": 52982,
+      "pct_zero": 66
+    },
+    {
+      "STATE_ABBR": "PA",
+      "n_total": 23386,
+      "n_zero": 15298,
+      "pct_zero": 65.42
+    }
+  ]
+}

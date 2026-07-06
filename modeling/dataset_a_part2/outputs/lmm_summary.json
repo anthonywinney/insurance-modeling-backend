@@ -1,0 +1,94 @@
+{
+  "description": "Written Premium LMM modeling for Dataset A Part 2. Evaluates agency-level (AGENCY_ID) and nested parent-agency (PRIMARY_AGENCY_ID/AGENCY_ID) random intercepts. Three controlled populations: FULL, PARENT_CC (excludes PAI=99999), TRUE_PARENT (excludes PAI=99999 and self-parent rows). REML=TRUE, bobyqa optimizer. Benchmarks: OLS_ADDITIVE_FINAL (test R²=0.7552) and RF_1_SAFE_TUNED (test R²=0.8839).",
+  "modeling_population": {
+    "target": "log_wp = log(WRTN_PREM_AMT + 1)",
+    "train_years": "2006-2012",
+    "test_years": "2013-2014",
+    "filters": {
+      "exclude_prod_abbr": "COMMPOL",
+      "wp_filter": "WRTN_PREM_AMT > 0",
+      "na_exclusion": "log_prev_wp or log_prev_poly NA rows excluded"
+    },
+    "fixed_effects": {
+      "numeric": ["log_prev_wp", "log_prev_poly", "ACTIVE_PRODUCERS", "AGENCY_APPOINTMENT_YEAR", "MAX_AGE", "MIN_AGE", "STAT_PROFILE_DATE_YEAR"],
+      "categorical": ["STATE_ABBR", "PROD_ABBR", "VENDOR"]
+    },
+    "random_effects": "random intercept only — no random slopes"
+  },
+  "population_definitions": {
+    "FULL": {
+      "label": "FULL",
+      "n_train_rows": 103377,
+      "n_test_rows": 30981,
+      "n_train_agencies": 1254,
+      "n_test_agencies": 1054,
+      "n_test_agencies_seen_in_train": 974,
+      "pct_test_agencies_seen": 92.41,
+      "pct_test_rows_seen_agency": 96.81
+    },
+    "PARENT_CC": {
+      "label": "PARENT_CC",
+      "n_train_rows": 88659,
+      "n_test_rows": 29527,
+      "n_train_agencies": 911,
+      "n_test_agencies": 952,
+      "n_test_agencies_seen_in_train": 880,
+      "pct_test_agencies_seen": 92.44,
+      "pct_test_rows_seen_agency": 96.85,
+      "n_train_parents": 540,
+      "n_test_parents": 561,
+      "n_test_parents_seen_in_train": 524,
+      "pct_test_parents_seen": 93.4,
+      "pct_test_rows_seen_parent": 97.79
+    },
+    "TRUE_PARENT": {
+      "label": "TRUE_PARENT",
+      "n_train_rows": 29216,
+      "n_test_rows": 9473,
+      "n_train_agencies": 384,
+      "n_test_agencies": 402,
+      "n_test_agencies_seen_in_train": 371,
+      "pct_test_agencies_seen": 92.29,
+      "pct_test_rows_seen_agency": 96.97,
+      "n_train_parents": 193,
+      "n_test_parents": 198,
+      "n_test_parents_seen_in_train": 191,
+      "pct_test_parents_seen": 96.46,
+      "pct_test_rows_seen_parent": 99.17
+    }
+  },
+  "model_list": {
+    "null_models": ["AGENCY_NULL_FULL", "AGENCY_NULL_PARENT_CC", "NESTED_NULL_PARENT_CC", "AGENCY_NULL_TRUE_PARENT", "NESTED_NULL_TRUE_PARENT"],
+    "full_lmms": ["AGENCY_LMM_FULL", "AGENCY_LMM_PARENT_CC", "NESTED_LMM_PARENT_CC", "AGENCY_LMM_TRUE_PARENT", "NESTED_LMM_TRUE_PARENT"],
+    "optimizer": "bobyqa",
+    "reml": true
+  },
+  "key_findings": [
+    "AGENCY_NULL_FULL unconditional ICC = 0.1146 (agency accounts for 11.5% of total log_wp variance).",
+    "After OLS_ADDITIVE_FINAL fixed effects, residual agency ICC = 0.2422 (24.2% of residual variance).",
+    "AGENCY_LMM_FULL: conditional test R² = 0.7607 (OLS = 0.7552, delta = +0.0055); marginal test R² = 0.7345.",
+    "RF_1_SAFE_TUNED test R² = 0.8839 — still leads AGENCY_LMM_FULL conditional (0.7607).",
+    "NESTED_NULL_PARENT_CC: parent ICC = 0.0069, agency ICC = 0.0912, residual = 90.2%.",
+    "NESTED_LMM_PARENT_CC residual: parent ICC = 0.0438, agency ICC = 0.1312. Singular = FALSE.",
+    "NESTED_LMM_PARENT_CC vs AGENCY_LMM_PARENT_CC: delta conditional test R² = +0.0004.",
+    "TRUE_PARENT nested: parent ICC (null) = 0.0092; (full) = 0.0352. Singular = FALSE.",
+    "Agency LMM recommendation: KEEP_AS_STRUCTURAL_DIAGNOSTIC_ONLY.",
+    "Nested LMM recommendation: KEEP_AS_STRUCTURAL_DIAGNOSTIC_ONLY."
+  ],
+  "recommendation": {
+    "agency_lmm": {
+      "decision": "KEEP_AS_STRUCTURAL_DIAGNOSTIC_ONLY",
+      "justification": "AGENCY_LMM_FULL conditional test R² = 0.7607 (delta vs OLS = +0.0055). Residual agency ICC = 0.2422. Singular = FALSE. Warnings = 1. Agency structure is visible in variance components but predictive gain is below threshold or convergence uncertain."
+    },
+    "nested_lmm": {
+      "decision": "KEEP_AS_STRUCTURAL_DIAGNOSTIC_ONLY",
+      "justification": "NESTED_LMM_PARENT_CC delta test R² vs agency-only = +0.0004 (below threshold 0.005). Parent variance share = 0.0438. Not singular. Parent structure exists in data but adds negligible predictive value beyond agency. Retain nested model as structural diagnostic only."
+    },
+    "final_model_branch_status": {
+      "ols_role": "OLS_ADDITIVE_FINAL remains the interpretability benchmark (48 coefficients, locked specification).",
+      "rf_role": "RF_1_SAFE_TUNED remains the leading predictive model (test R² = 0.8839).",
+      "lmm_role": "AGENCY_LMM_FULL adds credibility/variance-decomposition interpretation (residual ICC = 0.2422). KEEP_AS_STRUCTURAL_DIAGNOSTIC_ONLY",
+      "nested_role": "Nested LMM tests parent-agency structure. Parent variance share = 0.0438. KEEP_AS_STRUCTURAL_DIAGNOSTIC_ONLY"
+    }
+  }
+}

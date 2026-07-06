@@ -1,0 +1,168 @@
+{
+  "purpose": "Final RF all-data refit for Dataset A Part 2. Model selection is complete. RF_FINAL_ALL_DATA is the deployment/refit version of RF_1_SAFE_TUNED, trained on all 2006-2014 eligible rows (n=134,358). The holdout evidence (2013-2014) is unchanged and carried forward.",
+  "model_name": "RF_FINAL_ALL_DATA",
+  "selected_specification": "RF_1_SAFE_TUNED",
+  "training_years": "2006-2014",
+  "excluded_years": [
+    2005,
+    2015
+  ],
+  "n_training_rows": 134358,
+  "row_count_check": {
+    "expected": 134358,
+    "actual": 134358,
+    "pass": true,
+    "note": "PASS"
+  },
+  "predictors": {
+    "numeric": ["log_prev_wp", "log_prev_poly", "ACTIVE_PRODUCERS", "AGENCY_APPOINTMENT_YEAR", "MAX_AGE", "MIN_AGE", "STAT_PROFILE_DATE_YEAR"],
+    "categorical": ["STATE_ABBR", "PROD_ABBR", "VENDOR"],
+    "p": 10,
+    "excluded": [
+      "AGENCY_CLUSTER",
+      "AGENCY_ID",
+      "PRIMARY_AGENCY_ID",
+      "PROD_LINE",
+      "POLY_INFORCE_QTY",
+      "RETENTION_RATIO",
+      "LOSS_RATIO",
+      "PREV_LOSS_RATIO",
+      "PREV_RETENTION_RATIO"
+    ]
+  },
+  "hyperparameters": {
+    "num_trees": 500,
+    "mtry": 3,
+    "min_node_size": 5,
+    "sample_fraction": 0.6,
+    "replace": false,
+    "importance": "permutation",
+    "respect_unordered_factors": "order",
+    "seed": 42
+  },
+  "oob_diagnostics": {
+    "oob_r2": 0.9,
+    "oob_rmse": 0.6935,
+    "note": "OOB from all-data refit. NOT a holdout metric. All 2006-2014 rows used for training."
+  },
+  "train_within_sample": {
+    "n": 134358,
+    "r2": 0.9612,
+    "rmse": 0.432,
+    "mae": 0.2385,
+    "note": "Within-sample fit. Not a test metric."
+  },
+  "locked_holdout_metrics": {
+    "model": "RF_1_SAFE_TUNED",
+    "train_years": "2006-2012",
+    "test_years": "2013-2014",
+    "n_train_rows": 103377,
+    "n_test_rows": 30981,
+    "test_r2": 0.8839,
+    "test_rmse": 0.7532,
+    "test_mae": 0.4428,
+    "source": "modeling/dataset_a_part2/outputs/rf_summary.json",
+    "note": "Official holdout metrics. RF_FINAL_ALL_DATA is a refit of this specification. OOB metrics from the all-data refit are diagnostics only and do not replace these."
+  },
+  "agency_cluster_sensitivity": {
+    "result": "NO_MATERIAL_GAIN_FROM_CLUSTERING",
+    "best_k": 50,
+    "delta_r2": -0.0016,
+    "threshold": "delta seen-agency R2 < 0.005",
+    "conclusion": "Agency clustering does not materially improve RF. RF_1_SAFE_TUNED retained as final specification."
+  },
+  "feature_importance_summary": {
+    "top_predictor": "log_prev_wp",
+    "top_predictor_pct": 60.96,
+    "top_5": ["log_prev_wp", "log_prev_poly", "PROD_ABBR", "AGENCY_APPOINTMENT_YEAR", "ACTIVE_PRODUCERS"]
+  },
+  "predictions_2015": {
+    "n_rows": 18975,
+    "year": 2015,
+    "purpose": "One-year-ahead predictions using prior-year lag predictors and 2015 agency/product information.",
+    "note": "NOT evaluation. Do not compute R2/RMSE/MAE on 2015. Do not call 2015 a test set.",
+    "generated": true
+  },
+  "validation": {
+    "row_count": {
+      "expected": 134358,
+      "actual": 134358,
+      "pass": true,
+      "note": "PASS"
+    },
+    "year_check": {
+      "training_years": [
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014
+      ],
+      "excluded_2005": true,
+      "excluded_2015": true,
+      "pass": true
+    },
+    "predictor_check": {
+      "final_predictors": ["log_prev_wp", "log_prev_poly", "ACTIVE_PRODUCERS", "AGENCY_APPOINTMENT_YEAR", "MAX_AGE", "MIN_AGE", "STAT_PROFILE_DATE_YEAR", "STATE_ABBR", "PROD_ABBR", "VENDOR"],
+      "n_predictors": 10,
+      "agency_cluster_excluded": true,
+      "agency_id_excluded": true,
+      "primary_agency_id_excluded": true,
+      "leakage_vars_excluded": true
+    },
+    "factor_levels": {
+      "STATE_ABBR_n_levels": 6,
+      "PROD_ABBR_n_levels": 27,
+      "VENDOR_n_levels": 10,
+      "saved_to_rds": true,
+      "saved_to_metadata": true
+    },
+    "predictions_2015": {
+      "n_candidate_rows": 18975,
+      "n_unseen_level_excluded": 0,
+      "n_eligible_rows": 18975,
+      "unseen_state_levels": [],
+      "unseen_prod_levels": [],
+      "unseen_vendor_levels": [],
+      "n_finite_pred_log_wp": 18975,
+      "n_finite_pred_wp": 18975,
+      "n_pred_wp_negative": 0,
+      "all_preds_finite": true,
+      "pred_wp_nonneg": true,
+      "pass": true
+    },
+    "artifacts": {
+      "model_rds_saved": true,
+      "csv_saved": true,
+      "metadata_json_queued": true,
+      "template_json_queued": true
+    }
+  },
+  "output_files": [
+    "rf_final_all_data_summary.json",
+    "rf_final_all_data_metadata.json",
+    "rf_final_all_data_importance.json",
+    "rf_final_all_data_predictions_sample.json",
+    "rf_final_2015_predictions.csv",
+    "rf_final_2015_predictions.json",
+    "rf_final_prediction_input_template.json",
+    "rf_final_all_data.rds"
+  ],
+  "warnings_and_limitations": [
+    "RF_FINAL_ALL_DATA has no untouched holdout — all 2006-2014 data used for training.",
+    "OOB metrics are diagnostics only; they do not replace the locked holdout evidence.",
+    "2015 predictions are one-year-ahead artifacts, not evaluation results.",
+    "STAT_PROFILE_DATE_YEAR=2015 is numeric; RF routes year=2015 via training-period splits.",
+    "All 2015 rows had known categorical levels — no rows excluded."
+  ],
+  "final_recommendation": {
+    "deployment_model": "RF_FINAL_ALL_DATA",
+    "evaluated_specification": "RF_1_SAFE_TUNED",
+    "holdout_evidence": "2013-2014: Test R2=0.8839, RMSE=0.7532, MAE=0.4428",
+    "statement": "RF_FINAL_ALL_DATA is the deployment version of the selected RF_1_SAFE_TUNED specification. RF_1_SAFE_TUNED remains the evaluated final specification. Holdout metrics from 2013-2014 remain the official evidence. 2015 predictions are one-year-ahead artifacts, not evaluation results."
+  }
+}

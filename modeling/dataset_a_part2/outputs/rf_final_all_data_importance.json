@@ -1,0 +1,159 @@
+{
+  "description": "Feature importance for RF_FINAL_ALL_DATA (all-data refit) and RF_1_SAFE_TUNED (holdout-evaluated). holdout_evaluated_rf_importance: locked from rf_feature_importance.json. final_all_data_refit_importance: from RF_FINAL_ALL_DATA trained on 2006-2014.",
+  "holdout_evaluated_rf_importance": {
+    "model_id": "RF_1_SAFE_TUNED",
+    "data_used": "2006-2012 training rows (n=103,377)",
+    "importance_type": "permutation",
+    "note": "Locked from modeling/dataset_a_part2/outputs/rf_feature_importance.json",
+    "importance": [
+      {
+        "variable": "log_prev_wp",
+        "importance": 5.952889,
+        "rank": 1,
+        "pct_of_total": 60.77,
+        "group": "prior_performance_lag"
+      },
+      {
+        "variable": "log_prev_poly",
+        "importance": 1.653958,
+        "rank": 2,
+        "pct_of_total": 16.88,
+        "group": "prior_performance_lag"
+      },
+      {
+        "variable": "PROD_ABBR",
+        "importance": 1.032208,
+        "rank": 3,
+        "pct_of_total": 10.54,
+        "group": "product"
+      },
+      {
+        "variable": "AGENCY_APPOINTMENT_YEAR",
+        "importance": 0.263883,
+        "rank": 4,
+        "pct_of_total": 2.69,
+        "group": "agency_characteristics"
+      },
+      {
+        "variable": "ACTIVE_PRODUCERS",
+        "importance": 0.227611,
+        "rank": 5,
+        "pct_of_total": 2.32,
+        "group": "agency_characteristics"
+      },
+      {
+        "variable": "MIN_AGE",
+        "importance": 0.182917,
+        "rank": 6,
+        "pct_of_total": 1.87,
+        "group": "agency_characteristics"
+      },
+      {
+        "variable": "MAX_AGE",
+        "importance": 0.147964,
+        "rank": 7,
+        "pct_of_total": 1.51,
+        "group": "agency_characteristics"
+      },
+      {
+        "variable": "STATE_ABBR",
+        "importance": 0.137293,
+        "rank": 8,
+        "pct_of_total": 1.4,
+        "group": "geography"
+      },
+      {
+        "variable": "VENDOR",
+        "importance": 0.124808,
+        "rank": 9,
+        "pct_of_total": 1.27,
+        "group": "vendor"
+      },
+      {
+        "variable": "STAT_PROFILE_DATE_YEAR",
+        "importance": 0.07228,
+        "rank": 10,
+        "pct_of_total": 0.74,
+        "group": "time_trend"
+      }
+    ]
+  },
+  "final_all_data_refit_importance": {
+    "model_id": "RF_FINAL_ALL_DATA",
+    "data_used": "2006-2014 all eligible rows (n=134358)",
+    "importance_type": "permutation",
+    "note": "From all-data refit. Not a holdout metric.",
+    "importance": [
+      {
+        "variable": "log_prev_wp",
+        "importance": 6.037654,
+        "rank": 1,
+        "pct_of_total": 60.96,
+        "group": "prior_performance_lag"
+      },
+      {
+        "variable": "log_prev_poly",
+        "importance": 1.67466,
+        "rank": 2,
+        "pct_of_total": 16.91,
+        "group": "prior_performance_lag"
+      },
+      {
+        "variable": "PROD_ABBR",
+        "importance": 1.002078,
+        "rank": 3,
+        "pct_of_total": 10.12,
+        "group": "product"
+      },
+      {
+        "variable": "AGENCY_APPOINTMENT_YEAR",
+        "importance": 0.263356,
+        "rank": 4,
+        "pct_of_total": 2.66,
+        "group": "agency_characteristics"
+      },
+      {
+        "variable": "ACTIVE_PRODUCERS",
+        "importance": 0.241238,
+        "rank": 5,
+        "pct_of_total": 2.44,
+        "group": "agency_characteristics"
+      },
+      {
+        "variable": "MIN_AGE",
+        "importance": 0.190974,
+        "rank": 6,
+        "pct_of_total": 1.93,
+        "group": "agency_characteristics"
+      },
+      {
+        "variable": "MAX_AGE",
+        "importance": 0.15127,
+        "rank": 7,
+        "pct_of_total": 1.53,
+        "group": "agency_characteristics"
+      },
+      {
+        "variable": "STATE_ABBR",
+        "importance": 0.138538,
+        "rank": 8,
+        "pct_of_total": 1.4,
+        "group": "geography"
+      },
+      {
+        "variable": "VENDOR",
+        "importance": 0.129881,
+        "rank": 9,
+        "pct_of_total": 1.31,
+        "group": "vendor"
+      },
+      {
+        "variable": "STAT_PROFILE_DATE_YEAR",
+        "importance": 0.074525,
+        "rank": 10,
+        "pct_of_total": 0.75,
+        "group": "time_trend"
+      }
+    ]
+  }
+}

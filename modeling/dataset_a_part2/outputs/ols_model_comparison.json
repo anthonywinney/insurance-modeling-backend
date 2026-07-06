@@ -1,0 +1,210 @@
+{
+  "description": "OLS 0-3, OLS 3CC, OLS 4CC, OLS_3_RET_CC, OLS_5, OLS_ADDITIVE_FINAL, and interaction model performance comparison. Target: log(WRTN_PREM_AMT + 1). Train: 2006-2012. Test: 2013-2014. OLS 3CC and OLS 4CC use the PREV_LOSS_RATIO complete-case subset; OLS_3_RET_CC and OLS_5 use the PREV_RETENTION_RATIO complete-case subset; all other models use the full candidate population. Candidate population (full models): 103,923 train / 31,144 test. Effective evaluated rows (n_train / n_test in each model entry): 103,377 train / 30,981 test for full-population models. See row_count_note for explanation of the difference.",
+  "row_count_note": "Candidate population: 103,923 train / 31,144 test. These are all rows passing the written-premium modeling filters (PROD_ABBR != COMMPOL, WRTN_PREM_AMT > 0, STAT_PROFILE_DATE_YEAR 2006-2014). Effective evaluated rows: 103,377 train / 30,981 test. These are rows included in metric calculations after excluding observations where log_prev_wp or log_prev_poly is NA. log_prev_wp = log(PREV_WRTN_PREM_AMT + 1) and log_prev_poly = log(PREV_POLY_INFORCE_QTY + 1) are set to NA when the underlying PREV_ column is negative (rare accounting adjustments). lm() silently drops these rows during fitting; predict() returns NA for them. Rows dropped: 546 train, 163 test.",
+  "models": [
+    {
+      "model": "OLS_0",
+      "description": "Baseline: log_prev_wp only",
+      "predictors": "log_prev_wp",
+      "n_train": 103377,
+      "n_test": 30981,
+      "train": {
+        "r2": 0.5848,
+        "rmse": 1.4098,
+        "mae": 0.8933
+      },
+      "test": {
+        "r2": 0.6035,
+        "rmse": 1.3919,
+        "mae": 0.9057
+      }
+    },
+    {
+      "model": "OLS_1",
+      "description": "OLS 0 + log_prev_poly",
+      "predictors": ["log_prev_wp", "log_prev_poly"],
+      "n_train": 103377,
+      "n_test": 30981,
+      "train": {
+        "r2": 0.6752,
+        "rmse": 1.2469,
+        "mae": 0.8112
+      },
+      "test": {
+        "r2": 0.6976,
+        "rmse": 1.2156,
+        "mae": 0.7936
+      }
+    },
+    {
+      "model": "OLS_2",
+      "description": "OLS 1 + ACTIVE_PRODUCERS + AGENCY_APPOINTMENT_YEAR + MAX_AGE + MIN_AGE",
+      "predictors": ["log_prev_wp", "log_prev_poly", "ACTIVE_PRODUCERS", "AGENCY_APPOINTMENT_YEAR", "MAX_AGE", "MIN_AGE"],
+      "n_train": 103377,
+      "n_test": 30981,
+      "train": {
+        "r2": 0.6779,
+        "rmse": 1.2418,
+        "mae": 0.8117
+      },
+      "test": {
+        "r2": 0.7003,
+        "rmse": 1.2102,
+        "mae": 0.7937
+      }
+    },
+    {
+      "model": "OLS_3",
+      "description": "OLS 2 + STATE_ABBR + PROD_LINE + PROD_ABBR + VENDOR + STAT_PROFILE_DATE_YEAR. Categoricals as factors. Year as continuous numeric (enables test-set prediction). PROD_LINE nested in PROD_ABBR — R drops dependent column automatically. Candidate population: 103,923 train / 31,144 test. Effective evaluated rows: 103,377 train / 30,981 test (546 train / 163 test rows dropped — NA in log_prev_wp or log_prev_poly).",
+      "predictors": ["log_prev_wp", "log_prev_poly", "ACTIVE_PRODUCERS", "AGENCY_APPOINTMENT_YEAR", "MAX_AGE", "MIN_AGE", "STATE_ABBR (factor)", "PROD_LINE (factor)", "PROD_ABBR (factor)", "VENDOR (factor)", "STAT_PROFILE_DATE_YEAR (numeric)"],
+      "n_train": 103377,
+      "n_test": 30981,
+      "train": {
+        "r2": 0.781,
+        "rmse": 1.0238,
+        "mae": 0.6468
+      },
+      "test": {
+        "r2": 0.7552,
+        "rmse": 1.0937,
+        "mae": 0.699
+      }
+    },
+    {
+      "model": "OLS_3CC",
+      "description": "OLS 3 formula fit on PREV_LOSS_RATIO complete-case population. Train: 94,462 rows. Test: 28,773 rows. Purpose: isolate LR population selection from predictor contribution.",
+      "predictors": ["log_prev_wp", "log_prev_poly", "ACTIVE_PRODUCERS", "AGENCY_APPOINTMENT_YEAR", "MAX_AGE", "MIN_AGE", "STATE_ABBR (factor)", "PROD_LINE (factor)", "PROD_ABBR (factor)", "VENDOR (factor)", "STAT_PROFILE_DATE_YEAR (numeric)"],
+      "n_train": 94438,
+      "n_test": 26237,
+      "train": {
+        "r2": 0.9166,
+        "rmse": 0.626,
+        "mae": 0.345
+      },
+      "test": {
+        "r2": 0.9208,
+        "rmse": 0.6132,
+        "mae": 0.3488
+      }
+    },
+    {
+      "model": "OLS_4CC",
+      "description": "OLS 3CC + PREV_LOSS_RATIO. Same LR CC population as OLS 3CC. Train: 94,462 rows. Test: 28,773 rows.",
+      "predictors": ["log_prev_wp", "log_prev_poly", "ACTIVE_PRODUCERS", "AGENCY_APPOINTMENT_YEAR", "MAX_AGE", "MIN_AGE", "STATE_ABBR (factor)", "PROD_LINE (factor)", "PROD_ABBR (factor)", "VENDOR (factor)", "STAT_PROFILE_DATE_YEAR (numeric)", "PREV_LOSS_RATIO"],
+      "n_train": 94438,
+      "n_test": 26237,
+      "train": {
+        "r2": 0.9166,
+        "rmse": 0.626,
+        "mae": 0.345
+      },
+      "test": {
+        "r2": 0.9208,
+        "rmse": 0.6133,
+        "mae": 0.3488
+      }
+    },
+    {
+      "model": "OLS_3_RET_CC",
+      "description": "OLS 3 formula fit on PREV_RETENTION_RATIO complete-case population. Train: 39,231 rows. Test: 10,812 rows. Baseline for OLS_5: ensures identical rows in the OLS_3_RET_CC vs OLS_5 comparison.",
+      "predictors": ["log_prev_wp", "log_prev_poly", "ACTIVE_PRODUCERS", "AGENCY_APPOINTMENT_YEAR", "MAX_AGE", "MIN_AGE", "STATE_ABBR (factor)", "PROD_LINE (factor)", "PROD_ABBR (factor)", "VENDOR (factor)", "STAT_PROFILE_DATE_YEAR (numeric)"],
+      "n_train": 39120,
+      "n_test": 10338,
+      "train": {
+        "r2": 0.93,
+        "rmse": 0.6112,
+        "mae": 0.3337
+      },
+      "test": {
+        "r2": 0.9378,
+        "rmse": 0.5778,
+        "mae": 0.3218
+      }
+    },
+    {
+      "model": "OLS_5",
+      "description": "OLS_3_RET_CC + PREV_RETENTION_RATIO. Same RET CC population as OLS_3_RET_CC. Train: 39,231 rows. Test: 10,812 rows.",
+      "predictors": ["log_prev_wp", "log_prev_poly", "ACTIVE_PRODUCERS", "AGENCY_APPOINTMENT_YEAR", "MAX_AGE", "MIN_AGE", "STATE_ABBR (factor)", "PROD_LINE (factor)", "PROD_ABBR (factor)", "VENDOR (factor)", "STAT_PROFILE_DATE_YEAR (numeric)", "PREV_RETENTION_RATIO"],
+      "n_train": 39120,
+      "n_test": 10338,
+      "train": {
+        "r2": 0.9306,
+        "rmse": 0.6086,
+        "mae": 0.3343
+      },
+      "test": {
+        "r2": 0.9387,
+        "rmse": 0.5734,
+        "mae": 0.3204
+      }
+    },
+    {
+      "model": "OLS_ADDITIVE_FINAL",
+      "description": "Clean additive baseline: OLS 3 with PROD_LINE removed. PROD_ABBR determines PROD_LINE exactly (nested design); the PROD_LINE term is structurally redundant and produces unstable coefficients across populations. PROD_ABBR alone captures all product-level variation. Candidate population: 103,923 train / 31,144 test. Effective evaluated rows: 103,377 train / 30,981 test (546 train / 163 test rows dropped — NA in log_prev_wp or log_prev_poly).",
+      "predictors": ["log_prev_wp", "log_prev_poly", "ACTIVE_PRODUCERS", "AGENCY_APPOINTMENT_YEAR", "MAX_AGE", "MIN_AGE", "STATE_ABBR (factor)", "PROD_ABBR (factor)", "VENDOR (factor)", "STAT_PROFILE_DATE_YEAR (numeric)"],
+      "n_train": 103377,
+      "n_test": 30981,
+      "train": {
+        "r2": 0.781,
+        "rmse": 1.0238,
+        "mae": 0.6468
+      },
+      "test": {
+        "r2": 0.7552,
+        "rmse": 1.0937,
+        "mae": 0.699
+      }
+    },
+    {
+      "model": "OLS_INTERACTION_FULL",
+      "description": "All pairwise interactions from OLS_ADDITIVE_FINAL: (additive terms)^2. Same population as OLS_ADDITIVE_FINAL. PROD_LINE excluded. Purpose: determine whether interaction effects materially improve over the additive baseline. Candidate population: 103,923 train / 31,144 test. Effective evaluated rows: 103,377 train / 30,981 test (546 train / 163 test rows dropped — NA in log_prev_wp or log_prev_poly).",
+      "predictors": "(OLS_ADDITIVE_FINAL terms)^2 — all pairwise interactions",
+      "n_train": 103377,
+      "n_test": 30981,
+      "train": {
+        "r2": 0.8297,
+        "rmse": 0.9028,
+        "mae": 0.559
+      },
+      "test": {
+        "r2": -42.161,
+        "rmse": 14.5224,
+        "mae": 0.8683
+      }
+    },
+    {
+      "model": "OLS_INTERACTION_NUMERIC_ONLY",
+      "description": "Numeric × numeric interaction model. Includes all OLS_ADDITIVE_FINAL main effects plus all C(7,2)=21 numeric × numeric interaction pairs. Excludes all categorical interactions (numeric × PROD_ABBR, numeric × STATE_ABBR, numeric × VENDOR, and all cat × cat). Purpose: test whether continuous-variable interactions improve OLS without sparse categorical-level slope risk. Candidate population: 103,923 train / 31,144 test. Effective evaluated rows: 103,377 train / 30,981 test (546 train / 163 test rows dropped — NA in log_prev_wp or log_prev_poly).",
+      "predictors": "main effects + numeric×numeric (21 pairs) — no categorical interactions",
+      "n_train": 103377,
+      "n_test": 30981,
+      "train": {
+        "r2": 0.7966,
+        "rmse": 0.9868,
+        "mae": 0.6198
+      },
+      "test": {
+        "r2": 0.7309,
+        "rmse": 1.1467,
+        "mae": 0.7023
+      }
+    },
+    {
+      "model": "OLS_INTERACTION_SUPPORTED",
+      "description": "Support-screened interaction model. Includes all OLS_ADDITIVE_FINAL main effects, all numeric × numeric pairs (C(7,2)=21), and all numeric × categorical interactions (numeric × PROD_ABBR + numeric × STATE_ABBR + numeric × VENDOR). Excludes PROD_ABBR × STATE_ABBR, PROD_ABBR × VENDOR, and STATE_ABBR × VENDOR (all QUESTIONABLE in feasibility review due to sparse cells). Candidate population: 103,923 train / 31,144 test. Effective evaluated rows: 103,377 train / 30,981 test (546 train / 163 test rows dropped — NA in log_prev_wp or log_prev_poly).",
+      "predictors": "main effects + numeric×numeric + numeric×PROD_ABBR + numeric×STATE_ABBR + numeric×VENDOR",
+      "n_train": 103377,
+      "n_test": 30981,
+      "train": {
+        "r2": 0.8263,
+        "rmse": 0.9118,
+        "mae": 0.5625
+      },
+      "test": {
+        "r2": -5.7008,
+        "rmse": 5.7221,
+        "mae": 0.7724
+      }
+    }
+  ]
+}

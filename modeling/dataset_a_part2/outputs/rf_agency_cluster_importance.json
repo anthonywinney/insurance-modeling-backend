@@ -1,0 +1,446 @@
+{
+  "description": "Permutation feature importance for RF_BASE and all 5 clustered RF models. agency_cluster_rank shows where AGENCY_CLUSTER ranks among all predictors; agency_cluster_imp_pct shows its share of total permutation importance. Rank 1 = most important.",
+  "RF_BASE": {
+    "model_id": "RF_BASE",
+    "n_predictors": 10,
+    "importance": [
+      {
+        "variable": "log_prev_wp",
+        "importance": 5.952889,
+        "rank": 1,
+        "pct_of_total": 60.77
+      },
+      {
+        "variable": "log_prev_poly",
+        "importance": 1.653958,
+        "rank": 2,
+        "pct_of_total": 16.88
+      },
+      {
+        "variable": "PROD_ABBR",
+        "importance": 1.032208,
+        "rank": 3,
+        "pct_of_total": 10.54
+      },
+      {
+        "variable": "AGENCY_APPOINTMENT_YEAR",
+        "importance": 0.263883,
+        "rank": 4,
+        "pct_of_total": 2.69
+      },
+      {
+        "variable": "ACTIVE_PRODUCERS",
+        "importance": 0.227611,
+        "rank": 5,
+        "pct_of_total": 2.32
+      },
+      {
+        "variable": "MIN_AGE",
+        "importance": 0.182917,
+        "rank": 6,
+        "pct_of_total": 1.87
+      },
+      {
+        "variable": "MAX_AGE",
+        "importance": 0.147964,
+        "rank": 7,
+        "pct_of_total": 1.51
+      },
+      {
+        "variable": "STATE_ABBR",
+        "importance": 0.137293,
+        "rank": 8,
+        "pct_of_total": 1.4
+      },
+      {
+        "variable": "VENDOR",
+        "importance": 0.124808,
+        "rank": 9,
+        "pct_of_total": 1.27
+      },
+      {
+        "variable": "STAT_PROFILE_DATE_YEAR",
+        "importance": 0.07228,
+        "rank": 10,
+        "pct_of_total": 0.74
+      }
+    ]
+  },
+  "clustered_rf_importance": [
+    {
+      "model_id": "RF_CLUSTER_k5",
+      "k": 5,
+      "n_predictors": 11,
+      "agency_cluster_rank": 6,
+      "agency_cluster_imp_pct": 2,
+      "importance": [
+        {
+          "variable": "log_prev_wp",
+          "importance": 5.647377,
+          "rank": 1,
+          "pct_of_total": 57.57
+        },
+        {
+          "variable": "log_prev_poly",
+          "importance": 1.615354,
+          "rank": 2,
+          "pct_of_total": 16.47
+        },
+        {
+          "variable": "PROD_ABBR",
+          "importance": 1.14686,
+          "rank": 3,
+          "pct_of_total": 11.69
+        },
+        {
+          "variable": "AGENCY_APPOINTMENT_YEAR",
+          "importance": 0.286921,
+          "rank": 4,
+          "pct_of_total": 2.92
+        },
+        {
+          "variable": "ACTIVE_PRODUCERS",
+          "importance": 0.236701,
+          "rank": 5,
+          "pct_of_total": 2.41
+        },
+        {
+          "variable": "AGENCY_CLUSTER",
+          "importance": 0.195917,
+          "rank": 6,
+          "pct_of_total": 2
+        },
+        {
+          "variable": "MIN_AGE",
+          "importance": 0.182573,
+          "rank": 7,
+          "pct_of_total": 1.86
+        },
+        {
+          "variable": "MAX_AGE",
+          "importance": 0.149615,
+          "rank": 8,
+          "pct_of_total": 1.53
+        },
+        {
+          "variable": "STATE_ABBR",
+          "importance": 0.148706,
+          "rank": 9,
+          "pct_of_total": 1.52
+        },
+        {
+          "variable": "VENDOR",
+          "importance": 0.123618,
+          "rank": 10,
+          "pct_of_total": 1.26
+        },
+        {
+          "variable": "STAT_PROFILE_DATE_YEAR",
+          "importance": 0.076478,
+          "rank": 11,
+          "pct_of_total": 0.78
+        }
+      ]
+    },
+    {
+      "model_id": "RF_CLUSTER_k10",
+      "k": 10,
+      "n_predictors": 11,
+      "agency_cluster_rank": 5,
+      "agency_cluster_imp_pct": 2.72,
+      "importance": [
+        {
+          "variable": "log_prev_wp",
+          "importance": 5.59182,
+          "rank": 1,
+          "pct_of_total": 57.51
+        },
+        {
+          "variable": "log_prev_poly",
+          "importance": 1.606803,
+          "rank": 2,
+          "pct_of_total": 16.52
+        },
+        {
+          "variable": "PROD_ABBR",
+          "importance": 1.144547,
+          "rank": 3,
+          "pct_of_total": 11.77
+        },
+        {
+          "variable": "AGENCY_APPOINTMENT_YEAR",
+          "importance": 0.270279,
+          "rank": 4,
+          "pct_of_total": 2.78
+        },
+        {
+          "variable": "AGENCY_CLUSTER",
+          "importance": 0.264078,
+          "rank": 5,
+          "pct_of_total": 2.72
+        },
+        {
+          "variable": "ACTIVE_PRODUCERS",
+          "importance": 0.220489,
+          "rank": 6,
+          "pct_of_total": 2.27
+        },
+        {
+          "variable": "MIN_AGE",
+          "importance": 0.157731,
+          "rank": 7,
+          "pct_of_total": 1.62
+        },
+        {
+          "variable": "MAX_AGE",
+          "importance": 0.141135,
+          "rank": 8,
+          "pct_of_total": 1.45
+        },
+        {
+          "variable": "STATE_ABBR",
+          "importance": 0.140893,
+          "rank": 9,
+          "pct_of_total": 1.45
+        },
+        {
+          "variable": "VENDOR",
+          "importance": 0.112159,
+          "rank": 10,
+          "pct_of_total": 1.15
+        },
+        {
+          "variable": "STAT_PROFILE_DATE_YEAR",
+          "importance": 0.073851,
+          "rank": 11,
+          "pct_of_total": 0.76
+        }
+      ]
+    },
+    {
+      "model_id": "RF_CLUSTER_k20",
+      "k": 20,
+      "n_predictors": 11,
+      "agency_cluster_rank": 4,
+      "agency_cluster_imp_pct": 3.64,
+      "importance": [
+        {
+          "variable": "log_prev_wp",
+          "importance": 5.495879,
+          "rank": 1,
+          "pct_of_total": 56.64
+        },
+        {
+          "variable": "log_prev_poly",
+          "importance": 1.599218,
+          "rank": 2,
+          "pct_of_total": 16.48
+        },
+        {
+          "variable": "PROD_ABBR",
+          "importance": 1.164248,
+          "rank": 3,
+          "pct_of_total": 12
+        },
+        {
+          "variable": "AGENCY_CLUSTER",
+          "importance": 0.353098,
+          "rank": 4,
+          "pct_of_total": 3.64
+        },
+        {
+          "variable": "AGENCY_APPOINTMENT_YEAR",
+          "importance": 0.255695,
+          "rank": 5,
+          "pct_of_total": 2.64
+        },
+        {
+          "variable": "ACTIVE_PRODUCERS",
+          "importance": 0.223161,
+          "rank": 6,
+          "pct_of_total": 2.3
+        },
+        {
+          "variable": "MIN_AGE",
+          "importance": 0.152611,
+          "rank": 7,
+          "pct_of_total": 1.57
+        },
+        {
+          "variable": "STATE_ABBR",
+          "importance": 0.144982,
+          "rank": 8,
+          "pct_of_total": 1.49
+        },
+        {
+          "variable": "MAX_AGE",
+          "importance": 0.136018,
+          "rank": 9,
+          "pct_of_total": 1.4
+        },
+        {
+          "variable": "VENDOR",
+          "importance": 0.105654,
+          "rank": 10,
+          "pct_of_total": 1.09
+        },
+        {
+          "variable": "STAT_PROFILE_DATE_YEAR",
+          "importance": 0.072398,
+          "rank": 11,
+          "pct_of_total": 0.75
+        }
+      ]
+    },
+    {
+      "model_id": "RF_CLUSTER_k30",
+      "k": 30,
+      "n_predictors": 11,
+      "agency_cluster_rank": 4,
+      "agency_cluster_imp_pct": 4,
+      "importance": [
+        {
+          "variable": "log_prev_wp",
+          "importance": 5.46939,
+          "rank": 1,
+          "pct_of_total": 56.47
+        },
+        {
+          "variable": "log_prev_poly",
+          "importance": 1.579889,
+          "rank": 2,
+          "pct_of_total": 16.31
+        },
+        {
+          "variable": "PROD_ABBR",
+          "importance": 1.181052,
+          "rank": 3,
+          "pct_of_total": 12.19
+        },
+        {
+          "variable": "AGENCY_CLUSTER",
+          "importance": 0.387644,
+          "rank": 4,
+          "pct_of_total": 4
+        },
+        {
+          "variable": "AGENCY_APPOINTMENT_YEAR",
+          "importance": 0.257935,
+          "rank": 5,
+          "pct_of_total": 2.66
+        },
+        {
+          "variable": "ACTIVE_PRODUCERS",
+          "importance": 0.212562,
+          "rank": 6,
+          "pct_of_total": 2.19
+        },
+        {
+          "variable": "STATE_ABBR",
+          "importance": 0.147283,
+          "rank": 7,
+          "pct_of_total": 1.52
+        },
+        {
+          "variable": "MIN_AGE",
+          "importance": 0.146037,
+          "rank": 8,
+          "pct_of_total": 1.51
+        },
+        {
+          "variable": "MAX_AGE",
+          "importance": 0.132802,
+          "rank": 9,
+          "pct_of_total": 1.37
+        },
+        {
+          "variable": "VENDOR",
+          "importance": 0.099378,
+          "rank": 10,
+          "pct_of_total": 1.03
+        },
+        {
+          "variable": "STAT_PROFILE_DATE_YEAR",
+          "importance": 0.071794,
+          "rank": 11,
+          "pct_of_total": 0.74
+        }
+      ]
+    },
+    {
+      "model_id": "RF_CLUSTER_k50",
+      "k": 50,
+      "n_predictors": 11,
+      "agency_cluster_rank": 4,
+      "agency_cluster_imp_pct": 3.84,
+      "importance": [
+        {
+          "variable": "log_prev_wp",
+          "importance": 5.456454,
+          "rank": 1,
+          "pct_of_total": 56.54
+        },
+        {
+          "variable": "log_prev_poly",
+          "importance": 1.589759,
+          "rank": 2,
+          "pct_of_total": 16.47
+        },
+        {
+          "variable": "PROD_ABBR",
+          "importance": 1.181625,
+          "rank": 3,
+          "pct_of_total": 12.24
+        },
+        {
+          "variable": "AGENCY_CLUSTER",
+          "importance": 0.370442,
+          "rank": 4,
+          "pct_of_total": 3.84
+        },
+        {
+          "variable": "AGENCY_APPOINTMENT_YEAR",
+          "importance": 0.266952,
+          "rank": 5,
+          "pct_of_total": 2.77
+        },
+        {
+          "variable": "ACTIVE_PRODUCERS",
+          "importance": 0.198392,
+          "rank": 6,
+          "pct_of_total": 2.06
+        },
+        {
+          "variable": "STATE_ABBR",
+          "importance": 0.146334,
+          "rank": 7,
+          "pct_of_total": 1.52
+        },
+        {
+          "variable": "MIN_AGE",
+          "importance": 0.140955,
+          "rank": 8,
+          "pct_of_total": 1.46
+        },
+        {
+          "variable": "MAX_AGE",
+          "importance": 0.130416,
+          "rank": 9,
+          "pct_of_total": 1.35
+        },
+        {
+          "variable": "VENDOR",
+          "importance": 0.096795,
+          "rank": 10,
+          "pct_of_total": 1
+        },
+        {
+          "variable": "STAT_PROFILE_DATE_YEAR",
+          "importance": 0.072105,
+          "rank": 11,
+          "pct_of_total": 0.75
+        }
+      ]
+    }
+  ]
+}

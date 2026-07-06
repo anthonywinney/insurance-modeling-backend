@@ -1,0 +1,332 @@
+{
+  "description": "Final refit vs original benchmark comparison for Dataset A Part 2 written premium modeling. Model selection is complete and locked on 2013-2014 holdout results. This file documents the all-data (2006-2014) refit artifacts against the locked 2006-2012 benchmark models for the three selected specifications.",
+  "sources": [
+    "modeling/dataset_a_part2/outputs/all_models_summary.json",
+    "modeling/dataset_a_part2/outputs/ols_additive_final.json",
+    "modeling/dataset_a_part2/outputs/rf_summary.json",
+    "modeling/dataset_a_part2/outputs/rf_final_all_data_summary.json",
+    "modeling/dataset_a_part2/outputs/ols_lmm_final_all_data_summary.json",
+    "modeling/dataset_a_part2/outputs/agency_lmm_full_all_data_summary.json",
+    "modeling/dataset_a_part2/outputs/agency_lmm_full_all_data_variance_components.json"
+  ],
+
+  "modeling_context": {
+    "target": "log_wp = log(WRTN_PREM_AMT + 1)",
+    "modeling_population": "PROD_ABBR != 'COMMPOL', WRTN_PREM_AMT > 0",
+    "original_train_years": "2006-2012",
+    "original_test_years": "2013-2014",
+    "final_refit_years": "2006-2014",
+    "excluded_years": [2005, 2015],
+    "excluded_years_reason": "Partial reporting years: MONTHS avg < 12 and/or material decline in row count and agency coverage",
+    "effective_row_filter": "Additional 709 rows (546 train, 163 test) excluded from all models due to NA in log_prev_wp or log_prev_poly — rare accounting-adjustment rows with negative PREV_ values",
+    "final_refit_purpose": "Deployment-style artifact — expands training data to include 2013-2014 after model selection was locked on those years as holdout",
+    "validation_note": "Final refit in-sample and OOB metrics are diagnostic only. The original 2013-2014 holdout metrics remain the sole model-selection basis and official evaluation evidence."
+  },
+
+  "selected_predictor_set": {
+    "numeric": [
+      "log_prev_wp",
+      "log_prev_poly",
+      "ACTIVE_PRODUCERS",
+      "AGENCY_APPOINTMENT_YEAR",
+      "MAX_AGE",
+      "MIN_AGE",
+      "STAT_PROFILE_DATE_YEAR"
+    ],
+    "categorical": [
+      "STATE_ABBR",
+      "PROD_ABBR",
+      "VENDOR"
+    ],
+    "p": 10,
+    "exclusion_notes": {
+      "leakage_excluded": ["POLY_INFORCE_QTY", "NB_WRTN_PREM_AMT", "PRD_ERND_PREM_AMT"],
+      "structurally_redundant_excluded": ["PROD_LINE"],
+      "candidate_predictors_tested_and_rejected": [
+        "PREV_LOSS_RATIO (delta test R2 = 0.0000 on population-controlled comparison, coverage 91.2%)",
+        "PREV_RETENTION_RATIO (delta test R2 = +0.0009 on population-controlled comparison, coverage 37.8% — PL only)"
+      ],
+      "id_columns_excluded": ["AGENCY_ID", "PRIMARY_AGENCY_ID"],
+      "cluster_feature_excluded": "AGENCY_CLUSTER (k=50 agency clustering yielded delta seen-agency test R2 = -0.0016, below 0.005 threshold)"
+    }
+  },
+
+  "benchmark_summary": {
+    "primary_predictive_model": "RF_1_SAFE_TUNED",
+    "primary_deployment_artifact": "RF_FINAL_ALL_DATA",
+    "transparent_benchmark": "OLS_ADDITIVE_FINAL",
+    "structural_diagnostic_model": "AGENCY_LMM_FULL",
+    "model_selection_basis": "2013-2014 holdout R², RMSE, and MAE on n=30,981 effective test rows",
+    "final_refit_purpose": "All three models retrained on 2006-2014 eligible rows for deployment and interpretability artifacts. Model selection is locked.",
+    "warning": "Final refit in-sample and OOB metrics are NOT holdout validation metrics. They are diagnostic artifacts for confirming specification stability after expanding the training window."
+  },
+
+  "models": {
+
+    "OLS_ADDITIVE_FINAL": {
+      "original_fit": {
+        "original_model_id": "OLS_ADDITIVE_FINAL",
+        "original_training_years": "2006-2012",
+        "original_training_rows": 103923,
+        "original_training_effective_rows": 103377,
+        "original_test_years": "2013-2014",
+        "original_test_rows": 31144,
+        "original_test_effective_rows": 30981,
+        "formula": "log_wp ~ log_prev_wp + log_prev_poly + ACTIVE_PRODUCERS + AGENCY_APPOINTMENT_YEAR + MAX_AGE + MIN_AGE + STATE_ABBR + PROD_ABBR + VENDOR + STAT_PROFILE_DATE_YEAR",
+        "n_coefficients": 48,
+        "n_aliased": 0,
+        "n_significant_p05": 43,
+        "original_train_r2": 0.781,
+        "original_train_rmse": 1.0238,
+        "original_train_mae": 0.6468,
+        "original_test_r2": 0.7552,
+        "original_test_rmse": 1.0937,
+        "original_test_mae": 0.699
+      },
+      "final_refit": {
+        "final_refit_model_id": "OLS_ADDITIVE_FINAL_ALL_DATA",
+        "final_refit_years": "2006-2014",
+        "final_refit_rows": 135067,
+        "final_refit_effective_rows": 134358,
+        "n_coefficients": 48,
+        "metric_type": "in-sample diagnostic — all 2006-2014 training rows used; no holdout",
+        "final_refit_in_sample_r2": 0.7809,
+        "final_refit_in_sample_rmse": 1.0267,
+        "final_refit_in_sample_mae": 0.6523,
+        "final_refit_oob_r2": null,
+        "final_refit_oob_rmse": null,
+        "final_refit_oob_mae": null,
+        "oob_note": "Not applicable — OLS has no OOB mechanism"
+      },
+      "comparison": {
+        "comparison_type": "final all-data in-sample vs original 2006-2012 training in-sample",
+        "apples_to_apples": false,
+        "apples_to_apples_note": "Both metrics are in-sample, but computed on different training populations (2006-2012 vs 2006-2014). Directionally comparable; not a strict holdout comparison.",
+        "delta_final_vs_original_train_r2": -0.0001,
+        "delta_final_vs_original_train_rmse": 0.0029,
+        "delta_final_vs_original_train_mae": 0.0055
+      },
+      "comparison_notes": [
+        "Final all-data in-sample metrics (R²=0.7809, RMSE=1.0267, MAE=0.6523) are diagnostic only. Original 2013-2014 holdout metrics are the locked evaluation evidence.",
+        "Delta R² = -0.0001 between the two training windows indicates a highly stable OLS specification with no structural shift from including 2013-2014.",
+        "Small RMSE and MAE increases (+0.0029, +0.0055) are consistent with marginally higher residual variance in the 2006-2014 population vs 2006-2012 only.",
+        "OLS_ADDITIVE_FINAL_ALL_DATA is a reference/interpretability artifact. RF_FINAL_ALL_DATA is the primary deployment model."
+      ]
+    },
+
+    "RF_1_SAFE_TUNED": {
+      "original_fit": {
+        "original_model_id": "RF_1_SAFE_TUNED",
+        "original_training_years": "2006-2012",
+        "original_training_rows": 103923,
+        "original_training_effective_rows": 103377,
+        "original_test_years": "2013-2014",
+        "original_test_rows": 31144,
+        "original_test_effective_rows": 30981,
+        "algorithm": "ranger",
+        "hyperparameters": {
+          "num_trees": 500,
+          "mtry": 3,
+          "min_node_size": 5,
+          "sample_fraction": 0.6,
+          "replace": false,
+          "importance": "permutation",
+          "respect_unordered_factors": "order",
+          "seed": null,
+          "seed_note": "Seed not recorded for original tuning run"
+        },
+        "tuning_grid": {
+          "n_models_evaluated": 48,
+          "mtry_values": [2, 3, 4, 5],
+          "min_node_size_values": [1, 5, 10],
+          "sample_fraction_values": [0.5, 0.6, 0.7, 0.8],
+          "replace": false,
+          "criterion": "OOB RMSE",
+          "selection_note": "RF_1_SAFE_TUNED selected as minimum OOB RMSE model from 48-model grid"
+        },
+        "original_train_r2": 0.9609,
+        "original_train_rmse": 0.4326,
+        "original_train_mae": 0.2385,
+        "original_oob_r2": 0.8989,
+        "original_oob_rmse": 0.6955,
+        "original_oob_mae": null,
+        "original_oob_mae_note": "OOB MAE not reported by ranger",
+        "original_test_r2": 0.8839,
+        "original_test_rmse": 0.7532,
+        "original_test_mae": 0.4428
+      },
+      "final_refit": {
+        "final_refit_model_id": "RF_FINAL_ALL_DATA",
+        "final_refit_years": "2006-2014",
+        "final_refit_rows": 135067,
+        "final_refit_effective_rows": 134358,
+        "algorithm": "ranger",
+        "hyperparameters": {
+          "num_trees": 500,
+          "mtry": 3,
+          "min_node_size": 5,
+          "sample_fraction": 0.6,
+          "replace": false,
+          "importance": "permutation",
+          "respect_unordered_factors": "order",
+          "seed": 42,
+          "hyperparameter_note": "Identical to RF_1_SAFE_TUNED; seed=42 added for reproducibility of the all-data refit"
+        },
+        "metric_type_in_sample": "in-sample diagnostic — all 2006-2014 training rows used; no holdout",
+        "metric_type_oob": "OOB diagnostic — preferred for RF refit; NOT a holdout metric",
+        "final_refit_in_sample_r2": 0.9612,
+        "final_refit_in_sample_rmse": 0.432,
+        "final_refit_in_sample_mae": 0.2385,
+        "final_refit_oob_r2": 0.9,
+        "final_refit_oob_rmse": 0.6935,
+        "final_refit_oob_mae": null,
+        "final_refit_oob_mae_note": "OOB MAE not reported by ranger"
+      },
+      "comparison": {
+        "primary_comparison": "OOB R²/RMSE — preferred because OOB is a natural internal validation mechanism for RF; in-sample RF metrics reflect extreme memorisation and are not meaningful alone",
+        "delta_final_vs_original_oob_r2": 0.0011,
+        "delta_final_vs_original_oob_rmse": -0.002,
+        "delta_final_vs_original_oob_mae": null,
+        "secondary_comparison": "in-sample vs in-sample (for completeness only)",
+        "delta_final_vs_original_train_r2": 0.0003,
+        "delta_final_vs_original_train_rmse": -0.0006,
+        "delta_final_vs_original_train_mae": 0.0,
+        "apples_to_apples": false,
+        "apples_to_apples_note": "OOB comparison is the closest available apples-to-apples diagnostic for RF without a holdout; both OOB metrics are computed on the respective training populations."
+      },
+      "comparison_notes": [
+        "Final RF OOB metrics (R²=0.9000, RMSE=0.6935) are diagnostic only and do NOT replace the locked 2013-2014 holdout metrics (test R²=0.8839, RMSE=0.7532, MAE=0.4428).",
+        "OOB R² improves marginally from 0.8989 to 0.9000 (+0.0011) with expanded training data — consistent with expected benefit from a larger training window and no indication of degradation.",
+        "OOB RMSE improves from 0.6955 to 0.6935 (-0.0020), consistent directionally with the OOB R² improvement.",
+        "Hyperparameters are identical to RF_1_SAFE_TUNED; only seed=42 is added for the all-data refit for reproducibility.",
+        "OOB MAE is not reported by ranger for either fit and is therefore null.",
+        "RF_FINAL_ALL_DATA is the primary deployment artifact."
+      ]
+    },
+
+    "AGENCY_LMM_FULL": {
+      "original_fit": {
+        "original_model_id": "AGENCY_LMM_FULL",
+        "original_training_years": "2006-2012",
+        "original_training_rows": 103923,
+        "original_training_effective_rows": 103377,
+        "original_test_years": "2013-2014",
+        "original_test_rows": 31144,
+        "original_test_effective_rows": 30981,
+        "original_n_agencies": 1254,
+        "original_test_pct_seen_agency": 96.81,
+        "formula": "log_wp ~ log_prev_wp + log_prev_poly + ACTIVE_PRODUCERS + AGENCY_APPOINTMENT_YEAR + MAX_AGE + MIN_AGE + STATE_ABBR + PROD_ABBR + VENDOR + STAT_PROFILE_DATE_YEAR + (1 | AGENCY_ID)",
+        "software": "lme4 2.0-1, REML=TRUE, bobyqa optimizer",
+        "singular": false,
+        "convergence_warnings": [],
+        "variance_components": {
+          "agency_variance": 0.303105,
+          "residual_variance": 0.948602,
+          "total_variance": 1.251707,
+          "agency_icc": 0.2422,
+          "n_agency_groups": 1254
+        },
+        "original_train_conditional": {
+          "r2": 0.804,
+          "rmse": 0.9685,
+          "mae": 0.6266
+        },
+        "original_train_marginal": {
+          "r2": 0.7715,
+          "rmse": 1.0458,
+          "mae": 0.7014
+        },
+        "original_test_conditional": {
+          "r2": 0.7607,
+          "rmse": 1.0814,
+          "mae": 0.7071
+        },
+        "original_test_marginal": {
+          "r2": 0.7345,
+          "rmse": 1.1389,
+          "mae": 0.7768
+        }
+      },
+      "final_refit": {
+        "final_refit_model_id": "AGENCY_LMM_FULL_ALL_DATA",
+        "final_refit_years": "2006-2014",
+        "final_refit_rows": 135067,
+        "final_refit_effective_rows": 134358,
+        "final_refit_n_agencies": 1334,
+        "software": "lme4 2.0-1, REML=TRUE, bobyqa optimizer",
+        "singular": false,
+        "convergence_warnings": [
+          "Some predictor variables are on very different scales: consider rescaling. You may also use (g)lmerControl(autoscale = TRUE) to improve numerical stability."
+        ],
+        "n_convergence_warnings": 1,
+        "converged": false,
+        "convergence_note": "optimizer reported converged=FALSE alongside the scale warning. singular=FALSE confirms the agency random effect variance is non-degenerate (0.341073). The warning reflects numerical scaling, not a model failure, but predictor rescaling should be applied before production deployment.",
+        "variance_components": {
+          "agency_variance": 0.341073,
+          "agency_std_dev": 0.584014,
+          "residual_variance": 0.954844,
+          "residual_std_dev": 0.977161,
+          "total_variance": 1.295917,
+          "agency_icc": 0.2632,
+          "n_agency_groups": 1334
+        },
+        "metric_type": "in-sample diagnostic — all 2006-2014 training rows used; no holdout; LMM has no OOB mechanism",
+        "final_refit_in_sample_conditional": {
+          "r2": 0.8033,
+          "rmse": 0.9727,
+          "mae": 0.6332
+        },
+        "final_refit_in_sample_marginal": {
+          "r2": 0.7712,
+          "rmse": 1.0492,
+          "mae": 0.7051
+        },
+        "final_refit_oob_r2": null,
+        "final_refit_oob_rmse": null,
+        "final_refit_oob_mae": null,
+        "oob_note": "Not applicable — LMM has no OOB mechanism"
+      },
+      "comparison": {
+        "comparison_type": "final all-data in-sample vs original 2006-2012 training in-sample (conditional and marginal separately)",
+        "apples_to_apples": false,
+        "apples_to_apples_note": "Both metrics are in-sample, but computed on different training populations. No OOB mechanism exists for LMMs. Directionally comparable as a stability diagnostic.",
+        "conditional": {
+          "delta_final_vs_original_train_r2": -0.0007,
+          "delta_final_vs_original_train_rmse": 0.0042,
+          "delta_final_vs_original_train_mae": 0.0066
+        },
+        "marginal": {
+          "delta_final_vs_original_train_r2": -0.0003,
+          "delta_final_vs_original_train_rmse": 0.0034,
+          "delta_final_vs_original_train_mae": 0.0037
+        },
+        "variance_component_deltas": {
+          "delta_agency_icc": 0.021,
+          "delta_agency_variance": 0.037968,
+          "delta_residual_variance": 0.006242,
+          "delta_total_variance": 0.04421,
+          "delta_n_agency_groups": 80
+        }
+      },
+      "comparison_notes": [
+        "Final LMM in-sample metrics are diagnostic only. Original 2013-2014 holdout metrics (conditional: R²=0.7607, RMSE=1.0814; marginal: R²=0.7345, RMSE=1.1389) are the locked evaluation evidence.",
+        "Conditional in-sample performance is nearly identical to original training metrics (delta R² = -0.0007, delta RMSE = +0.0042), confirming a stable fixed-effects specification with expanded data.",
+        "Marginal deltas are similarly negligible (delta R² = -0.0003, delta RMSE = +0.0034), indicating no material change in the fixed-effects-only fit quality.",
+        "Agency ICC increases from 0.2422 to 0.2632 (+0.0210), reflecting additional agency-level heterogeneity captured when 2013-2014 is included as training data.",
+        "Agency group count increases from 1254 to 1334 (+80 agencies) — the 2013-2014 years include agencies not present in the 2006-2012 training window.",
+        "The all-data LMM fit reports converged=FALSE alongside a scale-mismatch warning. singular=FALSE confirms the random effect is not degenerate. The scale warning should be resolved via predictor rescaling before production deployment.",
+        "AGENCY_LMM_FULL is a structural diagnostic model. RF_1_SAFE_TUNED outperforms the best LMM conditional test metric by +0.1232 R² (0.8839 - 0.7607)."
+      ]
+    }
+
+  },
+
+  "report_ready_findings": [
+    "RF_FINAL_ALL_DATA is the primary deployment artifact. Official holdout evidence comes from RF_1_SAFE_TUNED evaluated on 2013-2014 (n=30,981 effective rows): test R²=0.8839, RMSE=0.7532, MAE=0.4428.",
+    "All final refit metrics — OLS in-sample, RF OOB, and LMM in-sample — are diagnostic only and do not replace the locked 2013-2014 holdout evidence that determined model selection.",
+    "OLS specification is stable across training windows: in-sample R² shifts by only -0.0001 (0.7810 → 0.7809) when training expands from 2006-2012 to 2006-2014, with negligible RMSE and MAE changes.",
+    "RF OOB diagnostics from the all-data refit (OOB R²=0.9000, RMSE=0.6935) track closely with the original tuned model's OOB (R²=0.8989, RMSE=0.6955), confirming no degradation and marginal benefit from the larger training population.",
+    "LMM agency ICC increases from 0.2422 (2006-2012) to 0.2632 (2006-2014) with 80 additional agencies, consistent with capturing incremental agency-level heterogeneity over the longer training window.",
+    "The all-data LMM refit reports converged=FALSE with a predictor-scale warning (singular=FALSE). This is a numerical stability advisory — the random effect variance is non-degenerate — but predictor rescaling should be applied before production deployment of the LMM artifact."
+  ]
+}

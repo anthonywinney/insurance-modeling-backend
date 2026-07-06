@@ -1,0 +1,782 @@
+{
+  "description": "Agency profile dataset creation and audit for Dataset A Part 2. Profiles are computed from 2006-2012 training-period rows only. One row per training AGENCY_ID. Prepared for potential agency-credibility cluster RF sensitivity test.",
+  "leakage_audit": {
+    "statement": "CLEAN — all 27 agency profile features are derived exclusively from STAT_PROFILE_DATE_YEAR in 2006:2012.",
+    "train_years": [2006, 2007, 2008, 2009, 2010, 2011, 2012],
+    "test_years": [2013, 2014],
+    "test_used_for": "Coverage reporting only (n_seen_agencies, pct_test_rows_seen). No test outcomes enter the profile."
+  },
+  "source_population_filters": {
+    "stat_profile_date_year": "2006:2014 (train=2006-2012 only for features)",
+    "prod_abbr_exclude": "COMMPOL",
+    "wrtn_prem_amt": "WRTN_PREM_AMT > 0",
+    "log_prev_wp": "exclude rows where log(PREV_WRTN_PREM_AMT+1) is NA or NaN",
+    "log_prev_poly": "exclude rows where log(PREV_POLY_INFORCE_QTY+1) is NA or NaN"
+  },
+  "effective_row_counts": {
+    "train_rows": 103377,
+    "test_rows": 30981,
+    "expected_train": 103377,
+    "expected_test": 30981,
+    "row_count_match": true
+  },
+  "agency_coverage": {
+    "n_train_agencies": 1254,
+    "n_test_agencies": 1054,
+    "n_test_agencies_seen_in_train": 974,
+    "pct_test_agencies_seen": 92.41,
+    "n_test_only_agencies": 80,
+    "pct_test_only": 7.59,
+    "n_test_rows_seen_agency": 29994,
+    "pct_test_rows_seen_agency": 96.81,
+    "new_agency_handling": "Test-only agencies will receive NEW_AGENCY label during clustering/RF testing."
+  },
+  "profile_dataset": {
+    "n_agencies": 1254,
+    "n_features_27": 27,
+    "n_support_flags": 3,
+    "support_flag_names": ["n_train_rows", "has_trend_support", "n_years_for_trend"],
+    "output_file": "agency_profile_dataset.csv"
+  },
+  "feature_list": {
+    "support_credibility_weight": ["log_n_train_rows", "n_train_years_active"],
+    "premium_scale": ["mean_log_wp_train", "median_log_wp_train", "mean_log_prev_wp_train", "median_log_prev_wp_train"],
+    "policy_scale": ["mean_log_prev_poly_train", "median_log_prev_poly_train"],
+    "volatility_stability": ["sd_log_wp_train", "iqr_log_wp_train", "sd_log_prev_poly_train"],
+    "agency_characteristics": ["mean_active_producers_train", "agency_appointment_year", "mean_max_age_train", "mean_min_age_train"],
+    "breadth": ["n_products_train", "n_states_train", "n_vendors_train"],
+    "concentration": ["top_product_share", "product_hhi", "top_state_share", "state_hhi", "top_vendor_share", "vendor_hhi"],
+    "product_line_mix": ["pl_share_train", "cl_share_train"],
+    "trend": "slope_mean_log_wp_by_year"
+  },
+  "prod_abbr_to_prod_line_audit": {
+    "distinct_prod_line_values": ["CL", "PL"],
+    "n_distinct_prod_lines": 2,
+    "n_prod_abbr_values": 27,
+    "n_clean_mappings": 27,
+    "n_ambiguous_mappings": 0,
+    "mapping_clean": true,
+    "pl_cl_simplification_used": true,
+    "prod_abbr_detail": [
+      {
+        "prod_abbr": "ANNIV",
+        "prod_line": "PL",
+        "n_prod_lines": 1,
+        "n_rows": 7730,
+        "clean": true
+      },
+      {
+        "prod_abbr": "ANNIV   12",
+        "prod_line": "PL",
+        "n_prod_lines": 1,
+        "n_rows": 687,
+        "clean": true
+      },
+      {
+        "prod_abbr": "BOILERMACH",
+        "prod_line": "CL",
+        "n_prod_lines": 1,
+        "n_rows": 7504,
+        "clean": true
+      },
+      {
+        "prod_abbr": "BOP",
+        "prod_line": "CL",
+        "n_prod_lines": 1,
+        "n_rows": 5204,
+        "clean": true
+      },
+      {
+        "prod_abbr": "COMMAUTO",
+        "prod_line": "CL",
+        "n_prod_lines": 1,
+        "n_rows": 6910,
+        "clean": true
+      },
+      {
+        "prod_abbr": "COMMINLMAR",
+        "prod_line": "CL",
+        "n_prod_lines": 1,
+        "n_rows": 6229,
+        "clean": true
+      },
+      {
+        "prod_abbr": "COMMUMBREL",
+        "prod_line": "CL",
+        "n_prod_lines": 1,
+        "n_rows": 5051,
+        "clean": true
+      },
+      {
+        "prod_abbr": "CRIME",
+        "prod_line": "CL",
+        "n_prod_lines": 1,
+        "n_rows": 3608,
+        "clean": true
+      },
+      {
+        "prod_abbr": "CYCLES",
+        "prod_line": "PL",
+        "n_prod_lines": 1,
+        "n_rows": 3323,
+        "clean": true
+      },
+      {
+        "prod_abbr": "CYCLES  12",
+        "prod_line": "PL",
+        "n_prod_lines": 1,
+        "n_rows": 167,
+        "clean": true
+      },
+      {
+        "prod_abbr": "DTALK",
+        "prod_line": "PL",
+        "n_prod_lines": 1,
+        "n_rows": 3321,
+        "clean": true
+      },
+      {
+        "prod_abbr": "DTALK   12",
+        "prod_line": "PL",
+        "n_prod_lines": 1,
+        "n_rows": 95,
+        "clean": true
+      },
+      {
+        "prod_abbr": "DWELLFIRE",
+        "prod_line": "PL",
+        "n_prod_lines": 1,
+        "n_rows": 5416,
+        "clean": true
+      },
+      {
+        "prod_abbr": "FIREALLIED",
+        "prod_line": "CL",
+        "n_prod_lines": 1,
+        "n_rows": 7482,
+        "clean": true
+      },
+      {
+        "prod_abbr": "GARAGE",
+        "prod_line": "CL",
+        "n_prod_lines": 1,
+        "n_rows": 4341,
+        "clean": true
+      },
+      {
+        "prod_abbr": "GENERALIAB",
+        "prod_line": "CL",
+        "n_prod_lines": 1,
+        "n_rows": 7819,
+        "clean": true
+      },
+      {
+        "prod_abbr": "HOMEOWNERS",
+        "prod_line": "PL",
+        "n_prod_lines": 1,
+        "n_rows": 8123,
+        "clean": true
+      },
+      {
+        "prod_abbr": "MOBILEHOME",
+        "prod_line": "PL",
+        "n_prod_lines": 1,
+        "n_rows": 3095,
+        "clean": true
+      },
+      {
+        "prod_abbr": "MOTORHOM12",
+        "prod_line": "PL",
+        "n_prod_lines": 1,
+        "n_rows": 279,
+        "clean": true
+      },
+      {
+        "prod_abbr": "MOTORHOME",
+        "prod_line": "PL",
+        "n_prod_lines": 1,
+        "n_rows": 4785,
+        "clean": true
+      },
+      {
+        "prod_abbr": "PERSAIP",
+        "prod_line": "PL",
+        "n_prod_lines": 1,
+        "n_rows": 8,
+        "clean": true
+      },
+      {
+        "prod_abbr": "PERSINLMAR",
+        "prod_line": "PL",
+        "n_prod_lines": 1,
+        "n_rows": 1136,
+        "clean": true
+      },
+      {
+        "prod_abbr": "PERSUMBREL",
+        "prod_line": "PL",
+        "n_prod_lines": 1,
+        "n_rows": 4988,
+        "clean": true
+      },
+      {
+        "prod_abbr": "SNOWMOBI12",
+        "prod_line": "PL",
+        "n_prod_lines": 1,
+        "n_rows": 5,
+        "clean": true
+      },
+      {
+        "prod_abbr": "SNOWMOBILE",
+        "prod_line": "PL",
+        "n_prod_lines": 1,
+        "n_rows": 629,
+        "clean": true
+      },
+      {
+        "prod_abbr": "WORKCOMP",
+        "prod_line": "CL",
+        "n_prod_lines": 1,
+        "n_rows": 3186,
+        "clean": true
+      },
+      {
+        "prod_abbr": "YACHT",
+        "prod_line": "PL",
+        "n_prod_lines": 1,
+        "n_rows": 2256,
+        "clean": true
+      }
+    ]
+  },
+  "agency_appointment_year_audit": {
+    "n_agencies_total": 1254,
+    "n_constant_within_agency": 1254,
+    "pct_constant": 100,
+    "n_varying_within_agency": 0,
+    "n_sentinel_99999": 64,
+    "pct_sentinel": 5.1,
+    "sentinel_note": "99999 is a confirmed sentinel (unknown appointment year). Treat as NA or exclude when scaling. Do not use raw AAY in distance-based clustering without recoding.",
+    "method": "first() — AAY is constant within all training agencies; no median needed."
+  },
+  "trend_support_audit": {
+    "n_agencies_total": 1254,
+    "n_with_support_gte3_years": 1085,
+    "pct_with_support": 86.52,
+    "n_without_support": 169,
+    "pct_without_support": 13.48,
+    "n_slope_na": 169,
+    "pct_slope_na": 13.48,
+    "note": "Agencies with 1 or 2 distinct training years receive slope = NA. Impute with 0 or median before clustering if trend is included."
+  },
+  "missingness_summary": [
+    {
+      "feature": "log_n_train_rows",
+      "null_count": 0,
+      "null_pct": 0
+    },
+    {
+      "feature": "n_train_years_active",
+      "null_count": 0,
+      "null_pct": 0
+    },
+    {
+      "feature": "mean_log_wp_train",
+      "null_count": 0,
+      "null_pct": 0
+    },
+    {
+      "feature": "median_log_wp_train",
+      "null_count": 0,
+      "null_pct": 0
+    },
+    {
+      "feature": "mean_log_prev_wp_train",
+      "null_count": 0,
+      "null_pct": 0
+    },
+    {
+      "feature": "median_log_prev_wp_train",
+      "null_count": 0,
+      "null_pct": 0
+    },
+    {
+      "feature": "mean_log_prev_poly_train",
+      "null_count": 0,
+      "null_pct": 0
+    },
+    {
+      "feature": "median_log_prev_poly_train",
+      "null_count": 0,
+      "null_pct": 0
+    },
+    {
+      "feature": "sd_log_wp_train",
+      "null_count": 42,
+      "null_pct": 3.3493
+    },
+    {
+      "feature": "iqr_log_wp_train",
+      "null_count": 0,
+      "null_pct": 0
+    },
+    {
+      "feature": "sd_log_prev_poly_train",
+      "null_count": 42,
+      "null_pct": 3.3493
+    },
+    {
+      "feature": "mean_active_producers_train",
+      "null_count": 0,
+      "null_pct": 0
+    },
+    {
+      "feature": "agency_appointment_year",
+      "null_count": 0,
+      "null_pct": 0
+    },
+    {
+      "feature": "mean_max_age_train",
+      "null_count": 0,
+      "null_pct": 0
+    },
+    {
+      "feature": "mean_min_age_train",
+      "null_count": 0,
+      "null_pct": 0
+    },
+    {
+      "feature": "n_products_train",
+      "null_count": 0,
+      "null_pct": 0
+    },
+    {
+      "feature": "n_states_train",
+      "null_count": 0,
+      "null_pct": 0
+    },
+    {
+      "feature": "n_vendors_train",
+      "null_count": 0,
+      "null_pct": 0
+    },
+    {
+      "feature": "top_product_share",
+      "null_count": 0,
+      "null_pct": 0
+    },
+    {
+      "feature": "product_hhi",
+      "null_count": 0,
+      "null_pct": 0
+    },
+    {
+      "feature": "top_state_share",
+      "null_count": 0,
+      "null_pct": 0
+    },
+    {
+      "feature": "state_hhi",
+      "null_count": 0,
+      "null_pct": 0
+    },
+    {
+      "feature": "top_vendor_share",
+      "null_count": 0,
+      "null_pct": 0
+    },
+    {
+      "feature": "vendor_hhi",
+      "null_count": 0,
+      "null_pct": 0
+    },
+    {
+      "feature": "pl_share_train",
+      "null_count": 0,
+      "null_pct": 0
+    },
+    {
+      "feature": "cl_share_train",
+      "null_count": 0,
+      "null_pct": 0
+    },
+    {
+      "feature": "slope_mean_log_wp_by_year",
+      "null_count": 169,
+      "null_pct": 13.4769
+    }
+  ],
+  "constant_features": [
+    {
+      "feature": "log_n_train_rows",
+      "sd": 1.2042,
+      "n_distinct": 238,
+      "is_constant": false
+    },
+    {
+      "feature": "n_train_years_active",
+      "sd": 2.0387,
+      "n_distinct": 7,
+      "is_constant": false
+    },
+    {
+      "feature": "mean_log_wp_train",
+      "sd": 1.0144,
+      "n_distinct": 1252,
+      "is_constant": false
+    },
+    {
+      "feature": "median_log_wp_train",
+      "sd": 1.1076,
+      "n_distinct": 1243,
+      "is_constant": false
+    },
+    {
+      "feature": "mean_log_prev_wp_train",
+      "sd": 1.2069,
+      "n_distinct": 1167,
+      "is_constant": false
+    },
+    {
+      "feature": "median_log_prev_wp_train",
+      "sd": 1.4292,
+      "n_distinct": 1132,
+      "is_constant": false
+    },
+    {
+      "feature": "mean_log_prev_poly_train",
+      "sd": 2.6044,
+      "n_distinct": 1127,
+      "is_constant": false
+    },
+    {
+      "feature": "median_log_prev_poly_train",
+      "sd": 3.3493,
+      "n_distinct": 229,
+      "is_constant": false
+    },
+    {
+      "feature": "sd_log_wp_train",
+      "sd": 0.4726,
+      "n_distinct": 1212,
+      "is_constant": false
+    },
+    {
+      "feature": "iqr_log_wp_train",
+      "sd": 1.0269,
+      "n_distinct": 1212,
+      "is_constant": false
+    },
+    {
+      "feature": "sd_log_prev_poly_train",
+      "sd": 1.3091,
+      "n_distinct": 1132,
+      "is_constant": false
+    },
+    {
+      "feature": "mean_active_producers_train",
+      "sd": 22010.9666,
+      "n_distinct": 98,
+      "is_constant": false
+    },
+    {
+      "feature": "agency_appointment_year",
+      "sd": 21577.1728,
+      "n_distinct": 71,
+      "is_constant": false
+    },
+    {
+      "feature": "mean_max_age_train",
+      "sd": 21999.2734,
+      "n_distinct": 57,
+      "is_constant": false
+    },
+    {
+      "feature": "mean_min_age_train",
+      "sd": 22007.3288,
+      "n_distinct": 58,
+      "is_constant": false
+    },
+    {
+      "feature": "n_products_train",
+      "sd": 6.525,
+      "n_distinct": 26,
+      "is_constant": false
+    },
+    {
+      "feature": "n_states_train",
+      "sd": 1.0134,
+      "n_distinct": 6,
+      "is_constant": false
+    },
+    {
+      "feature": "n_vendors_train",
+      "sd": 0,
+      "n_distinct": 1,
+      "is_constant": true
+    },
+    {
+      "feature": "top_product_share",
+      "sd": 0.2235,
+      "n_distinct": 442,
+      "is_constant": false
+    },
+    {
+      "feature": "product_hhi",
+      "sd": 0.2211,
+      "n_distinct": 993,
+      "is_constant": false
+    },
+    {
+      "feature": "top_state_share",
+      "sd": 0.1581,
+      "n_distinct": 428,
+      "is_constant": false
+    },
+    {
+      "feature": "state_hhi",
+      "sd": 0.2036,
+      "n_distinct": 443,
+      "is_constant": false
+    },
+    {
+      "feature": "top_vendor_share",
+      "sd": 0,
+      "n_distinct": 1,
+      "is_constant": true
+    },
+    {
+      "feature": "vendor_hhi",
+      "sd": 0,
+      "n_distinct": 1,
+      "is_constant": true
+    },
+    {
+      "feature": "pl_share_train",
+      "sd": 0.282,
+      "n_distinct": 734,
+      "is_constant": false
+    },
+    {
+      "feature": "cl_share_train",
+      "sd": 0.282,
+      "n_distinct": 734,
+      "is_constant": false
+    },
+    {
+      "feature": "slope_mean_log_wp_by_year",
+      "sd": 0.2623,
+      "n_distinct": 1085,
+      "is_constant": false
+    }
+  ],
+  "share_validity": {
+    "check": "share_bounds",
+    "per_feature": [
+      {
+        "feature": "top_product_share",
+        "min": 0.049,
+        "max": 1,
+        "n_out_of_bounds": 0,
+        "pass": true
+      },
+      {
+        "feature": "product_hhi",
+        "min": 0.0473,
+        "max": 1,
+        "n_out_of_bounds": 0,
+        "pass": true
+      },
+      {
+        "feature": "top_state_share",
+        "min": 0.3389,
+        "max": 1,
+        "n_out_of_bounds": 0,
+        "pass": true
+      },
+      {
+        "feature": "state_hhi",
+        "min": 0.2199,
+        "max": 1,
+        "n_out_of_bounds": 0,
+        "pass": true
+      },
+      {
+        "feature": "top_vendor_share",
+        "min": 1,
+        "max": 1,
+        "n_out_of_bounds": 0,
+        "pass": true
+      },
+      {
+        "feature": "vendor_hhi",
+        "min": 1,
+        "max": 1,
+        "n_out_of_bounds": 0,
+        "pass": true
+      },
+      {
+        "feature": "pl_share_train",
+        "min": 0,
+        "max": 1,
+        "n_out_of_bounds": 0,
+        "pass": true
+      },
+      {
+        "feature": "cl_share_train",
+        "min": 0,
+        "max": 1,
+        "n_out_of_bounds": 0,
+        "pass": true
+      }
+    ],
+    "pass": true
+  },
+  "pl_cl_share_validity": {
+    "check": "pl_cl_share_sum",
+    "pl_cl_sum_to_1": true,
+    "n_not_sum_to_1": 0,
+    "note": "pl_share_train + cl_share_train should equal 1.0 for all agencies when PROD_LINE is exclusively PL/CL",
+    "pass": true
+  },
+  "validation_checks": {
+    "row_count": {
+      "check": "row_count",
+      "expected_train": 103377,
+      "actual_train": 103377,
+      "expected_test": 30981,
+      "actual_test": 30981,
+      "pass": true
+    },
+    "one_row_per_agency": {
+      "check": "one_row_per_agency",
+      "n_profile_rows": 1254,
+      "n_unique_ids": 1254,
+      "pass": true
+    },
+    "no_test_leakage": {
+      "check": "no_test_leakage",
+      "train_years": [2006, 2007, 2008, 2009, 2010, 2011, 2012],
+      "test_years": [2013, 2014],
+      "leakage_detected": false,
+      "note": "All features computed exclusively from STAT_PROFILE_DATE_YEAR in 2006:2012. Test rows used only for coverage reporting."
+    },
+    "prod_line_mapping": {
+      "check": "prod_line_mapping",
+      "distinct_values": ["CL", "PL"],
+      "n_prod_abbr": 27,
+      "n_clean_mappings": 27,
+      "n_ambiguous": 0,
+      "mapping_clean": true,
+      "pl_cl_used": true,
+      "pass": true
+    },
+    "share_bounds": {
+      "check": "share_bounds",
+      "per_feature": [
+        {
+          "feature": "top_product_share",
+          "min": 0.049,
+          "max": 1,
+          "n_out_of_bounds": 0,
+          "pass": true
+        },
+        {
+          "feature": "product_hhi",
+          "min": 0.0473,
+          "max": 1,
+          "n_out_of_bounds": 0,
+          "pass": true
+        },
+        {
+          "feature": "top_state_share",
+          "min": 0.3389,
+          "max": 1,
+          "n_out_of_bounds": 0,
+          "pass": true
+        },
+        {
+          "feature": "state_hhi",
+          "min": 0.2199,
+          "max": 1,
+          "n_out_of_bounds": 0,
+          "pass": true
+        },
+        {
+          "feature": "top_vendor_share",
+          "min": 1,
+          "max": 1,
+          "n_out_of_bounds": 0,
+          "pass": true
+        },
+        {
+          "feature": "vendor_hhi",
+          "min": 1,
+          "max": 1,
+          "n_out_of_bounds": 0,
+          "pass": true
+        },
+        {
+          "feature": "pl_share_train",
+          "min": 0,
+          "max": 1,
+          "n_out_of_bounds": 0,
+          "pass": true
+        },
+        {
+          "feature": "cl_share_train",
+          "min": 0,
+          "max": 1,
+          "n_out_of_bounds": 0,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    "pl_cl_sum": {
+      "check": "pl_cl_share_sum",
+      "pl_cl_sum_to_1": true,
+      "n_not_sum_to_1": 0,
+      "note": "pl_share_train + cl_share_train should equal 1.0 for all agencies when PROD_LINE is exclusively PL/CL",
+      "pass": true
+    },
+    "trend_support": {
+      "check": "trend_support",
+      "n_agencies_total": 1254,
+      "n_with_trend_support": 1085,
+      "pct_with_trend_support": 86.52,
+      "n_without_trend_support": 169,
+      "pct_without_trend_support": 13.48,
+      "n_slope_na": 169,
+      "pct_slope_na": 13.48,
+      "note": "Agencies with < 3 distinct training years receive slope = NA. These are small/new agencies."
+    }
+  },
+  "scaling_readiness": {
+    "note": "agency_profile_dataset.csv contains raw engineered values. Do not scale this file.",
+    "required_steps_before_clustering": ["Recode or exclude agency_appointment_year = 99999 (sentinel; 64 agencies, 5.1%)", "Median-impute sd_log_wp_train and sd_log_prev_poly_train (NA for single-row agencies; 40 agencies)", "Zero-impute or median-impute slope_mean_log_wp_by_year (NA for < 3-year agencies; 60 agencies)", "Scale all numeric features to zero mean / unit variance (or [0,1]) before distance-based clustering"],
+    "all_features_numeric": true,
+    "features_requiring_imputation": [
+      {
+        "feature": "sd_log_wp_train",
+        "null_count": 42,
+        "null_pct": 3.3493
+      },
+      {
+        "feature": "sd_log_prev_poly_train",
+        "null_count": 42,
+        "null_pct": 3.3493
+      },
+      {
+        "feature": "slope_mean_log_wp_by_year",
+        "null_count": 169,
+        "null_pct": 13.4769
+      }
+    ]
+  },
+  "recommendation": {
+    "safe_for_clustering": true,
+    "issues_noted": ["agency_appointment_year has sentinel 99999 for 64 agencies (5.1%) — recode before scaling", "sd_log_wp_train and sd_log_prev_poly_train are NA for 40 single-row agencies (3.2%) — impute before clustering", "slope_mean_log_wp_by_year is NA for 60 agencies with < 3 training years (4.8%) — impute or exclude before clustering", "Premium-scale features (mean/median log_wp, log_prev_wp) are highly correlated — consider PCA or selective inclusion to avoid premium-scale dominating cluster distance"],
+    "recommended_next_steps": ["1. Create a scaled, imputed clustering-ready version from agency_profile_dataset.csv", "2. Decide which of the 27 features to include (prune redundant premium-scale features per correlation audit)", "3. Run k-means or hierarchical clustering to create AGENCY_CLUSTER", "4. Join cluster labels to the main modeling population", "5. Refit RF_1_SAFE_TUNED with AGENCY_CLUSTER added as an additional predictor", "6. Compare test R² to RF_1_SAFE_TUNED baseline (0.8839)"]
+  }
+}

@@ -1,0 +1,545 @@
+{
+  "description": "Support-screened interaction evaluation. OLS_INTERACTION_SUPPORTED includes all OLS_ADDITIVE_FINAL main effects, all numeric × numeric interactions (C(7,2)=21), and all numeric × categorical interactions (numeric × PROD_ABBR / STATE_ABBR / VENDOR). Categorical × categorical interactions (PROD_ABBR × STATE_ABBR, PROD_ABBR × VENDOR, STATE_ABBR × VENDOR) are excluded — all were QUESTIONABLE in the feasibility review. Purpose: test whether supported interactions improve out-of-sample performance without the rank deficiency that caused OLS_INTERACTION_FULL to fail (test R² = -42.16).",
+  "row_count_note": "Candidate population: 103,923 train / 31,144 test. These are all rows passing the written-premium modeling filters (PROD_ABBR != COMMPOL, WRTN_PREM_AMT > 0, STAT_PROFILE_DATE_YEAR 2006-2014). Effective evaluated rows: 103,377 train / 30,981 test. These are rows included in metric calculations after excluding observations where log_prev_wp or log_prev_poly is NA. log_prev_wp = log(PREV_WRTN_PREM_AMT + 1) and log_prev_poly = log(PREV_POLY_INFORCE_QTY + 1) are set to NA when the underlying PREV_ column is negative (rare accounting adjustments). lm() silently drops these rows during fitting; predict() returns NA for them. Rows dropped: 546 train, 163 test.",
+  "part_a_model_specification": {
+    "model": "OLS_INTERACTION_SUPPORTED",
+    "baseline": "OLS_ADDITIVE_FINAL",
+    "formula": "log_wp ~ log_prev_wp + log_prev_poly + ACTIVE_PRODUCERS + AGENCY_APPOINTMENT_YEAR + MAX_AGE + MIN_AGE + STATE_ABBR + PROD_ABBR + VENDOR + STAT_PROFILE_DATE_YEAR + log_prev_wp:log_prev_poly + log_prev_wp:ACTIVE_PRODUCERS + log_prev_wp:AGENCY_APPOINTMENT_YEAR + log_prev_wp:MAX_AGE + log_prev_wp:MIN_AGE + log_prev_wp:STAT_PROFILE_DATE_YEAR + log_prev_poly:ACTIVE_PRODUCERS + log_prev_poly:AGENCY_APPOINTMENT_YEAR + log_prev_poly:MAX_AGE + log_prev_poly:MIN_AGE + log_prev_poly:STAT_PROFILE_DATE_YEAR + ACTIVE_PRODUCERS:AGENCY_APPOINTMENT_YEAR + ACTIVE_PRODUCERS:MAX_AGE + ACTIVE_PRODUCERS:MIN_AGE + ACTIVE_PRODUCERS:STAT_PROFILE_DATE_YEAR + AGENCY_APPOINTMENT_YEAR:MAX_AGE + AGENCY_APPOINTMENT_YEAR:MIN_AGE + AGENCY_APPOINTMENT_YEAR:STAT_PROFILE_DATE_YEAR + MAX_AGE:MIN_AGE + MAX_AGE:STAT_PROFILE_DATE_YEAR + MIN_AGE:STAT_PROFILE_DATE_YEAR + log_prev_wp:PROD_ABBR + log_prev_poly:PROD_ABBR + ACTIVE_PRODUCERS:PROD_ABBR + AGENCY_APPOINTMENT_YEAR:PROD_ABBR + MAX_AGE:PROD_ABBR + MIN_AGE:PROD_ABBR + STAT_PROFILE_DATE_YEAR:PROD_ABBR + log_prev_wp:STATE_ABBR + log_prev_poly:STATE_ABBR + ACTIVE_PRODUCERS:STATE_ABBR + AGENCY_APPOINTMENT_YEAR:STATE_ABBR + MAX_AGE:STATE_ABBR + MIN_AGE:STATE_ABBR + STAT_PROFILE_DATE_YEAR:STATE_ABBR + log_prev_wp:VENDOR + log_prev_poly:VENDOR + ACTIVE_PRODUCERS:VENDOR + AGENCY_APPOINTMENT_YEAR:VENDOR + MAX_AGE:VENDOR + MIN_AGE:VENDOR + STAT_PROFILE_DATE_YEAR:VENDOR",
+    "excluded_vs_full": [
+      "PROD_ABBR × STATE_ABBR (QUESTIONABLE — 11 sparse cells, 1 test-only cell)",
+      "PROD_ABBR × VENDOR (QUESTIONABLE — 93 cells <50 obs, 7 test-only cells)",
+      "STATE_ABBR × VENDOR (QUESTIONABLE — 3 test-only cells)"
+    ],
+    "n_candidate_train": 103923,
+    "n_candidate_test": 31144,
+    "n_eval_train": 103377,
+    "n_eval_test": 30981
+  },
+  "part_b_comparison": {
+    "models": {
+      "ols_additive_final": {
+        "train": {
+          "r2": 0.781,
+          "rmse": 1.0238,
+          "mae": 0.6468
+        },
+        "test": {
+          "r2": 0.7552,
+          "rmse": 1.0937,
+          "mae": 0.699
+        },
+        "n_coefficients": 48,
+        "n_aliased": 0
+      },
+      "ols_interaction_full": {
+        "train": {
+          "r2": 0.8297,
+          "rmse": 0.9028,
+          "mae": 0.559
+        },
+        "test": {
+          "r2": -42.161,
+          "rmse": 14.5224,
+          "mae": 0.8683
+        },
+        "n_coefficients": 676,
+        "n_aliased": 82,
+        "note": "Rank-deficient — test R² invalid"
+      },
+      "ols_interaction_supported": {
+        "train": {
+          "r2": 0.8263,
+          "rmse": 0.9118,
+          "mae": 0.5625
+        },
+        "test": {
+          "r2": -5.7008,
+          "rmse": 5.7221,
+          "mae": 0.7724
+        },
+        "n_coefficients": 327,
+        "n_aliased": 22
+      }
+    },
+    "delta_vs_additive": {
+      "delta_train_r2": 0.0453,
+      "delta_test_r2": -6.456,
+      "delta_train_rmse": -0.112,
+      "delta_test_rmse": 4.6284,
+      "delta_train_mae": -0.0843,
+      "delta_test_mae": 0.0734
+    },
+    "vs_interaction_full": {
+      "delta_test_r2": 36.4602,
+      "delta_test_rmse": -8.8003,
+      "note": "Positive delta_test_r2 means OLS_INTERACTION_SUPPORTED is better than OLS_INTERACTION_FULL"
+    }
+  },
+  "part_d_complexity": {
+    "n_formula_terms": 349,
+    "n_estimated_coefficients": 327,
+    "n_aliased": 22,
+    "aliased_terms": ["log_prev_wp:PROD_ABBRANNIV   12", "log_prev_wp:PROD_ABBRCYCLES  12", "log_prev_wp:PROD_ABBRDTALK   12", "log_prev_wp:PROD_ABBRMOTORHOM12", "log_prev_wp:PROD_ABBRSNOWMOBI12", "log_prev_poly:PROD_ABBRANNIV   12", "log_prev_poly:PROD_ABBRCYCLES  12", "log_prev_poly:PROD_ABBRDTALK   12", "log_prev_poly:PROD_ABBRMOTORHOM12", "log_prev_poly:PROD_ABBRSNOWMOBI12", "ACTIVE_PRODUCERS:PROD_ABBRPERSAIP", "AGENCY_APPOINTMENT_YEAR:PROD_ABBRPERSAIP", "MAX_AGE:PROD_ABBRPERSAIP", "MIN_AGE:PROD_ABBRPERSAIP", "PROD_ABBRANNIV   12:STAT_PROFILE_DATE_YEAR", "PROD_ABBRCYCLES  12:STAT_PROFILE_DATE_YEAR", "PROD_ABBRDTALK   12:STAT_PROFILE_DATE_YEAR", "PROD_ABBRMOTORHOM12:STAT_PROFILE_DATE_YEAR", "PROD_ABBRSNOWMOBI12:STAT_PROFILE_DATE_YEAR", "AGENCY_APPOINTMENT_YEAR:VENDORF", "MAX_AGE:VENDORF", "MIN_AGE:VENDORF"],
+    "n_main_effect_coefs": 48,
+    "n_interaction_coefs": 279,
+    "n_numeric_x_numeric": 21,
+    "n_numeric_x_prod_abbr": 163,
+    "n_numeric_x_state_abbr": 35,
+    "n_numeric_x_vendor": 60,
+    "n_sig_interactions_p05": 179,
+    "aic": 274933.05,
+    "bic": 278064.18,
+    "aic_delta_vs_additive": -23396.48,
+    "bic_delta_vs_additive": -20733.11,
+    "aic_note": "AIC/BIC unreliable — rank-deficient model"
+  },
+  "part_e_interaction_effects": {
+    "top_20_positive_significant": [
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "log_prev_wp:PROD_ABBRPERSAIP",
+        "estimate": 0.958682,
+        "std_error": 0.386842,
+        "t_stat": 2.4782,
+        "p_value": 0.013205,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "log_prev_poly:PROD_ABBRGARAGE",
+        "estimate": 0.316493,
+        "std_error": 0.011886,
+        "t_stat": 26.6271,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "log_prev_poly:PROD_ABBRWORKCOMP",
+        "estimate": 0.281699,
+        "std_error": 0.011473,
+        "t_stat": 24.5535,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "log_prev_poly:PROD_ABBRCOMMUMBREL",
+        "estimate": 0.266609,
+        "std_error": 0.011547,
+        "t_stat": 23.089,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "log_prev_poly:PROD_ABBRBOP",
+        "estimate": 0.257024,
+        "std_error": 0.011952,
+        "t_stat": 21.5042,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "log_prev_poly:PROD_ABBRCOMMAUTO",
+        "estimate": 0.245556,
+        "std_error": 0.011259,
+        "t_stat": 21.8102,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "log_prev_poly:PROD_ABBRFIREALLIED",
+        "estimate": 0.2236,
+        "std_error": 0.011233,
+        "t_stat": 19.905,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "log_prev_poly:PROD_ABBRGENERALIAB",
+        "estimate": 0.187089,
+        "std_error": 0.011134,
+        "t_stat": 16.8027,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "log_prev_poly:PROD_ABBRCRIME",
+        "estimate": 0.175276,
+        "std_error": 0.012804,
+        "t_stat": 13.6895,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "log_prev_poly:PROD_ABBRCOMMINLMAR",
+        "estimate": 0.171013,
+        "std_error": 0.01151,
+        "t_stat": 14.858,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "log_prev_poly:PROD_ABBRSNOWMOBILE",
+        "estimate": 0.151142,
+        "std_error": 0.033051,
+        "t_stat": 4.5729,
+        "p_value": 5e-06,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "log_prev_poly:PROD_ABBRYACHT",
+        "estimate": 0.14737,
+        "std_error": 0.022561,
+        "t_stat": 6.5321,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "PROD_ABBRCRIME:STAT_PROFILE_DATE_YEAR",
+        "estimate": 0.088484,
+        "std_error": 0.010128,
+        "t_stat": 8.7363,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "log_prev_poly:PROD_ABBRMOBILEHOME",
+        "estimate": 0.082417,
+        "std_error": 0.022159,
+        "t_stat": 3.7193,
+        "p_value": 0.0002,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "MAX_AGE:VENDORJ",
+        "estimate": 0.073157,
+        "std_error": 0.018365,
+        "t_stat": 3.9835,
+        "p_value": 0.000068,
+        "significant_p05": true,
+        "interaction_type": "numeric x vendor"
+      },
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "PROD_ABBRDWELLFIRE:STAT_PROFILE_DATE_YEAR",
+        "estimate": 0.071454,
+        "std_error": 0.008519,
+        "t_stat": 8.3875,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "log_prev_wp:VENDORF",
+        "estimate": 0.070118,
+        "std_error": 0.029929,
+        "t_stat": 2.3428,
+        "p_value": 0.019141,
+        "significant_p05": true,
+        "interaction_type": "numeric x vendor"
+      },
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "PROD_ABBRDTALK:STAT_PROFILE_DATE_YEAR",
+        "estimate": 0.068807,
+        "std_error": 0.010221,
+        "t_stat": 6.7322,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "log_prev_poly:PROD_ABBRPERSINLMAR",
+        "estimate": 0.067925,
+        "std_error": 0.029888,
+        "t_stat": 2.2727,
+        "p_value": 0.023049,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "PROD_ABBRBOILERMACH:STAT_PROFILE_DATE_YEAR",
+        "estimate": 0.06156,
+        "std_error": 0.008305,
+        "t_stat": 7.4122,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      }
+    ],
+    "top_20_negative_significant": [
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "log_prev_wp:PROD_ABBRSNOWMOBILE",
+        "estimate": -0.845598,
+        "std_error": 0.0365,
+        "t_stat": -23.1673,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "log_prev_wp:PROD_ABBRGARAGE",
+        "estimate": -0.754873,
+        "std_error": 0.01552,
+        "t_stat": -48.6392,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "log_prev_wp:PROD_ABBRWORKCOMP",
+        "estimate": -0.720094,
+        "std_error": 0.015222,
+        "t_stat": -47.3048,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "log_prev_wp:PROD_ABBRCOMMUMBREL",
+        "estimate": -0.708149,
+        "std_error": 0.015131,
+        "t_stat": -46.8023,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "log_prev_wp:PROD_ABBRYACHT",
+        "estimate": -0.700048,
+        "std_error": 0.027592,
+        "t_stat": -25.3711,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "log_prev_wp:PROD_ABBRPERSINLMAR",
+        "estimate": -0.677859,
+        "std_error": 0.032926,
+        "t_stat": -20.5871,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "log_prev_wp:PROD_ABBRBOP",
+        "estimate": -0.665258,
+        "std_error": 0.015473,
+        "t_stat": -42.9945,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "log_prev_wp:PROD_ABBRCRIME",
+        "estimate": -0.662692,
+        "std_error": 0.016995,
+        "t_stat": -38.9937,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "log_prev_wp:PROD_ABBRCOMMINLMAR",
+        "estimate": -0.626363,
+        "std_error": 0.014351,
+        "t_stat": -43.6452,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "log_prev_wp:PROD_ABBRFIREALLIED",
+        "estimate": -0.618019,
+        "std_error": 0.013911,
+        "t_stat": -44.4256,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "log_prev_wp:PROD_ABBRCOMMAUTO",
+        "estimate": -0.591295,
+        "std_error": 0.013789,
+        "t_stat": -42.8821,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "log_prev_wp:PROD_ABBRGENERALIAB",
+        "estimate": -0.590428,
+        "std_error": 0.013804,
+        "t_stat": -42.773,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "log_prev_wp:PROD_ABBRBOILERMACH",
+        "estimate": -0.532012,
+        "std_error": 0.014355,
+        "t_stat": -37.0611,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "log_prev_wp:PROD_ABBRMOBILEHOME",
+        "estimate": -0.482777,
+        "std_error": 0.027373,
+        "t_stat": -17.6367,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "log_prev_wp:PROD_ABBRDTALK",
+        "estimate": -0.481966,
+        "std_error": 0.020724,
+        "t_stat": -23.2568,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "log_prev_wp:PROD_ABBRDWELLFIRE",
+        "estimate": -0.380806,
+        "std_error": 0.02061,
+        "t_stat": -18.4771,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "log_prev_wp:PROD_ABBRPERSUMBREL",
+        "estimate": -0.326527,
+        "std_error": 0.022874,
+        "t_stat": -14.2748,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "log_prev_poly:PROD_ABBRMOTORHOME",
+        "estimate": -0.255141,
+        "std_error": 0.019173,
+        "t_stat": -13.3076,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "log_prev_wp:PROD_ABBRMOTORHOME",
+        "estimate": -0.181245,
+        "std_error": 0.021235,
+        "t_stat": -8.535,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      },
+      {
+        "model": "OLS_INTERACTION_SUPPORTED",
+        "term": "log_prev_poly:PROD_ABBRCYCLES",
+        "estimate": -0.174274,
+        "std_error": 0.022789,
+        "t_stat": -7.6471,
+        "p_value": 0,
+        "significant_p05": true,
+        "interaction_type": "numeric x product"
+      }
+    ],
+    "by_family": {
+      "numeric_x_numeric": {
+        "n_terms": 21,
+        "n_significant": 14,
+        "largest_abs_coef": 0.006936,
+        "interpretation": "Synergy or attenuation between two continuous agency-level metrics (e.g., volume carry-forward and policy count interact to improve prediction)"
+      },
+      "numeric_x_prod_abbr": {
+        "n_terms": 163,
+        "n_significant": 117,
+        "largest_abs_coef": 4.392628,
+        "interpretation": "Product-specific slopes: the relationship between continuous predictors and premium differs by product line, reflecting distinct renewal dynamics, policy sizes, and market behaviors"
+      },
+      "numeric_x_state_abbr": {
+        "n_terms": 35,
+        "n_significant": 21,
+        "largest_abs_coef": 0.069852,
+        "interpretation": "State-specific slopes: continuous predictor effects vary across states due to market maturity, regulatory environment, and competitive conditions"
+      },
+      "numeric_x_vendor": {
+        "n_terms": 60,
+        "n_significant": 27,
+        "largest_abs_coef": 0.131388,
+        "interpretation": "Vendor-specific slopes: distribution strategy and product mix differences across vendors modify how continuous predictors relate to written premium"
+      }
+    }
+  },
+  "part_f_generalization": {
+    "delta_train_r2": 0.0453,
+    "delta_test_r2": -6.456,
+    "train_test_r2_gap_delta": 6.5013,
+    "test_rmse_improves": false,
+    "test_mae_improves": false,
+    "rank_deficient": true,
+    "n_aliased_terms": 22,
+    "overfit_flag": true,
+    "overfit_criterion": "Flagged if (delta_train_r2 - delta_test_r2) > 0.02",
+    "prediction_warning": "Potential rank-deficiency warning during prediction",
+    "interpretation": "Model is rank-deficient. Generalization results unreliable."
+  },
+  "part_g_recommendation": {
+    "decision": "KEEP_ADDITIVE_BASELINE",
+    "justification": "OLS_INTERACTION_SUPPORTED has 22 aliased term(s) — rank deficiency persists despite excluding cat × cat interactions. AIC/BIC are unreliable. Retain OLS_ADDITIVE_FINAL as the OLS specification."
+  }
+}

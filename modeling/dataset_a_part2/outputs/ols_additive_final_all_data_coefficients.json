@@ -1,0 +1,407 @@
+{
+  "description": "OLS coefficients from OLS_ADDITIVE_FINAL_ALL_DATA (all 2006-2014 data, n=134,358). These reflect the all-data refit and are NOT the source of holdout evaluation metrics. Holdout evidence: OLS_ADDITIVE_FINAL test R2=0.7552, RMSE=1.0937 (2013-2014).",
+  "model_name": "OLS_ADDITIVE_FINAL_ALL_DATA",
+  "n_training_rows": 134358,
+  "n_coefficients": 48,
+  "all_data_refit_note": "Coefficients from the all-data refit. The evaluated OLS specification is OLS_ADDITIVE_FINAL (fit on 2006-2012 only). Coefficient magnitudes and significance may differ slightly between the 2006-2012 fit and this 2006-2014 refit.",
+  "locked_holdout_metrics": {
+    "model": "OLS_ADDITIVE_FINAL",
+    "train_years": "2006-2012",
+    "test_years": "2013-2014",
+    "n_train": 103377,
+    "n_test": 30981,
+    "train_r2": 0.781,
+    "train_rmse": 1.0238,
+    "train_mae": 0.6468,
+    "test_r2": 0.7552,
+    "test_rmse": 1.0937,
+    "test_mae": 0.699,
+    "source": "locked from modeling/dataset_a_part2/outputs/ols_model_comparison.json"
+  },
+  "coefficients": [
+    {
+      "term": "(Intercept)",
+      "estimate": 8.771824,
+      "std_err": 2.27134,
+      "t_stat": 3.862,
+      "p_value": 0.000113,
+      "sig": "***"
+    },
+    {
+      "term": "log_prev_wp",
+      "estimate": 0.85768,
+      "std_err": 0.001777,
+      "t_stat": 482.5764,
+      "p_value": 0,
+      "sig": "***"
+    },
+    {
+      "term": "log_prev_poly",
+      "estimate": -0.34605,
+      "std_err": 0.00131,
+      "t_stat": -264.2531,
+      "p_value": 0,
+      "sig": "***"
+    },
+    {
+      "term": "ACTIVE_PRODUCERS",
+      "estimate": 0.000461,
+      "std_err": 0.000123,
+      "t_stat": 3.7524,
+      "p_value": 0.000175,
+      "sig": "***"
+    },
+    {
+      "term": "AGENCY_APPOINTMENT_YEAR",
+      "estimate": -0.002761,
+      "std_err": 0.000155,
+      "t_stat": -17.7662,
+      "p_value": 0,
+      "sig": "***"
+    },
+    {
+      "term": "MAX_AGE",
+      "estimate": 0.002628,
+      "std_err": 0.000246,
+      "t_stat": 10.7004,
+      "p_value": 0,
+      "sig": "***"
+    },
+    {
+      "term": "MIN_AGE",
+      "estimate": -0.000382,
+      "std_err": 0.000236,
+      "t_stat": -1.618,
+      "p_value": 0.105657,
+      "sig": ""
+    },
+    {
+      "term": "STATE_ABBRKY",
+      "estimate": 0.082305,
+      "std_err": 0.010584,
+      "t_stat": 7.7761,
+      "p_value": 0,
+      "sig": "***"
+    },
+    {
+      "term": "STATE_ABBRMI",
+      "estimate": 0.328942,
+      "std_err": 0.024398,
+      "t_stat": 13.4825,
+      "p_value": 0,
+      "sig": "***"
+    },
+    {
+      "term": "STATE_ABBROH",
+      "estimate": 0.255315,
+      "std_err": 0.008557,
+      "t_stat": 29.8368,
+      "p_value": 0,
+      "sig": "***"
+    },
+    {
+      "term": "STATE_ABBRPA",
+      "estimate": 0.123299,
+      "std_err": 0.010515,
+      "t_stat": 11.7266,
+      "p_value": 0,
+      "sig": "***"
+    },
+    {
+      "term": "STATE_ABBRWV",
+      "estimate": 0.072559,
+      "std_err": 0.014168,
+      "t_stat": 5.1214,
+      "p_value": 0,
+      "sig": "***"
+    },
+    {
+      "term": "PROD_ABBRANNIV   12",
+      "estimate": -0.390095,
+      "std_err": 0.024213,
+      "t_stat": -16.1112,
+      "p_value": 0,
+      "sig": "***"
+    },
+    {
+      "term": "PROD_ABBRBOILERMACH",
+      "estimate": -2.615013,
+      "std_err": 0.016056,
+      "t_stat": -162.872,
+      "p_value": 0,
+      "sig": "***"
+    },
+    {
+      "term": "PROD_ABBRBOP",
+      "estimate": -2.213337,
+      "std_err": 0.017452,
+      "t_stat": -126.8226,
+      "p_value": 0,
+      "sig": "***"
+    },
+    {
+      "term": "PROD_ABBRCOMMAUTO",
+      "estimate": -2.020772,
+      "std_err": 0.016288,
+      "t_stat": -124.0651,
+      "p_value": 0,
+      "sig": "***"
+    },
+    {
+      "term": "PROD_ABBRCOMMINLMAR",
+      "estimate": -2.280731,
+      "std_err": 0.016552,
+      "t_stat": -137.7935,
+      "p_value": 0,
+      "sig": "***"
+    },
+    {
+      "term": "PROD_ABBRCOMMUMBREL",
+      "estimate": -2.107456,
+      "std_err": 0.017393,
+      "t_stat": -121.1645,
+      "p_value": 0,
+      "sig": "***"
+    },
+    {
+      "term": "PROD_ABBRCRIME",
+      "estimate": -2.550853,
+      "std_err": 0.019484,
+      "t_stat": -130.9173,
+      "p_value": 0,
+      "sig": "***"
+    },
+    {
+      "term": "PROD_ABBRCYCLES",
+      "estimate": -1.270069,
+      "std_err": 0.019926,
+      "t_stat": -63.7386,
+      "p_value": 0,
+      "sig": "***"
+    },
+    {
+      "term": "PROD_ABBRCYCLES  12",
+      "estimate": -2.321734,
+      "std_err": 0.046044,
+      "t_stat": -50.4237,
+      "p_value": 0,
+      "sig": "***"
+    },
+    {
+      "term": "PROD_ABBRDTALK",
+      "estimate": -1.573948,
+      "std_err": 0.020115,
+      "t_stat": -78.2487,
+      "p_value": 0,
+      "sig": "***"
+    },
+    {
+      "term": "PROD_ABBRDTALK   12",
+      "estimate": -2.752908,
+      "std_err": 0.051488,
+      "t_stat": -53.4673,
+      "p_value": 0,
+      "sig": "***"
+    },
+    {
+      "term": "PROD_ABBRDWELLFIRE",
+      "estimate": -0.867324,
+      "std_err": 0.016708,
+      "t_stat": -51.911,
+      "p_value": 0,
+      "sig": "***"
+    },
+    {
+      "term": "PROD_ABBRFIREALLIED",
+      "estimate": -2.052779,
+      "std_err": 0.015931,
+      "t_stat": -128.8564,
+      "p_value": 0,
+      "sig": "***"
+    },
+    {
+      "term": "PROD_ABBRGARAGE",
+      "estimate": -2.093754,
+      "std_err": 0.018237,
+      "t_stat": -114.807,
+      "p_value": 0,
+      "sig": "***"
+    },
+    {
+      "term": "PROD_ABBRGENERALIAB",
+      "estimate": -2.107724,
+      "std_err": 0.015726,
+      "t_stat": -134.0243,
+      "p_value": 0,
+      "sig": "***"
+    },
+    {
+      "term": "PROD_ABBRHOMEOWNERS",
+      "estimate": -0.031468,
+      "std_err": 0.014606,
+      "t_stat": -2.1544,
+      "p_value": 0.031214,
+      "sig": "*"
+    },
+    {
+      "term": "PROD_ABBRMOBILEHOME",
+      "estimate": -1.429119,
+      "std_err": 0.020245,
+      "t_stat": -70.5901,
+      "p_value": 0,
+      "sig": "***"
+    },
+    {
+      "term": "PROD_ABBRMOTORHOM12",
+      "estimate": -2.574201,
+      "std_err": 0.034091,
+      "t_stat": -75.5098,
+      "p_value": 0,
+      "sig": "***"
+    },
+    {
+      "term": "PROD_ABBRMOTORHOME",
+      "estimate": -1.278261,
+      "std_err": 0.017958,
+      "t_stat": -71.1803,
+      "p_value": 0,
+      "sig": "***"
+    },
+    {
+      "term": "PROD_ABBRPERSAIP",
+      "estimate": -1.104177,
+      "std_err": 0.325835,
+      "t_stat": -3.3888,
+      "p_value": 0.000702,
+      "sig": "***"
+    },
+    {
+      "term": "PROD_ABBRPERSINLMAR",
+      "estimate": -1.898319,
+      "std_err": 0.030598,
+      "t_stat": -62.0398,
+      "p_value": 0,
+      "sig": "***"
+    },
+    {
+      "term": "PROD_ABBRPERSUMBREL",
+      "estimate": -1.050023,
+      "std_err": 0.017327,
+      "t_stat": -60.6001,
+      "p_value": 0,
+      "sig": "***"
+    },
+    {
+      "term": "PROD_ABBRSNOWMOBI12",
+      "estimate": -3.561164,
+      "std_err": 0.181978,
+      "t_stat": -19.5692,
+      "p_value": 0,
+      "sig": "***"
+    },
+    {
+      "term": "PROD_ABBRSNOWMOBILE",
+      "estimate": -1.886172,
+      "std_err": 0.039785,
+      "t_stat": -47.409,
+      "p_value": 0,
+      "sig": "***"
+    },
+    {
+      "term": "PROD_ABBRWORKCOMP",
+      "estimate": -1.891134,
+      "std_err": 0.020043,
+      "t_stat": -94.3532,
+      "p_value": 0,
+      "sig": "***"
+    },
+    {
+      "term": "PROD_ABBRYACHT",
+      "estimate": -1.645271,
+      "std_err": 0.023034,
+      "t_stat": -71.4274,
+      "p_value": 0,
+      "sig": "***"
+    },
+    {
+      "term": "VENDORB",
+      "estimate": 0.011583,
+      "std_err": 0.014794,
+      "t_stat": 0.7829,
+      "p_value": 0.433666,
+      "sig": ""
+    },
+    {
+      "term": "VENDORC",
+      "estimate": 0.047744,
+      "std_err": 0.011191,
+      "t_stat": 4.2661,
+      "p_value": 0.00002,
+      "sig": "***"
+    },
+    {
+      "term": "VENDORD",
+      "estimate": -0.016479,
+      "std_err": 0.017814,
+      "t_stat": -0.9251,
+      "p_value": 0.354926,
+      "sig": ""
+    },
+    {
+      "term": "VENDORE",
+      "estimate": 0.036539,
+      "std_err": 0.00868,
+      "t_stat": 4.2095,
+      "p_value": 0.000026,
+      "sig": "***"
+    },
+    {
+      "term": "VENDORF",
+      "estimate": 0.024156,
+      "std_err": 0.059478,
+      "t_stat": 0.4061,
+      "p_value": 0.684648,
+      "sig": ""
+    },
+    {
+      "term": "VENDORG",
+      "estimate": -0.010327,
+      "std_err": 0.023447,
+      "t_stat": -0.4404,
+      "p_value": 0.659621,
+      "sig": ""
+    },
+    {
+      "term": "VENDORH",
+      "estimate": -0.094448,
+      "std_err": 0.029053,
+      "t_stat": -3.2509,
+      "p_value": 0.001151,
+      "sig": "**"
+    },
+    {
+      "term": "VENDORJ",
+      "estimate": 0.235068,
+      "std_err": 0.037278,
+      "t_stat": 6.3057,
+      "p_value": 0,
+      "sig": "***"
+    },
+    {
+      "term": "VENDORUnknown",
+      "estimate": -0.045592,
+      "std_err": 0.009146,
+      "t_stat": -4.985,
+      "p_value": 1e-06,
+      "sig": "***"
+    },
+    {
+      "term": "STAT_PROFILE_DATE_YEAR",
+      "estimate": -0.000103,
+      "std_err": 0.00113,
+      "t_stat": -0.0916,
+      "p_value": 0.927052,
+      "sig": ""
+    }
+  ]
+}

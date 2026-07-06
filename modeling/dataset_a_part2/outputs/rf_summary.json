@@ -1,0 +1,97 @@
+{
+  "description": "Random Forest Written Premium modeling for Dataset A Part 2. Target: log(WRTN_PREM_AMT + 1). Train: 2006-2012. Test: 2013-2014. Same safe predictor set as OLS_ADDITIVE_FINAL (7 numeric + 3 categorical). Model class question: does RF improve out-of-sample performance over the additive OLS baseline?",
+  "row_count_note": "Candidate population: 103,923 train / 31,144 test (rows after WP modeling filters: PROD_ABBR != COMMPOL, WRTN_PREM_AMT > 0, years 2006-2014). Effective RF rows: 103,377 train / 30,981 test (rows with non-NA log_prev_wp and log_prev_poly). Rows dropped: 546 train, 163 test. Matches OLS effective evaluated row counts.",
+  "modeling_population": {
+    "target": "log_wp = log(WRTN_PREM_AMT + 1)",
+    "train_years": "2006-2012",
+    "test_years": "2013-2014",
+    "n_candidate_train": 103923,
+    "n_candidate_test": 31144,
+    "n_eval_train": 103377,
+    "n_eval_test": 30981
+  },
+  "predictors": {
+    "numeric": ["log_prev_wp", "log_prev_poly", "ACTIVE_PRODUCERS", "AGENCY_APPOINTMENT_YEAR", "MAX_AGE", "MIN_AGE", "STAT_PROFILE_DATE_YEAR"],
+    "categorical": ["STATE_ABBR", "PROD_ABBR", "VENDOR"],
+    "p": 10
+  },
+  "ols_benchmark": {
+    "model": "OLS_ADDITIVE_FINAL",
+    "source": "locked — modeling/dataset_a_part2/outputs/ols_model_comparison.json",
+    "n_eval_train": 103377,
+    "n_eval_test": 30981,
+    "train": {
+      "r2": 0.781,
+      "rmse": 1.0238,
+      "mae": 0.6468
+    },
+    "test": {
+      "r2": 0.7552,
+      "rmse": 1.0937,
+      "mae": 0.699
+    }
+  },
+  "RF_0_SAFE_DEFAULT": {
+    "hyperparameters": {
+      "num_trees": 500,
+      "mtry": 3,
+      "min_node_size": 5,
+      "replace": true,
+      "sample_fraction": 1,
+      "importance": "permutation",
+      "respect_unordered_factors": "order"
+    },
+    "oob_rmse": 0.696,
+    "oob_r2": 0.8988,
+    "train": {
+      "r2": 0.9703,
+      "rmse": 0.3773,
+      "mae": 0.2075
+    },
+    "test": {
+      "r2": 0.8833,
+      "rmse": 0.7552,
+      "mae": 0.4434
+    },
+    "runtime_s": 89.8,
+    "delta_vs_ols": {
+      "test_r2": 0.1281,
+      "test_rmse": -0.3385,
+      "test_mae": -0.2556
+    }
+  },
+  "RF_1_SAFE_TUNED": {
+    "hyperparameters": {
+      "num_trees": 500,
+      "mtry": 3,
+      "min_node_size": 5,
+      "replace": false,
+      "sample_fraction": 0.6,
+      "importance": "permutation",
+      "respect_unordered_factors": "order",
+      "selected_by": "minimum OOB RMSE across 48-model grid"
+    },
+    "oob_rmse": 0.6955,
+    "oob_r2": 0.8989,
+    "train": {
+      "r2": 0.9609,
+      "rmse": 0.4326,
+      "mae": 0.2385
+    },
+    "test": {
+      "r2": 0.8839,
+      "rmse": 0.7532,
+      "mae": 0.4428
+    },
+    "runtime_s": 253,
+    "delta_vs_ols": {
+      "test_r2": 0.1287,
+      "test_rmse": -0.3405,
+      "test_mae": -0.2562
+    }
+  },
+  "recommendation": {
+    "decision": "ADVANCE_RF",
+    "justification": "RF_1_SAFE_TUNED test R² = 0.8839 vs OLS_ADDITIVE_FINAL test R² = 0.7552 (delta = +0.1287). RF materially improves out-of-sample predictive performance on the 2013-2014 holdout. Advance RF as the primary predictive model branch."
+  }
+}

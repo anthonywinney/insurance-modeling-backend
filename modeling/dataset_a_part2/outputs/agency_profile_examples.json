@@ -1,0 +1,503 @@
+{
+  "description": "Example agency profiles for audit review. Key profile fields shown.",
+  "fields_shown": ["AGENCY_ID", "n_train_rows", "n_train_years_active", "mean_log_wp_train", "sd_log_wp_train", "n_products_train", "product_hhi", "pl_share_train", "cl_share_train", "slope_mean_log_wp_by_year"],
+  "note": "sd_log_wp_train = NA for single-row agencies. slope_mean_log_wp_by_year = NA for < 3-year agencies.",
+  "by_category": {
+    "largest_by_n_train_rows": [
+      {
+        "AGENCY_ID": 9362,
+        "n_train_rows": 348,
+        "n_train_years_active": 7,
+        "mean_log_wp_train": 7.9011,
+        "sd_log_wp_train": 2.5755,
+        "n_products_train": 23,
+        "product_hhi": 0.0686,
+        "pl_share_train": 0.296,
+        "cl_share_train": 0.704,
+        "slope_mean_log_wp_by_year": -0.089
+      },
+      {
+        "AGENCY_ID": 1786,
+        "n_train_rows": 316,
+        "n_train_years_active": 7,
+        "mean_log_wp_train": 8.6102,
+        "sd_log_wp_train": 2.3831,
+        "n_products_train": 23,
+        "product_hhi": 0.0543,
+        "pl_share_train": 0.4304,
+        "cl_share_train": 0.5696,
+        "slope_mean_log_wp_by_year": -0.0279
+      },
+      {
+        "AGENCY_ID": 2805,
+        "n_train_rows": 304,
+        "n_train_years_active": 7,
+        "mean_log_wp_train": 8.1847,
+        "sd_log_wp_train": 2.2601,
+        "n_products_train": 23,
+        "product_hhi": 0.0548,
+        "pl_share_train": 0.4342,
+        "cl_share_train": 0.5658,
+        "slope_mean_log_wp_by_year": 0.0585
+      },
+      {
+        "AGENCY_ID": 811,
+        "n_train_rows": 302,
+        "n_train_years_active": 7,
+        "mean_log_wp_train": 8.2583,
+        "sd_log_wp_train": 2.0877,
+        "n_products_train": 21,
+        "product_hhi": 0.0578,
+        "pl_share_train": 0.4272,
+        "cl_share_train": 0.5728,
+        "slope_mean_log_wp_by_year": 0.042
+      },
+      {
+        "AGENCY_ID": 4351,
+        "n_train_rows": 300,
+        "n_train_years_active": 7,
+        "mean_log_wp_train": 9.1486,
+        "sd_log_wp_train": 2.1531,
+        "n_products_train": 24,
+        "product_hhi": 0.0492,
+        "pl_share_train": 0.4567,
+        "cl_share_train": 0.5433,
+        "slope_mean_log_wp_by_year": -0.032
+      }
+    ],
+    "smallest_by_n_train_rows": [
+      {
+        "AGENCY_ID": 14,
+        "n_train_rows": 1,
+        "n_train_years_active": 1,
+        "mean_log_wp_train": 7.854,
+        "sd_log_wp_train": null,
+        "n_products_train": 1,
+        "product_hhi": 1,
+        "pl_share_train": 0,
+        "cl_share_train": 1,
+        "slope_mean_log_wp_by_year": null
+      },
+      {
+        "AGENCY_ID": 111,
+        "n_train_rows": 1,
+        "n_train_years_active": 1,
+        "mean_log_wp_train": 7.2284,
+        "sd_log_wp_train": null,
+        "n_products_train": 1,
+        "product_hhi": 1,
+        "pl_share_train": 0,
+        "cl_share_train": 1,
+        "slope_mean_log_wp_by_year": null
+      },
+      {
+        "AGENCY_ID": 160,
+        "n_train_rows": 1,
+        "n_train_years_active": 1,
+        "mean_log_wp_train": 7.805,
+        "sd_log_wp_train": null,
+        "n_products_train": 1,
+        "product_hhi": 1,
+        "pl_share_train": 1,
+        "cl_share_train": 0,
+        "slope_mean_log_wp_by_year": null
+      },
+      {
+        "AGENCY_ID": 348,
+        "n_train_rows": 1,
+        "n_train_years_active": 1,
+        "mean_log_wp_train": 4.8406,
+        "sd_log_wp_train": null,
+        "n_products_train": 1,
+        "product_hhi": 1,
+        "pl_share_train": 0,
+        "cl_share_train": 1,
+        "slope_mean_log_wp_by_year": null
+      },
+      {
+        "AGENCY_ID": 754,
+        "n_train_rows": 1,
+        "n_train_years_active": 1,
+        "mean_log_wp_train": 4.2627,
+        "sd_log_wp_train": null,
+        "n_products_train": 1,
+        "product_hhi": 1,
+        "pl_share_train": 0,
+        "cl_share_train": 1,
+        "slope_mean_log_wp_by_year": null
+      }
+    ],
+    "highest_mean_log_wp_train": [
+      {
+        "AGENCY_ID": 4438,
+        "n_train_rows": 51,
+        "n_train_years_active": 5,
+        "mean_log_wp_train": 10.432,
+        "sd_log_wp_train": 1.8616,
+        "n_products_train": 9,
+        "product_hhi": 0.1173,
+        "pl_share_train": 0,
+        "cl_share_train": 1,
+        "slope_mean_log_wp_by_year": 0.2203
+      },
+      {
+        "AGENCY_ID": 5854,
+        "n_train_rows": 22,
+        "n_train_years_active": 7,
+        "mean_log_wp_train": 10.3979,
+        "sd_log_wp_train": 1.4993,
+        "n_products_train": 4,
+        "product_hhi": 0.3058,
+        "pl_share_train": 0.9545,
+        "cl_share_train": 0.0455,
+        "slope_mean_log_wp_by_year": 0.0457
+      },
+      {
+        "AGENCY_ID": 6266,
+        "n_train_rows": 20,
+        "n_train_years_active": 2,
+        "mean_log_wp_train": 10.3228,
+        "sd_log_wp_train": 1.2236,
+        "n_products_train": 10,
+        "product_hhi": 0.1,
+        "pl_share_train": 0,
+        "cl_share_train": 1,
+        "slope_mean_log_wp_by_year": null
+      },
+      {
+        "AGENCY_ID": 8039,
+        "n_train_rows": 8,
+        "n_train_years_active": 7,
+        "mean_log_wp_train": 10.2874,
+        "sd_log_wp_train": 1.2286,
+        "n_products_train": 2,
+        "product_hhi": 0.7812,
+        "pl_share_train": 1,
+        "cl_share_train": 0,
+        "slope_mean_log_wp_by_year": -0.254
+      },
+      {
+        "AGENCY_ID": 1732,
+        "n_train_rows": 1,
+        "n_train_years_active": 1,
+        "mean_log_wp_train": 10.1085,
+        "sd_log_wp_train": null,
+        "n_products_train": 1,
+        "product_hhi": 1,
+        "pl_share_train": 0,
+        "cl_share_train": 1,
+        "slope_mean_log_wp_by_year": null
+      }
+    ],
+    "lowest_mean_log_wp_train": [
+      {
+        "AGENCY_ID": 1640,
+        "n_train_rows": 1,
+        "n_train_years_active": 1,
+        "mean_log_wp_train": 2.4336,
+        "sd_log_wp_train": null,
+        "n_products_train": 1,
+        "product_hhi": 1,
+        "pl_share_train": 1,
+        "cl_share_train": 0,
+        "slope_mean_log_wp_by_year": null
+      },
+      {
+        "AGENCY_ID": 9637,
+        "n_train_rows": 1,
+        "n_train_years_active": 1,
+        "mean_log_wp_train": 2.4849,
+        "sd_log_wp_train": null,
+        "n_products_train": 1,
+        "product_hhi": 1,
+        "pl_share_train": 0,
+        "cl_share_train": 1,
+        "slope_mean_log_wp_by_year": null
+      },
+      {
+        "AGENCY_ID": 9794,
+        "n_train_rows": 1,
+        "n_train_years_active": 1,
+        "mean_log_wp_train": 2.9678,
+        "sd_log_wp_train": null,
+        "n_products_train": 1,
+        "product_hhi": 1,
+        "pl_share_train": 0,
+        "cl_share_train": 1,
+        "slope_mean_log_wp_by_year": null
+      },
+      {
+        "AGENCY_ID": 4030,
+        "n_train_rows": 2,
+        "n_train_years_active": 2,
+        "mean_log_wp_train": 3.7308,
+        "sd_log_wp_train": 1.0396,
+        "n_products_train": 2,
+        "product_hhi": 0.5,
+        "pl_share_train": 0,
+        "cl_share_train": 1,
+        "slope_mean_log_wp_by_year": null
+      },
+      {
+        "AGENCY_ID": 8889,
+        "n_train_rows": 7,
+        "n_train_years_active": 1,
+        "mean_log_wp_train": 3.8826,
+        "sd_log_wp_train": 2.2928,
+        "n_products_train": 7,
+        "product_hhi": 0.1429,
+        "pl_share_train": 0.1429,
+        "cl_share_train": 0.8571,
+        "slope_mean_log_wp_by_year": null
+      }
+    ],
+    "most_diversified_product_hhi": [
+      {
+        "AGENCY_ID": 3948,
+        "n_train_rows": 139,
+        "n_train_years_active": 7,
+        "mean_log_wp_train": 8.8422,
+        "sd_log_wp_train": 2.1955,
+        "n_products_train": 25,
+        "product_hhi": 0.0473,
+        "pl_share_train": 0.5252,
+        "cl_share_train": 0.4748,
+        "slope_mean_log_wp_by_year": -0.0372
+      },
+      {
+        "AGENCY_ID": 8636,
+        "n_train_rows": 162,
+        "n_train_years_active": 7,
+        "mean_log_wp_train": 8.7167,
+        "sd_log_wp_train": 2.193,
+        "n_products_train": 23,
+        "product_hhi": 0.0475,
+        "pl_share_train": 0.4938,
+        "cl_share_train": 0.5062,
+        "slope_mean_log_wp_by_year": -0.1919
+      },
+      {
+        "AGENCY_ID": 3676,
+        "n_train_rows": 167,
+        "n_train_years_active": 7,
+        "mean_log_wp_train": 8.4904,
+        "sd_log_wp_train": 2.225,
+        "n_products_train": 26,
+        "product_hhi": 0.0479,
+        "pl_share_train": 0.479,
+        "cl_share_train": 0.521,
+        "slope_mean_log_wp_by_year": 0.0021
+      },
+      {
+        "AGENCY_ID": 1850,
+        "n_train_rows": 143,
+        "n_train_years_active": 7,
+        "mean_log_wp_train": 9.4291,
+        "sd_log_wp_train": 2.2346,
+        "n_products_train": 23,
+        "product_hhi": 0.0481,
+        "pl_share_train": 0.5594,
+        "cl_share_train": 0.4406,
+        "slope_mean_log_wp_by_year": -0.0474
+      },
+      {
+        "AGENCY_ID": 2217,
+        "n_train_rows": 135,
+        "n_train_years_active": 7,
+        "mean_log_wp_train": 8.7197,
+        "sd_log_wp_train": 2.1593,
+        "n_products_train": 25,
+        "product_hhi": 0.0481,
+        "pl_share_train": 0.5407,
+        "cl_share_train": 0.4593,
+        "slope_mean_log_wp_by_year": 0.092
+      }
+    ],
+    "most_concentrated_product_hhi": [
+      {
+        "AGENCY_ID": 14,
+        "n_train_rows": 1,
+        "n_train_years_active": 1,
+        "mean_log_wp_train": 7.854,
+        "sd_log_wp_train": null,
+        "n_products_train": 1,
+        "product_hhi": 1,
+        "pl_share_train": 0,
+        "cl_share_train": 1,
+        "slope_mean_log_wp_by_year": null
+      },
+      {
+        "AGENCY_ID": 111,
+        "n_train_rows": 1,
+        "n_train_years_active": 1,
+        "mean_log_wp_train": 7.2284,
+        "sd_log_wp_train": null,
+        "n_products_train": 1,
+        "product_hhi": 1,
+        "pl_share_train": 0,
+        "cl_share_train": 1,
+        "slope_mean_log_wp_by_year": null
+      },
+      {
+        "AGENCY_ID": 160,
+        "n_train_rows": 1,
+        "n_train_years_active": 1,
+        "mean_log_wp_train": 7.805,
+        "sd_log_wp_train": null,
+        "n_products_train": 1,
+        "product_hhi": 1,
+        "pl_share_train": 1,
+        "cl_share_train": 0,
+        "slope_mean_log_wp_by_year": null
+      },
+      {
+        "AGENCY_ID": 348,
+        "n_train_rows": 1,
+        "n_train_years_active": 1,
+        "mean_log_wp_train": 4.8406,
+        "sd_log_wp_train": null,
+        "n_products_train": 1,
+        "product_hhi": 1,
+        "pl_share_train": 0,
+        "cl_share_train": 1,
+        "slope_mean_log_wp_by_year": null
+      },
+      {
+        "AGENCY_ID": 462,
+        "n_train_rows": 7,
+        "n_train_years_active": 7,
+        "mean_log_wp_train": 6.9126,
+        "sd_log_wp_train": 0.1335,
+        "n_products_train": 1,
+        "product_hhi": 1,
+        "pl_share_train": 1,
+        "cl_share_train": 0,
+        "slope_mean_log_wp_by_year": 0.061
+      }
+    ],
+    "highest_sd_log_wp_train": [
+      {
+        "AGENCY_ID": 5430,
+        "n_train_rows": 2,
+        "n_train_years_active": 1,
+        "mean_log_wp_train": 7.9504,
+        "sd_log_wp_train": 4.0201,
+        "n_products_train": 2,
+        "product_hhi": 0.5,
+        "pl_share_train": 1,
+        "cl_share_train": 0,
+        "slope_mean_log_wp_by_year": null
+      },
+      {
+        "AGENCY_ID": 5688,
+        "n_train_rows": 3,
+        "n_train_years_active": 1,
+        "mean_log_wp_train": 5.7235,
+        "sd_log_wp_train": 3.3956,
+        "n_products_train": 3,
+        "product_hhi": 0.3333,
+        "pl_share_train": 1,
+        "cl_share_train": 0,
+        "slope_mean_log_wp_by_year": null
+      },
+      {
+        "AGENCY_ID": 7653,
+        "n_train_rows": 14,
+        "n_train_years_active": 7,
+        "mean_log_wp_train": 8.6073,
+        "sd_log_wp_train": 3.3922,
+        "n_products_train": 3,
+        "product_hhi": 0.4388,
+        "pl_share_train": 1,
+        "cl_share_train": 0,
+        "slope_mean_log_wp_by_year": 0.1322
+      },
+      {
+        "AGENCY_ID": 3826,
+        "n_train_rows": 32,
+        "n_train_years_active": 7,
+        "mean_log_wp_train": 7.8532,
+        "sd_log_wp_train": 3.217,
+        "n_products_train": 10,
+        "product_hhi": 0.1641,
+        "pl_share_train": 0.8125,
+        "cl_share_train": 0.1875,
+        "slope_mean_log_wp_by_year": 0.2229
+      },
+      {
+        "AGENCY_ID": 1031,
+        "n_train_rows": 3,
+        "n_train_years_active": 1,
+        "mean_log_wp_train": 6.2323,
+        "sd_log_wp_train": 3.183,
+        "n_products_train": 3,
+        "product_hhi": 0.3333,
+        "pl_share_train": 1,
+        "cl_share_train": 0,
+        "slope_mean_log_wp_by_year": null
+      }
+    ],
+    "lowest_nonmissing_sd_log_wp": [
+      {
+        "AGENCY_ID": 4430,
+        "n_train_rows": 2,
+        "n_train_years_active": 2,
+        "mean_log_wp_train": 6.2558,
+        "sd_log_wp_train": 0,
+        "n_products_train": 1,
+        "product_hhi": 1,
+        "pl_share_train": 0,
+        "cl_share_train": 1,
+        "slope_mean_log_wp_by_year": null
+      },
+      {
+        "AGENCY_ID": 3726,
+        "n_train_rows": 4,
+        "n_train_years_active": 2,
+        "mean_log_wp_train": 7.1317,
+        "sd_log_wp_train": 0.0331,
+        "n_products_train": 2,
+        "product_hhi": 0.5,
+        "pl_share_train": 1,
+        "cl_share_train": 0,
+        "slope_mean_log_wp_by_year": null
+      },
+      {
+        "AGENCY_ID": 1906,
+        "n_train_rows": 6,
+        "n_train_years_active": 6,
+        "mean_log_wp_train": 6.9209,
+        "sd_log_wp_train": 0.0869,
+        "n_products_train": 1,
+        "product_hhi": 1,
+        "pl_share_train": 1,
+        "cl_share_train": 0,
+        "slope_mean_log_wp_by_year": 0.0456
+      },
+      {
+        "AGENCY_ID": 462,
+        "n_train_rows": 7,
+        "n_train_years_active": 7,
+        "mean_log_wp_train": 6.9126,
+        "sd_log_wp_train": 0.1335,
+        "n_products_train": 1,
+        "product_hhi": 1,
+        "pl_share_train": 1,
+        "cl_share_train": 0,
+        "slope_mean_log_wp_by_year": 0.061
+      },
+      {
+        "AGENCY_ID": 7058,
+        "n_train_rows": 4,
+        "n_train_years_active": 4,
+        "mean_log_wp_train": 7.1638,
+        "sd_log_wp_train": 0.15,
+        "n_products_train": 1,
+        "product_hhi": 1,
+        "pl_share_train": 1,
+        "cl_share_train": 0,
+        "slope_mean_log_wp_by_year": -0.0403
+      }
+    ]
+  }
+}

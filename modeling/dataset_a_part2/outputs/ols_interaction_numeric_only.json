@@ -1,0 +1,347 @@
+{
+  "description": "Numeric × numeric interaction evaluation. OLS_INTERACTION_NUMERIC_ONLY includes all OLS_ADDITIVE_FINAL main effects plus all C(7,2)=21 pairwise numeric × numeric interactions. All categorical interactions are excluded (numeric × PROD_ABBR, numeric × STATE_ABBR, numeric × VENDOR, and all cat × cat). This is the third and final OLS interaction test. OLS_INTERACTION_FULL (all pairwise, 628 interaction terms) failed due to 82 aliased terms from sparse categorical cells. OLS_INTERACTION_SUPPORTED (numeric × cat + numeric × numeric, 279 interaction terms) failed due to 22 aliased terms from sparse individual PROD_ABBR and VENDOR levels. This model removes all categorical interaction risk.",
+  "row_count_note": "Candidate population: 103,923 train / 31,144 test. These are all rows passing the written-premium modeling filters (PROD_ABBR != COMMPOL, WRTN_PREM_AMT > 0, STAT_PROFILE_DATE_YEAR 2006-2014). Effective evaluated rows: 103,377 train / 30,981 test. These are rows included in metric calculations after excluding observations where log_prev_wp or log_prev_poly is NA. log_prev_wp = log(PREV_WRTN_PREM_AMT + 1) and log_prev_poly = log(PREV_POLY_INFORCE_QTY + 1) are set to NA when the underlying PREV_ column is negative (rare accounting adjustments). lm() silently drops these rows during fitting; predict() returns NA for them. Rows dropped: 546 train, 163 test.",
+  "part_a_model_specification": {
+    "model": "OLS_INTERACTION_NUMERIC_ONLY",
+    "baseline": "OLS_ADDITIVE_FINAL",
+    "formula": "log_wp ~ log_prev_wp + log_prev_poly + ACTIVE_PRODUCERS + AGENCY_APPOINTMENT_YEAR + MAX_AGE + MIN_AGE + STATE_ABBR + PROD_ABBR + VENDOR + STAT_PROFILE_DATE_YEAR + log_prev_wp:log_prev_poly + log_prev_wp:ACTIVE_PRODUCERS + log_prev_wp:AGENCY_APPOINTMENT_YEAR + log_prev_wp:MAX_AGE + log_prev_wp:MIN_AGE + log_prev_wp:STAT_PROFILE_DATE_YEAR + log_prev_poly:ACTIVE_PRODUCERS + log_prev_poly:AGENCY_APPOINTMENT_YEAR + log_prev_poly:MAX_AGE + log_prev_poly:MIN_AGE + log_prev_poly:STAT_PROFILE_DATE_YEAR + ACTIVE_PRODUCERS:AGENCY_APPOINTMENT_YEAR + ACTIVE_PRODUCERS:MAX_AGE + ACTIVE_PRODUCERS:MIN_AGE + ACTIVE_PRODUCERS:STAT_PROFILE_DATE_YEAR + AGENCY_APPOINTMENT_YEAR:MAX_AGE + AGENCY_APPOINTMENT_YEAR:MIN_AGE + AGENCY_APPOINTMENT_YEAR:STAT_PROFILE_DATE_YEAR + MAX_AGE:MIN_AGE + MAX_AGE:STAT_PROFILE_DATE_YEAR + MIN_AGE:STAT_PROFILE_DATE_YEAR",
+    "excluded_interaction_families": [
+      "numeric × PROD_ABBR (removed — sparse individual PROD_ABBR levels caused 22 aliased terms in OLS_INTERACTION_SUPPORTED)",
+      "numeric × STATE_ABBR (removed — part of supported failure)",
+      "numeric × VENDOR (removed — VENDORF caused 3 aliased terms in OLS_INTERACTION_SUPPORTED)",
+      "PROD_ABBR × STATE_ABBR (QUESTIONABLE in feasibility review)",
+      "PROD_ABBR × VENDOR (QUESTIONABLE in feasibility review)",
+      "STATE_ABBR × VENDOR (QUESTIONABLE in feasibility review)"
+    ],
+    "n_candidate_train": 103923,
+    "n_candidate_test": 31144,
+    "n_eval_train": 103377,
+    "n_eval_test": 30981
+  },
+  "part_b_comparison": {
+    "models": {
+      "ols_additive_final": {
+        "train": {
+          "r2": 0.781,
+          "rmse": 1.0238,
+          "mae": 0.6468
+        },
+        "test": {
+          "r2": 0.7552,
+          "rmse": 1.0937,
+          "mae": 0.699
+        },
+        "n_coefficients": 48,
+        "n_aliased": 0
+      },
+      "ols_interaction_full": {
+        "train": {
+          "r2": 0.8297,
+          "rmse": 0.9028,
+          "mae": 0.559
+        },
+        "test": {
+          "r2": -42.161,
+          "rmse": 14.5224,
+          "mae": 0.8683
+        },
+        "n_coefficients": 676,
+        "n_aliased": 82,
+        "note": "Rank-deficient — 82 aliased terms — test R² invalid"
+      },
+      "ols_interaction_supported": {
+        "train": {
+          "r2": 0.8263,
+          "rmse": 0.9118,
+          "mae": 0.5625
+        },
+        "test": {
+          "r2": -5.7008,
+          "rmse": 5.7221,
+          "mae": 0.7724
+        },
+        "n_coefficients": 327,
+        "n_aliased": 22,
+        "note": "Rank-deficient — 22 aliased terms — test R² invalid"
+      },
+      "ols_interaction_numeric_only": {
+        "train": {
+          "r2": 0.7966,
+          "rmse": 0.9868,
+          "mae": 0.6198
+        },
+        "test": {
+          "r2": 0.7309,
+          "rmse": 1.1467,
+          "mae": 0.7023
+        },
+        "n_coefficients": 69,
+        "n_aliased": 0
+      }
+    },
+    "delta_vs_additive": {
+      "delta_train_r2": 0.0156,
+      "delta_test_r2": -0.0243,
+      "delta_train_rmse": -0.037,
+      "delta_test_rmse": 0.053,
+      "delta_train_mae": -0.027,
+      "delta_test_mae": 0.0033
+    }
+  },
+  "part_c_complexity": {
+    "n_formula_terms": 69,
+    "n_estimated_coefficients": 69,
+    "n_aliased": 0,
+    "aliased_terms": "none",
+    "n_main_effect_coefs": 48,
+    "n_numeric_x_numeric_coefs": 21,
+    "n_sig_interactions_p05": 15,
+    "aic": 290754.17,
+    "bic": 291422.4,
+    "aic_delta_vs_additive": -7575.36,
+    "bic_delta_vs_additive": -7374.89,
+    "aic_additive_final": 298329.53,
+    "bic_additive_final": 298797.29,
+    "aic_interaction_full": 273575.31,
+    "bic_interaction_full": 280038.05,
+    "aic_interaction_supported": 274933.05,
+    "bic_interaction_supported": 278064.18,
+    "aic_note": "AIC/BIC valid — full-rank model"
+  },
+  "part_d_numeric_interaction_effects": {
+    "all_21_terms": [
+      {
+        "term": "log_prev_wp:log_prev_poly",
+        "var1": "log_prev_wp",
+        "var2": "log_prev_poly",
+        "estimate": 0.037014,
+        "std_error": 0.000869,
+        "t_stat": 42.596,
+        "p_value": 0,
+        "significant_p05": true
+      },
+      {
+        "term": "log_prev_wp:ACTIVE_PRODUCERS",
+        "var1": "log_prev_wp",
+        "var2": "ACTIVE_PRODUCERS",
+        "estimate": 0.000047,
+        "std_error": 0.000054,
+        "t_stat": 0.8648,
+        "p_value": 0.387136,
+        "significant_p05": false
+      },
+      {
+        "term": "log_prev_wp:AGENCY_APPOINTMENT_YEAR",
+        "var1": "log_prev_wp",
+        "var2": "AGENCY_APPOINTMENT_YEAR",
+        "estimate": -0.000966,
+        "std_error": 0.000082,
+        "t_stat": -11.7848,
+        "p_value": 0,
+        "significant_p05": true
+      },
+      {
+        "term": "log_prev_wp:MAX_AGE",
+        "var1": "log_prev_wp",
+        "var2": "MAX_AGE",
+        "estimate": 0.000594,
+        "std_error": 0.000132,
+        "t_stat": 4.5159,
+        "p_value": 6e-06,
+        "significant_p05": true
+      },
+      {
+        "term": "log_prev_wp:MIN_AGE",
+        "var1": "log_prev_wp",
+        "var2": "MIN_AGE",
+        "estimate": 0.000301,
+        "std_error": 0.000124,
+        "t_stat": 2.4189,
+        "p_value": 0.015568,
+        "significant_p05": true
+      },
+      {
+        "term": "log_prev_wp:STAT_PROFILE_DATE_YEAR",
+        "var1": "log_prev_wp",
+        "var2": "STAT_PROFILE_DATE_YEAR",
+        "estimate": 0.003004,
+        "std_error": 0.000745,
+        "t_stat": 4.0293,
+        "p_value": 0.000056,
+        "significant_p05": true
+      },
+      {
+        "term": "log_prev_poly:ACTIVE_PRODUCERS",
+        "var1": "log_prev_poly",
+        "var2": "ACTIVE_PRODUCERS",
+        "estimate": -0.000351,
+        "std_error": 0.000039,
+        "t_stat": -9.0784,
+        "p_value": 0,
+        "significant_p05": true
+      },
+      {
+        "term": "log_prev_poly:AGENCY_APPOINTMENT_YEAR",
+        "var1": "log_prev_poly",
+        "var2": "AGENCY_APPOINTMENT_YEAR",
+        "estimate": -0.001712,
+        "std_error": 0.000055,
+        "t_stat": -31.0505,
+        "p_value": 0,
+        "significant_p05": true
+      },
+      {
+        "term": "log_prev_poly:MAX_AGE",
+        "var1": "log_prev_poly",
+        "var2": "MAX_AGE",
+        "estimate": 0.000928,
+        "std_error": 0.000089,
+        "t_stat": 10.464,
+        "p_value": 0,
+        "significant_p05": true
+      },
+      {
+        "term": "log_prev_poly:MIN_AGE",
+        "var1": "log_prev_poly",
+        "var2": "MIN_AGE",
+        "estimate": 0.001104,
+        "std_error": 0.000085,
+        "t_stat": 13.0058,
+        "p_value": 0,
+        "significant_p05": true
+      },
+      {
+        "term": "log_prev_poly:STAT_PROFILE_DATE_YEAR",
+        "var1": "log_prev_poly",
+        "var2": "STAT_PROFILE_DATE_YEAR",
+        "estimate": 0.004668,
+        "std_error": 0.000523,
+        "t_stat": 8.9225,
+        "p_value": 0,
+        "significant_p05": true
+      },
+      {
+        "term": "ACTIVE_PRODUCERS:AGENCY_APPOINTMENT_YEAR",
+        "var1": "ACTIVE_PRODUCERS",
+        "var2": "AGENCY_APPOINTMENT_YEAR",
+        "estimate": 0.00005,
+        "std_error": 0.000011,
+        "t_stat": 4.6674,
+        "p_value": 3e-06,
+        "significant_p05": true
+      },
+      {
+        "term": "ACTIVE_PRODUCERS:MAX_AGE",
+        "var1": "ACTIVE_PRODUCERS",
+        "var2": "MAX_AGE",
+        "estimate": -0.000015,
+        "std_error": 0.000013,
+        "t_stat": -1.1473,
+        "p_value": 0.251259,
+        "significant_p05": false
+      },
+      {
+        "term": "ACTIVE_PRODUCERS:MIN_AGE",
+        "var1": "ACTIVE_PRODUCERS",
+        "var2": "MIN_AGE",
+        "estimate": 0.000033,
+        "std_error": 0.000022,
+        "t_stat": 1.4948,
+        "p_value": 0.134968,
+        "significant_p05": false
+      },
+      {
+        "term": "ACTIVE_PRODUCERS:STAT_PROFILE_DATE_YEAR",
+        "var1": "ACTIVE_PRODUCERS",
+        "var2": "STAT_PROFILE_DATE_YEAR",
+        "estimate": -0.000251,
+        "std_error": 0.000064,
+        "t_stat": -3.9338,
+        "p_value": 0.000084,
+        "significant_p05": true
+      },
+      {
+        "term": "AGENCY_APPOINTMENT_YEAR:MAX_AGE",
+        "var1": "AGENCY_APPOINTMENT_YEAR",
+        "var2": "MAX_AGE",
+        "estimate": 0.000047,
+        "std_error": 0.000019,
+        "t_stat": 2.4736,
+        "p_value": 0.013378,
+        "significant_p05": true
+      },
+      {
+        "term": "AGENCY_APPOINTMENT_YEAR:MIN_AGE",
+        "var1": "AGENCY_APPOINTMENT_YEAR",
+        "var2": "MIN_AGE",
+        "estimate": -0.000085,
+        "std_error": 0.000018,
+        "t_stat": -4.5822,
+        "p_value": 5e-06,
+        "significant_p05": true
+      },
+      {
+        "term": "AGENCY_APPOINTMENT_YEAR:STAT_PROFILE_DATE_YEAR",
+        "var1": "AGENCY_APPOINTMENT_YEAR",
+        "var2": "STAT_PROFILE_DATE_YEAR",
+        "estimate": -6e-06,
+        "std_error": 0.000083,
+        "t_stat": -0.0692,
+        "p_value": 0.944828,
+        "significant_p05": false
+      },
+      {
+        "term": "MAX_AGE:MIN_AGE",
+        "var1": "MAX_AGE",
+        "var2": "MIN_AGE",
+        "estimate": -0.000029,
+        "std_error": 0.000026,
+        "t_stat": -1.1399,
+        "p_value": 0.254312,
+        "significant_p05": false
+      },
+      {
+        "term": "MAX_AGE:STAT_PROFILE_DATE_YEAR",
+        "var1": "MAX_AGE",
+        "var2": "STAT_PROFILE_DATE_YEAR",
+        "estimate": -0.000031,
+        "std_error": 0.000133,
+        "t_stat": -0.2361,
+        "p_value": 0.813342,
+        "significant_p05": false
+      },
+      {
+        "term": "MIN_AGE:STAT_PROFILE_DATE_YEAR",
+        "var1": "MIN_AGE",
+        "var2": "STAT_PROFILE_DATE_YEAR",
+        "estimate": 0.000289,
+        "std_error": 0.000123,
+        "t_stat": 2.3435,
+        "p_value": 0.019108,
+        "significant_p05": true
+      }
+    ],
+    "strongest_positive_term": "log_prev_wp:log_prev_poly",
+    "strongest_negative_term": "log_prev_poly:AGENCY_APPOINTMENT_YEAR",
+    "most_significant_term": "log_prev_wp:log_prev_poly",
+    "n_significant_p05": 15,
+    "practical_significance_note": "15 of 21 numeric interactions are significant at p<0.05. Largest absolute coefficient: 0.037014 (term: log_prev_wp:log_prev_poly)."
+  },
+  "part_e_generalization": {
+    "delta_train_r2": 0.0156,
+    "delta_test_r2": -0.0243,
+    "train_test_r2_gap_delta": 0.0399,
+    "test_rmse_improves": false,
+    "test_mae_improves": false,
+    "rank_deficient": false,
+    "n_aliased_terms": 0,
+    "overfit_flag": true,
+    "overfit_criterion": "Flagged if (delta_train_r2 - delta_test_r2) > 0.02",
+    "prediction_warning": "No rank-deficiency warning — full-rank fit",
+    "interpretation": "Test R² decreases by 0.0243. Numeric interactions do not generalize. Keep OLS_ADDITIVE_FINAL."
+  },
+  "part_f_recommendation": {
+    "decision": "KEEP_ADDITIVE_BASELINE",
+    "justification": "OLS_INTERACTION_NUMERIC_ONLY reduces test R² by 0.0243 (additive: 0.7552 → numeric-only: 0.7309). Test RMSE worsens by 0.0530. Numeric interactions do not improve out-of-sample performance. Retain OLS_ADDITIVE_FINAL. Close the OLS interaction branch and proceed to Random Forest."
+  }
+}

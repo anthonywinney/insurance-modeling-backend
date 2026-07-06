@@ -1,0 +1,343 @@
+{
+  "purpose": "Produce a clean, imputed, z-score-scaled 15-feature agency profile matrix for k-means clustering. Removes constant vendor features, collinear agency-characteristic features, and redundant median/top-share features. Applies sentinel recoding and 0/median imputation. Does NOT run k-means.",
+  "input_files": ["agency_profile_dataset.csv", "agency_profile_audit.json", "agency_profile_feature_summary.json", "agency_profile_correlations.json"],
+  "output_files": ["agency_profile_clustering_ready.csv", "agency_profile_clustering_scaled.csv", "agency_profile_clustering_prep_audit.json", "agency_profile_clustering_feature_summary.json", "agency_profile_clustering_correlations.json"],
+  "leakage_statement": "No database access. All operations on training-period agency profiles only. No test data used.",
+  "n_agencies": 1254,
+  "final_feature_set": {
+    "n_features": 15,
+    "feature_names": ["log_n_train_rows", "n_train_years_active", "mean_log_wp_train", "mean_log_prev_wp_train", "mean_log_prev_poly_train", "sd_log_wp_train", "iqr_log_wp_train", "sd_log_prev_poly_train", "mean_active_producers_train_clean", "n_products_train", "n_states_train", "product_hhi", "state_hhi", "pl_share_train", "slope_mean_log_wp_by_year"],
+    "groups": {
+      "support_credibility": ["log_n_train_rows", "n_train_years_active"],
+      "premium_policy_scale": ["mean_log_wp_train", "mean_log_prev_wp_train", "mean_log_prev_poly_train"],
+      "volatility_stability": ["sd_log_wp_train", "iqr_log_wp_train", "sd_log_prev_poly_train"],
+      "agency_characteristic": "mean_active_producers_train_clean",
+      "breadth": ["n_products_train", "n_states_train"],
+      "concentration": ["product_hhi", "state_hhi"],
+      "product_line_mix": "pl_share_train",
+      "trend": "slope_mean_log_wp_by_year"
+    }
+  },
+  "excluded_features": {
+    "median_log_wp_train": "near-duplicate of mean_log_wp_train (r=0.94 in audit); mean retained",
+    "median_log_prev_wp_train": "near-duplicate of mean_log_prev_wp_train (r=0.93); mean retained",
+    "median_log_prev_poly_train": "near-duplicate of mean_log_prev_poly_train (r=0.92); mean retained",
+    "agency_appointment_year": "perfectly collinear with mean_active_producers_train (r=1.00); sentinel 99999 contamination",
+    "mean_max_age_train": "perfectly collinear with mean_active_producers_train (r=1.00); redundant",
+    "mean_min_age_train": "perfectly collinear with mean_active_producers_train (r=1.00); redundant",
+    "n_vendors_train": "constant across all 1,254 agencies — zero clustering signal",
+    "top_product_share": "near-duplicate of product_hhi (r=0.99); HHI retained",
+    "top_state_share": "near-duplicate of state_hhi (r=0.99); HHI retained",
+    "top_vendor_share": "constant — zero clustering signal",
+    "vendor_hhi": "constant — zero clustering signal",
+    "cl_share_train": "perfect inverse of pl_share_train (r=-1.00); including both doubles-weights this dimension"
+  },
+  "cleaning_rules_applied": {
+    "mean_active_producers_train_clean": {
+      "source": "mean_active_producers_train",
+      "sentinel_threshold": 99999,
+      "sentinel_action": "values >= 99999 recoded to NA before imputation",
+      "imputation_method": "median of non-sentinel values",
+      "result": {
+        "n_sentinel_recoded": 64,
+        "pct_sentinel": 5.1,
+        "n_imputed_to_median": 64,
+        "median_impute_value": 15.5,
+        "post_clean_min": 1,
+        "post_clean_median": 15.5,
+        "post_clean_mean": 21.7464,
+        "post_clean_max": 301
+      }
+    },
+    "sd_log_wp_train": {
+      "imputation_method": "NA → 0 (single-row agencies have no observed within-agency volatility)",
+      "n_imputed": 42
+    },
+    "sd_log_prev_poly_train": {
+      "imputation_method": "NA → 0",
+      "n_imputed": 42
+    },
+    "slope_mean_log_wp_by_year": {
+      "imputation_method": "NA → 0 (insufficient history; support indicators log_n_train_rows and n_train_years_active remain in feature set)",
+      "n_imputed": 169
+    }
+  },
+  "missingness_before_cleaning": {
+    "sd_log_wp_train": {
+      "n_na": 42,
+      "pct_na": 3.35
+    },
+    "sd_log_prev_poly_train": {
+      "n_na": 42,
+      "pct_na": 3.35
+    },
+    "slope_mean_log_wp_by_year": {
+      "n_na": 169,
+      "pct_na": 13.48
+    },
+    "mean_active_producers_train_sentinel": {
+      "n_sentinel": 64,
+      "pct": 5.1
+    }
+  },
+  "missingness_after_cleaning": {
+    "n_features_with_na": 0,
+    "per_feature": {
+      "log_n_train_rows": 0,
+      "n_train_years_active": 0,
+      "mean_log_wp_train": 0,
+      "mean_log_prev_wp_train": 0,
+      "mean_log_prev_poly_train": 0,
+      "sd_log_wp_train": 0,
+      "iqr_log_wp_train": 0,
+      "sd_log_prev_poly_train": 0,
+      "mean_active_producers_train_clean": 0,
+      "n_products_train": 0,
+      "n_states_train": 0,
+      "product_hhi": 0,
+      "state_hhi": 0,
+      "pl_share_train": 0,
+      "slope_mean_log_wp_by_year": 0
+    },
+    "pass": true
+  },
+  "constant_feature_check": {
+    "n": 0,
+    "names": [],
+    "pass": true
+  },
+  "range_checks": [
+    {
+      "feature": "product_hhi",
+      "min": 0.0473,
+      "max": 1,
+      "n_out_of_bounds": 0,
+      "pass": true
+    },
+    {
+      "feature": "state_hhi",
+      "min": 0.2199,
+      "max": 1,
+      "n_out_of_bounds": 0,
+      "pass": true
+    },
+    {
+      "feature": "pl_share_train",
+      "min": 0,
+      "max": 1,
+      "n_out_of_bounds": 0,
+      "pass": true
+    }
+  ],
+  "scaling": {
+    "method": "z-score: scaled_x = (x - mean(x)) / sd(x)",
+    "scaled_names": ["scaled_log_n_train_rows", "scaled_n_train_years_active", "scaled_mean_log_wp_train", "scaled_mean_log_prev_wp_train", "scaled_mean_log_prev_poly_train", "scaled_sd_log_wp_train", "scaled_iqr_log_wp_train", "scaled_sd_log_prev_poly_train", "scaled_mean_active_producers_train_clean", "scaled_n_products_train", "scaled_n_states_train", "scaled_product_hhi", "scaled_state_hhi", "scaled_pl_share_train", "scaled_slope_mean_log_wp_by_year"],
+    "parameters": {
+      "log_n_train_rows": {
+        "feature": "log_n_train_rows",
+        "mean_before": 3.9491,
+        "sd_before": 1.2042,
+        "scaled_ok": true,
+        "zero_variance": false
+      },
+      "n_train_years_active": {
+        "feature": "n_train_years_active",
+        "mean_before": 5.6683,
+        "sd_before": 2.0387,
+        "scaled_ok": true,
+        "zero_variance": false
+      },
+      "mean_log_wp_train": {
+        "feature": "mean_log_wp_train",
+        "mean_before": 7.7417,
+        "sd_before": 1.0144,
+        "scaled_ok": true,
+        "zero_variance": false
+      },
+      "mean_log_prev_wp_train": {
+        "feature": "mean_log_prev_wp_train",
+        "mean_before": 8.5486,
+        "sd_before": 1.2069,
+        "scaled_ok": true,
+        "zero_variance": false
+      },
+      "mean_log_prev_poly_train": {
+        "feature": "mean_log_prev_poly_train",
+        "mean_before": 3.7112,
+        "sd_before": 2.6044,
+        "scaled_ok": true,
+        "zero_variance": false
+      },
+      "sd_log_wp_train": {
+        "feature": "sd_log_wp_train",
+        "mean_before": 1.8437,
+        "sd_before": 0.5777,
+        "scaled_ok": true,
+        "zero_variance": false
+      },
+      "iqr_log_wp_train": {
+        "feature": "iqr_log_wp_train",
+        "mean_before": 2.5348,
+        "sd_before": 1.0269,
+        "scaled_ok": true,
+        "zero_variance": false
+      },
+      "sd_log_prev_poly_train": {
+        "feature": "sd_log_prev_poly_train",
+        "mean_before": 3.0663,
+        "sd_before": 1.408,
+        "scaled_ok": true,
+        "zero_variance": false
+      },
+      "mean_active_producers_train_clean": {
+        "feature": "mean_active_producers_train_clean",
+        "mean_before": 21.7464,
+        "sd_before": 21.5358,
+        "scaled_ok": true,
+        "zero_variance": false
+      },
+      "n_products_train": {
+        "feature": "n_products_train",
+        "mean_before": 13.2982,
+        "sd_before": 6.525,
+        "scaled_ok": true,
+        "zero_variance": false
+      },
+      "n_states_train": {
+        "feature": "n_states_train",
+        "mean_before": 1.6515,
+        "sd_before": 1.0134,
+        "scaled_ok": true,
+        "zero_variance": false
+      },
+      "product_hhi": {
+        "feature": "product_hhi",
+        "mean_before": 0.1638,
+        "sd_before": 0.2211,
+        "scaled_ok": true,
+        "zero_variance": false
+      },
+      "state_hhi": {
+        "feature": "state_hhi",
+        "mean_before": 0.872,
+        "sd_before": 0.2036,
+        "scaled_ok": true,
+        "zero_variance": false
+      },
+      "pl_share_train": {
+        "feature": "pl_share_train",
+        "mean_before": 0.4636,
+        "sd_before": 0.282,
+        "scaled_ok": true,
+        "zero_variance": false
+      },
+      "slope_mean_log_wp_by_year": {
+        "feature": "slope_mean_log_wp_by_year",
+        "mean_before": -0.0232,
+        "sd_before": 0.2441,
+        "scaled_ok": true,
+        "zero_variance": false
+      }
+    }
+  },
+  "validation_checks": {
+    "row_count": {
+      "expected": 1254,
+      "actual": 1254,
+      "pass": true
+    },
+    "one_row_per_agency": {
+      "n_distinct": 1254,
+      "pass": true
+    },
+    "feature_count": {
+      "n": 15,
+      "pass": true
+    },
+    "missingness_post": {
+      "n_features_with_na": 0,
+      "per_feature": {
+        "log_n_train_rows": 0,
+        "n_train_years_active": 0,
+        "mean_log_wp_train": 0,
+        "mean_log_prev_wp_train": 0,
+        "mean_log_prev_poly_train": 0,
+        "sd_log_wp_train": 0,
+        "iqr_log_wp_train": 0,
+        "sd_log_prev_poly_train": 0,
+        "mean_active_producers_train_clean": 0,
+        "n_products_train": 0,
+        "n_states_train": 0,
+        "product_hhi": 0,
+        "state_hhi": 0,
+        "pl_share_train": 0,
+        "slope_mean_log_wp_by_year": 0
+      },
+      "pass": true
+    },
+    "constant_features": {
+      "n": 0,
+      "names": [],
+      "pass": true
+    },
+    "share_range": {
+      "pass": true,
+      "per_feature": [
+        {
+          "feature": "product_hhi",
+          "min": 0.0473,
+          "max": 1,
+          "n_out_of_bounds": 0,
+          "pass": true
+        },
+        {
+          "feature": "state_hhi",
+          "min": 0.2199,
+          "max": 1,
+          "n_out_of_bounds": 0,
+          "pass": true
+        },
+        {
+          "feature": "pl_share_train",
+          "min": 0,
+          "max": 1,
+          "n_out_of_bounds": 0,
+          "pass": true
+        }
+      ]
+    }
+  },
+  "high_correlation_result": {
+    "n_pairs_gte_090": 0,
+    "pairs": []
+  },
+  "future_rf_evaluation_plan": {
+    "primary_comparison": {
+      "label": "Seen-agency test population",
+      "description": "2013-2014 test rows whose AGENCY_ID was observed in 2006-2012 training",
+      "rationale": "Direct test of whether agency clustering improves holdout prediction when historical agency information is available",
+      "n_test_agencies_seen_in_train": 974,
+      "pct_test_agencies_seen": 92.41,
+      "n_test_rows_seen_agency": 29994,
+      "pct_test_rows_seen_agency": 96.81
+    },
+    "secondary_sensitivity": {
+      "label": "Full test population (deployment-style)",
+      "description": "All 2013-2014 test rows; test-only agencies assigned NEW_AGENCY cluster label",
+      "rationale": "Reported separately; not used for primary model selection",
+      "n_test_only_agencies": 80,
+      "pct_test_only": 7.59
+    },
+    "clustering_ready_scope": {
+      "note": "agency_profile_clustering_ready.csv contains all 1,254 training-period agencies. Seen-agency filtering occurs during RF evaluation, not here.",
+      "n_training_agencies": 1254,
+      "n_test_agencies": 1054
+    }
+  },
+  "recommendation": {
+    "safe_for_kmeans": true,
+    "input_for_kmeans": "agency_profile_clustering_scaled.csv",
+    "n_features": 15,
+    "note": "No high-correlation pairs (|r|>=0.90) remain after feature exclusion. The 15-feature cleaned matrix is ready for k-means. Use agency_profile_clustering_scaled.csv."
+  }
+}

@@ -1,0 +1,176 @@
+{
+  "description": "Lag feature feasibility investigation for Dataset A Part 2. Evaluates three candidate features before OLS predictor selection: PREV_RETENTION_RATIO, PREV_LOSS_RATIO, AVG_PREMIUM_PER_POLICY_LAST_YEAR. Base population: non-COMMPOL, WRTN_PREM_AMT > 0, years 2006-2014 (train + test). No features added to the modeling dataset at this stage. Construction philosophy: sentinel values are copied faithfully during the self-join. Usable coverage is reported separately after sentinel exclusion.",
+  "dataset_grain": {
+    "join_key": ["AGENCY_ID", "PROD_ABBR", "PROD_LINE", "STATE_ABBR", "STAT_PROFILE_DATE_YEAR"],
+    "is_unique_on_key": true,
+    "n_duplicate_keys": 0,
+    "note": "2005 data (partial year, excluded from modeling) is retained in the prior-year lookup. This allows 2006 training rows to obtain lag features from 2005 observations."
+  },
+  "investigation_base": {
+    "n_total": 135067,
+    "n_train": 103923,
+    "n_test": 31144,
+    "n_join_miss_shared": 9226,
+    "pct_join_miss": 6.83,
+    "note": "Join miss rate applies to Features 1 and 2 (identical self-join key). Feature 3 requires no join and has independent coverage characteristics."
+  },
+  "reference_correlations": {
+    "description": "Correlations of existing confirmed-safe predictors with log_wp for context",
+    "log_prev_wp_cor": 0.7677,
+    "log_prev_poly_cor": 0.0672
+  },
+  "feature_1_prev_retention_ratio": {
+    "name": "PREV_RETENTION_RATIO",
+    "construction": "Self-join on (AGENCY_ID, PROD_ABBR, PROD_LINE, STATE_ABBR) matching year Y to year Y-1. Copies the prior-year RETENTION_RATIO field faithfully, including sentinel values (99997/99998/99999). 2005 rows are used as lag source for 2006 training observations. Sentinel values are retained during construction and excluded only for usable-coverage analysis.",
+    "construction_coverage": {
+      "n_total": 135067,
+      "n_prior_row_found": 125841,
+      "n_no_prior_row": 9226,
+      "pct_prior_row_found": 93.17,
+      "pct_no_prior_row": 6.83
+    },
+    "sentinel_diagnostics": {
+      "n_sentinel_99997": 0,
+      "n_sentinel_99998": 0,
+      "n_sentinel_99999": 75798,
+      "n_sentinel_any": 75798,
+      "pct_sentinel_any": 56.12
+    },
+    "null_diagnostics": {
+      "n_null_in_joined_row": 0,
+      "pct_null_in_joined": 0
+    },
+    "usable_coverage": {
+      "n_total": 135067,
+      "n_usable": 50043,
+      "pct_usable": 37.05,
+      "n_not_usable": 85024,
+      "pct_not_usable": 62.95,
+      "train": {
+        "n_total": 103923,
+        "n_usable": 39231,
+        "pct": 37.75
+      },
+      "test": {
+        "n_total": 31144,
+        "n_usable": 10812,
+        "pct": 34.72
+      }
+    },
+    "distribution_usable": {
+      "label": "PREV_RETENTION_RATIO (sentinel-excluded)",
+      "n_valid": 50043,
+      "min": 0,
+      "q1": 0.7949,
+      "median": 0.8908,
+      "mean": 0.8521,
+      "q3": 1,
+      "max": 1,
+      "sd": 0.173,
+      "pct_zero": 1.06
+    },
+    "correlation_with_log_wp": 0.0535,
+    "conceptual_note": "PREV_RETENTION_RATIO uses the dataset-provided prior-year RETENTION_RATIO field. It is not leakage: it uses only the prior period's retention outcome. Lagged retention may capture client relationship quality not encoded in volume metrics alone — an agency can grow premium without strong retention (new business offsetting runoff) or retain clients while writing less premium (coverage downgrades). Its incremental value over PREV_WRTN_PREM_AMT depends on the partial correlation structure, to be assessed via VIF in the modeling phase. Sentinel values in RETENTION_RATIO are retained during construction but excluded when evaluating usable coverage. Coverage gaps are driven primarily by new agency-product-state combinations with no prior-year record, compounded by the sentinel rate in the underlying RETENTION_RATIO field."
+  },
+  "feature_2_prev_loss_ratio": {
+    "name": "PREV_LOSS_RATIO",
+    "construction": "Self-join on (AGENCY_ID, PROD_ABBR, PROD_LINE, STATE_ABBR) matching year Y to year Y-1. Copies the prior-year LOSS_RATIO field faithfully, including sentinel values (99997/99998/99999). 2005 rows are used as lag source for 2006 training observations. Sentinel values are retained during construction and excluded only for usable-coverage analysis. This is NOT leakage: it uses only the prior period's loss ratio, not the current period's.",
+    "construction_coverage": {
+      "n_total": 135067,
+      "n_prior_row_found": 125841,
+      "n_no_prior_row": 9226,
+      "pct_prior_row_found": 93.17,
+      "pct_no_prior_row": 6.83
+    },
+    "sentinel_diagnostics": {
+      "n_sentinel_99997": 33,
+      "n_sentinel_99998": 47,
+      "n_sentinel_99999": 2526,
+      "n_sentinel_any": 2606,
+      "pct_sentinel_any": 1.93
+    },
+    "null_diagnostics": {
+      "n_null_in_joined_row": 0,
+      "pct_null_in_joined": 0
+    },
+    "usable_coverage": {
+      "n_total": 135067,
+      "n_usable": 123235,
+      "pct_usable": 91.24,
+      "n_not_usable": 11832,
+      "pct_not_usable": 8.76,
+      "train": {
+        "n_total": 103923,
+        "n_usable": 94462,
+        "pct": 90.9
+      },
+      "test": {
+        "n_total": 31144,
+        "n_usable": 28773,
+        "pct": 92.39
+      }
+    },
+    "distribution_usable": {
+      "label": "PREV_LOSS_RATIO (sentinel-excluded)",
+      "n_valid": 123235,
+      "min": -630.1736,
+      "q1": 0,
+      "median": 0,
+      "mean": 0.5607,
+      "q3": 0.1575,
+      "max": 2831.7667,
+      "sd": 14.5105,
+      "pct_zero": 64.72
+    },
+    "correlation_with_log_wp": -0.0014,
+    "conceptual_note": "PREV_LOSS_RATIO uses the dataset-provided prior-year LOSS_RATIO field — the curated row-level loss ratio metric — rather than a recomputed ratio. It is not leakage: it uses only the prior period's loss experience. It may capture prior-period risk quality or underwriting experience of the agency/product/state book. Agencies with low prior-year loss ratios may reflect better underwriting discipline or risk selection, potentially signaling sustained or growing premium. Sentinel values (99997/99998/99999) are retained during construction but excluded when evaluating usable coverage and distribution statistics. Usable coverage should be the primary feasibility criterion: if too many rows carry sentinel values, the feature cannot be used without imputation or indicator encoding. The feature should advance to predictor-set review only if usable coverage and missingness are acceptable. Its usefulness should not be judged solely by marginal correlation — the partial relationship with log_wp conditional on PREV_WRTN_PREM_AMT is the relevant quantity, to be assessed in the modeling phase. Features 1 and 2 share the same join key, so their join-miss patterns are identical."
+  },
+  "feature_3_avg_prem_per_policy_ly": {
+    "name": "AVG_PREMIUM_PER_POLICY_LAST_YEAR",
+    "construction": "Direct computation: PREV_WRTN_PREM_AMT / PREV_POLY_INFORCE_QTY. No self-join required — both columns are already present in the dataset as existing lag features. Set to NA where PREV_POLY_INFORCE_QTY is zero or NA to avoid undefined ratios.",
+    "coverage": {
+      "n_total": 135067,
+      "n_usable": 65443,
+      "pct_usable": 48.45,
+      "n_not_usable": 69624,
+      "pct_not_usable": 51.55,
+      "train": {
+        "n_total": 103923,
+        "n_usable": 50125,
+        "pct": 48.23
+      },
+      "test": {
+        "n_total": 31144,
+        "n_usable": 15318,
+        "pct": 49.18
+      }
+    },
+    "na_decomposition": {
+      "prev_poly_null": 0,
+      "prev_poly_zero": 69624,
+      "prev_wrtn_null_given_valid_denom": 0,
+      "pct_zero_denom": 51.55,
+      "note": "No join required — coverage driven by missingness in existing PREV_ columns only."
+    },
+    "distribution": {
+      "label": "AVG_PREMIUM_PER_POLICY_LAST_YEAR",
+      "n_valid": 65443,
+      "min": -1267,
+      "q1": 14.4638,
+      "median": 30.5343,
+      "mean": 47.2899,
+      "q3": 63.3097,
+      "max": 4146.2,
+      "sd": 69.427,
+      "pct_zero": 0.18
+    },
+    "correlation_with_log_wp": 0.3201,
+    "correlation_with_log_wp_log_scaled": 0.4848,
+    "collinearity_with_existing_predictors": {
+      "cor_with_PREV_WRTN_PREM_AMT": 0.0741,
+      "cor_with_PREV_POLY_INFORCE_QTY": -0.2697,
+      "collinearity_note": "By construction: PREV_WRTN_PREM_AMT = PREV_POLY_INFORCE_QTY * AVG_PREM_PER_POLICY_LY. If both PREV_WRTN_PREM_AMT and PREV_POLY_INFORCE_QTY are included as model predictors (or their log transforms), this feature is perfectly collinear and must be excluded. Its value is as a parsimonious substitute or when only one PREV_ predictor is used. VIF analysis in the modeling phase will confirm this definitively."
+    },
+    "conceptual_note": "This feature decomposes prior-year premium into book size (PREV_POLY_INFORCE_QTY) and pricing intensity (premium per policy). Two agencies with identical PREV_WRTN_PREM_AMT but different policy counts have different unit economics: one prices high with few policies, the other prices low with many. Whether pricing intensity adds predictive signal beyond the two PREV_ components depends on the model specification. If both PREV_ columns are already included (as planned), this feature adds no new information and should be excluded."
+  }
+}

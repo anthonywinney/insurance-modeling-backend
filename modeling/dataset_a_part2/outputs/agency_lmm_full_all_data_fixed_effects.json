@@ -1,0 +1,345 @@
+{
+  "description": "Fixed effect estimates from AGENCY_LMM_FULL_ALL_DATA (all 2006-2014 data, n=134,358). All-data refit — not the source of holdout evaluation metrics. lme4 does not provide p-values for lmer by default (no denominator df for F-tests). t-values > 2 are generally considered significant in large-n contexts.",
+  "model_name": "AGENCY_LMM_FULL_ALL_DATA",
+  "n_training_rows": 134358,
+  "all_data_refit_note": "Fixed effects from the all-data refit. The evaluated LMM is AGENCY_LMM_FULL (fit on 2006-2012 only).",
+  "p_value_note": "lme4::lmer does not report p-values. t-values shown. For Satterthwaite or Kenward-Roger approximate p-values, use the lmerTest package.",
+  "fixed_effects": [
+    {
+      "term": "(Intercept)",
+      "estimate": 34.760214,
+      "std_err": 2.813418,
+      "t_value": 12.3552,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "log_prev_wp",
+      "estimate": 0.804633,
+      "std_err": 0.001851,
+      "t_value": 434.7229,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "log_prev_poly",
+      "estimate": -0.334344,
+      "std_err": 0.001347,
+      "t_value": -248.1944,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "ACTIVE_PRODUCERS",
+      "estimate": 0.000946,
+      "std_err": 0.000893,
+      "t_value": 1.0586,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "AGENCY_APPOINTMENT_YEAR",
+      "estimate": -0.001697,
+      "std_err": 0.000889,
+      "t_value": -1.9092,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "MAX_AGE",
+      "estimate": 0.004296,
+      "std_err": 0.001515,
+      "t_value": 2.8353,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "MIN_AGE",
+      "estimate": -0.003582,
+      "std_err": 0.001398,
+      "t_value": -2.5625,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "STATE_ABBRKY",
+      "estimate": 0.194929,
+      "std_err": 0.014798,
+      "t_value": 13.1725,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "STATE_ABBRMI",
+      "estimate": 0.084546,
+      "std_err": 0.030827,
+      "t_value": 2.7426,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "STATE_ABBROH",
+      "estimate": 0.538612,
+      "std_err": 0.013743,
+      "t_value": 39.1922,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "STATE_ABBRPA",
+      "estimate": 0.182624,
+      "std_err": 0.020689,
+      "t_value": 8.827,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "STATE_ABBRWV",
+      "estimate": 0.260995,
+      "std_err": 0.020981,
+      "t_value": 12.4393,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "PROD_ABBRANNIV   12",
+      "estimate": -0.491143,
+      "std_err": 0.02325,
+      "t_value": -21.1242,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "PROD_ABBRBOILERMACH",
+      "estimate": -2.835933,
+      "std_err": 0.015672,
+      "t_value": -180.9509,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "PROD_ABBRBOP",
+      "estimate": -2.359711,
+      "std_err": 0.016925,
+      "t_value": -139.4182,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "PROD_ABBRCOMMAUTO",
+      "estimate": -2.107636,
+      "std_err": 0.015887,
+      "t_value": -132.6601,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "PROD_ABBRCOMMINLMAR",
+      "estimate": -2.453585,
+      "std_err": 0.016116,
+      "t_value": -152.2469,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "PROD_ABBRCOMMUMBREL",
+      "estimate": -2.285212,
+      "std_err": 0.016949,
+      "t_value": -134.8276,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "PROD_ABBRCRIME",
+      "estimate": -2.876607,
+      "std_err": 0.019074,
+      "t_value": -150.8126,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "PROD_ABBRCYCLES",
+      "estimate": -1.5589,
+      "std_err": 0.019324,
+      "t_value": -80.6721,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "PROD_ABBRCYCLES  12",
+      "estimate": -2.645374,
+      "std_err": 0.044152,
+      "t_value": -59.9157,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "PROD_ABBRDTALK",
+      "estimate": -1.875778,
+      "std_err": 0.01953,
+      "t_value": -96.0456,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "PROD_ABBRDTALK   12",
+      "estimate": -3.0519,
+      "std_err": 0.049346,
+      "t_value": -61.8467,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "PROD_ABBRDWELLFIRE",
+      "estimate": -1.055829,
+      "std_err": 0.016118,
+      "t_value": -65.5064,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "PROD_ABBRFIREALLIED",
+      "estimate": -2.154387,
+      "std_err": 0.015536,
+      "t_value": -138.6742,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "PROD_ABBRGARAGE",
+      "estimate": -2.269364,
+      "std_err": 0.017725,
+      "t_value": -128.0337,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "PROD_ABBRGENERALIAB",
+      "estimate": -2.204777,
+      "std_err": 0.015345,
+      "t_value": -143.6844,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "PROD_ABBRHOMEOWNERS",
+      "estimate": -0.053631,
+      "std_err": 0.013967,
+      "t_value": -3.8397,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "PROD_ABBRMOBILEHOME",
+      "estimate": -1.725604,
+      "std_err": 0.019675,
+      "t_value": -87.7039,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "PROD_ABBRMOTORHOM12",
+      "estimate": -2.870078,
+      "std_err": 0.032775,
+      "t_value": -87.5699,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "PROD_ABBRMOTORHOME",
+      "estimate": -1.555366,
+      "std_err": 0.017443,
+      "t_value": -89.1671,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "PROD_ABBRPERSAIP",
+      "estimate": -0.730754,
+      "std_err": 0.666706,
+      "t_value": -1.0961,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "PROD_ABBRPERSINLMAR",
+      "estimate": -2.328071,
+      "std_err": 0.029865,
+      "t_value": -77.9533,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "PROD_ABBRPERSUMBREL",
+      "estimate": -1.294952,
+      "std_err": 0.016797,
+      "t_value": -77.0936,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "PROD_ABBRSNOWMOBI12",
+      "estimate": -3.964237,
+      "std_err": 0.174115,
+      "t_value": -22.7679,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "PROD_ABBRSNOWMOBILE",
+      "estimate": -2.404547,
+      "std_err": 0.038769,
+      "t_value": -62.023,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "PROD_ABBRWORKCOMP",
+      "estimate": -2.004633,
+      "std_err": 0.019427,
+      "t_value": -103.1875,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "PROD_ABBRYACHT",
+      "estimate": -2.011037,
+      "std_err": 0.022447,
+      "t_value": -89.5906,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "VENDORB",
+      "estimate": -0.125103,
+      "std_err": 0.093206,
+      "t_value": -1.3422,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "VENDORC",
+      "estimate": -0.06307,
+      "std_err": 0.073832,
+      "t_value": -0.8542,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "VENDORD",
+      "estimate": -0.150858,
+      "std_err": 0.116324,
+      "t_value": -1.2969,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "VENDORE",
+      "estimate": 0.019308,
+      "std_err": 0.055542,
+      "t_value": 0.3476,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "VENDORF",
+      "estimate": -0.018828,
+      "std_err": 0.42046,
+      "t_value": -0.0448,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "VENDORG",
+      "estimate": 0.095423,
+      "std_err": 0.131434,
+      "t_value": 0.726,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "VENDORH",
+      "estimate": -0.208575,
+      "std_err": 0.177237,
+      "t_value": -1.1768,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "VENDORJ",
+      "estimate": 0.443839,
+      "std_err": 0.229096,
+      "t_value": 1.9374,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "VENDORUnknown",
+      "estimate": -0.275827,
+      "std_err": 0.053174,
+      "t_value": -5.1872,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    },
+    {
+      "term": "STAT_PROFILE_DATE_YEAR",
+      "estimate": -0.013886,
+      "std_err": 0.001123,
+      "t_value": -12.3691,
+      "p_value_note": "lme4 does not report p-values for lmer by default. Use lmerTest or Satterthwaite approximation if needed."
+    }
+  ]
+}

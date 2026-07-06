@@ -1,0 +1,186 @@
+{
+  "description": "Agency random intercept distribution from AGENCY_LMM_FULL_ALL_DATA. EBLUPs (Empirical Best Linear Unbiased Predictors) for 1334 agencies. Training-period fitted effects — do not interpret as final performance rankings. Positive values indicate agencies with above-average WP after adjusting for fixed effects.",
+  "model_name": "AGENCY_LMM_FULL_ALL_DATA",
+  "grouping_variable": "AGENCY_ID",
+  "n_agencies": 1334,
+  "distribution_summary": {
+    "n_agencies": 1334,
+    "min": -2.005544,
+    "p5": -0.923512,
+    "p25": -0.299134,
+    "median": 0.018384,
+    "mean": -0,
+    "p75": 0.283007,
+    "p95": 0.802607,
+    "max": 3.099147,
+    "std_dev": 0.551517,
+    "note": "Fitted agency random intercepts from AGENCY_LMM_FULL_ALL_DATA (all 2006-2014 data). These are EBLUPs (Empirical Best Linear Unbiased Predictors). Do not interpret as final performance rankings — they reflect fitted training-period effects.",
+    "bottom_agencies_by_re": [
+      {
+        "AGENCY_ID": "9198",
+        "random_intercept": -2.005544
+      },
+      {
+        "AGENCY_ID": "7748",
+        "random_intercept": -1.910936
+      },
+      {
+        "AGENCY_ID": "8585",
+        "random_intercept": -1.79442
+      },
+      {
+        "AGENCY_ID": "6618",
+        "random_intercept": -1.689296
+      },
+      {
+        "AGENCY_ID": "8883",
+        "random_intercept": -1.656793
+      },
+      {
+        "AGENCY_ID": "625",
+        "random_intercept": -1.600975
+      },
+      {
+        "AGENCY_ID": "1542",
+        "random_intercept": -1.591469
+      },
+      {
+        "AGENCY_ID": "831",
+        "random_intercept": -1.584362
+      },
+      {
+        "AGENCY_ID": "5359",
+        "random_intercept": -1.562255
+      },
+      {
+        "AGENCY_ID": "2405",
+        "random_intercept": -1.556532
+      },
+      {
+        "AGENCY_ID": "5473",
+        "random_intercept": -1.553298
+      },
+      {
+        "AGENCY_ID": "7267",
+        "random_intercept": -1.543939
+      },
+      {
+        "AGENCY_ID": "7316",
+        "random_intercept": -1.487214
+      },
+      {
+        "AGENCY_ID": "8889",
+        "random_intercept": -1.485273
+      },
+      {
+        "AGENCY_ID": "3344",
+        "random_intercept": -1.460268
+      },
+      {
+        "AGENCY_ID": "4782",
+        "random_intercept": -1.332337
+      },
+      {
+        "AGENCY_ID": "6947",
+        "random_intercept": -1.31327
+      },
+      {
+        "AGENCY_ID": "1617",
+        "random_intercept": -1.304409
+      },
+      {
+        "AGENCY_ID": "9273",
+        "random_intercept": -1.302444
+      },
+      {
+        "AGENCY_ID": "408",
+        "random_intercept": -1.260091
+      }
+    ],
+    "top_agencies_by_re": [
+      {
+        "AGENCY_ID": "9019",
+        "random_intercept": 3.099147
+      },
+      {
+        "AGENCY_ID": "3031",
+        "random_intercept": 2.360454
+      },
+      {
+        "AGENCY_ID": "2041",
+        "random_intercept": 2.291658
+      },
+      {
+        "AGENCY_ID": "5296",
+        "random_intercept": 2.274439
+      },
+      {
+        "AGENCY_ID": "3849",
+        "random_intercept": 2.144771
+      },
+      {
+        "AGENCY_ID": "9071",
+        "random_intercept": 2.090838
+      },
+      {
+        "AGENCY_ID": "4470",
+        "random_intercept": 2.090227
+      },
+      {
+        "AGENCY_ID": "8608",
+        "random_intercept": 2.063127
+      },
+      {
+        "AGENCY_ID": "620",
+        "random_intercept": 2.061184
+      },
+      {
+        "AGENCY_ID": "6492",
+        "random_intercept": 2.05839
+      },
+      {
+        "AGENCY_ID": "6266",
+        "random_intercept": 1.902915
+      },
+      {
+        "AGENCY_ID": "1926",
+        "random_intercept": 1.886317
+      },
+      {
+        "AGENCY_ID": "4357",
+        "random_intercept": 1.835153
+      },
+      {
+        "AGENCY_ID": "6227",
+        "random_intercept": 1.800649
+      },
+      {
+        "AGENCY_ID": "3593",
+        "random_intercept": 1.596664
+      },
+      {
+        "AGENCY_ID": "3993",
+        "random_intercept": 1.577025
+      },
+      {
+        "AGENCY_ID": "3435",
+        "random_intercept": 1.515815
+      },
+      {
+        "AGENCY_ID": "1303",
+        "random_intercept": 1.508
+      },
+      {
+        "AGENCY_ID": "307",
+        "random_intercept": 1.503546
+      },
+      {
+        "AGENCY_ID": "9415",
+        "random_intercept": 1.499391
+      }
+    ]
+  },
+  "agency_variance": 0.341073,
+  "agency_std_dev": 0.584014,
+  "note": "These are fitted training-period effects and should not be used as out-of-sample agency rankings. Agencies with more observations contribute more information to their EBLUP estimate."
+}
